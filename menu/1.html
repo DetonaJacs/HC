@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Extrair Numeros de Processo</title>
+<title>Extrair Números de Processo</title>
 <link rel="icon" href="./img/logo.png">
 <style>
     body {
@@ -89,12 +89,12 @@
 
     <h2>Cole aqui:</h2>
     <textarea id="processList" rows="10" cols="50"></textarea><br>
-    <button onclick="extractNumbers()">Extrair Numeros</button>
+    <button onclick="extractNumbers()">Extrair Números</button>
 
     <ul id="result"></ul>
 
     <p id="count"></p>
-    <button id="copyButton" style="display:none;" onclick="copyNumbers()">Copiar Numeros</button>
+    <button id="copyButton" style="display:none;" onclick="copyNumbers()">Copiar Números</button>
 
     <p id="developer">Desenvolvido por Jacson Costa Neves</p>
 </div>
@@ -134,7 +134,7 @@ function extractNumbers() {
         });
     } else {
         var li = document.createElement('li');
-        li.textContent = 'Nenhum numero de processo encontrado no formato adequado.';
+        li.textContent = 'Nenhum número de processo encontrado no formato adequado.';
         resultUl.appendChild(li);
     }
 
@@ -150,7 +150,7 @@ function copyNumbers() {
     var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b/g);
     var numbersText = numbers.join('\n'); // Transformando a lista de Numeros em texto separado por quebras de linha
     navigator.clipboard.writeText(numbersText); // Copiando o texto para a área de transferência
-    alert("Numeros de processo copiados para a area de transferencia!");
+    alert("Números copiados para a area de transferência!");
 }
 </script>
 
