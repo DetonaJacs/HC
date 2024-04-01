@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como posso ajudá-lo hoje?</title>
+<link rel="icon" href="./img/logo.png">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+    }
+
+    #container {
+        text-align: center;
+    }
+
+    #text {
+        overflow: hidden;
+        white-space: nowrap;
+        margin-bottom: 10px;
+        border-right: 2px solid #000; /* Simula o cursor de digitação */
+        animation: typing 2s steps(40, end); /* Animação de digitação */
+    }
+
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
+        opacity: 0; /* Começa com opacidade zero */
+    }
+
+    @keyframes appear {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    #logo {
+        width: 50px; /* Largura da imagem */
+        height: auto; /* Altura ajustada automaticamente de acordo com a largura */
+        margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+    }
+
+    .pulse {
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>
+</head>
+<body>
+
+<div id="container">
+    <img id="logo" src="./img/logo.png" alt="Logo" class="pulse">
+    <h1 id="text">Como posso ajudá-lo hoje?</h1>
+    <button onclick="location.href='./menu/1.html'">Extrair Numeros de Processo</button>
+    <button onclick="location.href='./menu/2.html'">Pesquisa Advogado</button>
+</div>
+
+
+</body>
+</html>
