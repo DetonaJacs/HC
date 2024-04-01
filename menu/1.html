@@ -62,7 +62,7 @@
 
     .btn {
         margin: 0 2px;
-        padding: 2px 7px; /* Reduzindo o padding para torn·-los menores */
+        padding: 2px 7px; /* Reduzindo o padding para torn√°-los menores */
         cursor: pointer;
         border: none;
         background-color: #007bff;
@@ -74,7 +74,7 @@
 	#logo {
         width: 50px; /* Largura da imagem */
         height: auto; /* Altura ajustada automaticamente de acordo com a largura */
-        margin-bottom: 20px; /* EspaÁamento abaixo da imagem */
+        margin-bottom: 20px; /* Espa√ßamento abaixo da imagem */
     }
 </style>
 </head>
@@ -82,7 +82,7 @@
 
 
 <div id="container">
-	<a href="./index.html">
+	<a href="index.html">
         <img id="logo" src="../img/logo.png" alt="J">
     </a>
     <h1 id="title">Extrair Numeros</h1>
@@ -109,10 +109,10 @@ function extractNumbers() {
     if (numbers !== null) {
         numbers.forEach(function(number) {
             var li = document.createElement('li');
-            var processNumber = number.replace(/\D/g, ''); // Removendo caracteres n„o numÈricos
+            var processNumber = number.replace(/\D/g, ''); // Removendo caracteres n√£o num√©ricos
             li.textContent = number;
             
-            // Criando botıes
+            // Criando bot√µes
             var button1 = document.createElement('button');
             button1.textContent = 'TJMG';
             button1.className = 'btn';
@@ -149,7 +149,7 @@ function copyNumbers() {
     var processList = document.getElementById('processList').value;
     var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b/g);
     var numbersText = numbers.join('\n'); // Transformando a lista de Numeros em texto separado por quebras de linha
-    navigator.clipboard.writeText(numbersText); // Copiando o texto para a ·rea de transferÍncia
+    navigator.clipboard.writeText(numbersText); // Copiando o texto para a √°rea de transfer√™ncia
     alert("Numeros de processo copiados para a area de transferencia!");
 }
 </script>
