@@ -23,6 +23,7 @@
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         text-align: center;
+        position: relative; /* Importante para o posicionamento absoluto do ícone */
     }
 	
 	#title {
@@ -66,10 +67,24 @@
         margin-bottom: 20px; /* Espaçamento abaixo da imagem */
     }
 	
+	#infoIcon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        background-color: #ffcc00;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 20px;
+        font-weight: bold;
+        cursor: help; /* Mudar o cursor para um ponto de interrogação */
+        color: #fff;
+        font-size: 14px;
+    }
 </style>
 </head>
 <body>
-
 
 <div id="container">
     <a href="../index.html">
@@ -82,12 +97,14 @@
     <button type="button" onclick="extractProcesses()">Extrair Números</button>
 
     <ul id="result"></ul>
-	
 
     <p id="count"></p>
     <button id="copyButton" style="display:none;" onclick="copyNumbers()">Copiar Números</button>
 
     <p id="developer">Desenvolvido por Jacson Costa Neves</p>
+
+<!-- Ícone de ponto de exclamação dentro do contêiner -->
+<div id="infoIcon" title="Esta ferramenta permite extrair números de processo de um campo de texto. Cole a lista de números de processo (x.xxxx.xx.xxx.xxx-x/xxx) e clique em 'Extrair Números'. Os números serão exibidos em uma lista, e você pode clicar em cada um para obter mais informações sobre as partes e advogados substabelecidos no processo.">!</div>
 </div>
 
 <script>
