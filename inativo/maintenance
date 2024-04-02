@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extrair Números de Processo</title>
+<link rel="icon" href="../img/logo.png">
+<style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2; /* cor de fundo cinza */
+            background-image: url('./img/maintenance.png'); /* URL da imagem de manutenção */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .maintenance-message {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8); /* cor de fundo da mensagem com transparência */
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="maintenance-message">
+        <h1>O site está em manutenção</h1>
+        <p>Nossas desculpas pelo transtorno. Estamos trabalhando para melhorar o site. Por favor, tente novamente mais tarde.</p>
+    </div>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extrair Números de Processo</title>
+<link rel="icon" href="../img/logo.png">
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+
+    #container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    #title {
+        margin-top: 10;
+        color: black;
+		margin: 10px 0;
+    }
+
+    h2 {
+        font-size: 15px;
+        margin-top: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #result {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin: 10px 0;
+    }
+
+    #developer {
+        color: #888;
+        font-size: smaller;
+    }
+
+    #returnButton {
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        margin: 0 2px;
+        padding: 2px 7px; /* Reduzindo o padding para torná-los menores */
+        cursor: pointer;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 12px; /* Reduzindo o tamanho da fonte */
+    }
+	
+	#logo {
+        width: 50px; /* Largura da imagem */
+        height: auto; /* Altura ajustada automaticamente de acordo com a largura */
+        margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+    }
+</style>
+</head>
+<body>
+
+
+<div id="container">
+	<a href="../index.html">
+        <img id="logo" src="../img/logo.png" alt="J">
+    </a>
+    <h1 id="title">Extrair Números</h1>
+
+    <h2>Cole aqui:</h2>
+    <textarea id="processList" rows="10" cols="50"></textarea><br>
+    <button onclick="extractNumbers()">Extrair Números</button>
+
+    <ul id="result"></ul>
+
+    <p id="count"></p>
+    <button id="copyButton" style="display:none;" onclick="copyNumbers()">Copiar Números</button>
+
+    <p id="developer">Desenvolvido por Jacson Costa Neves</p>
+</div>
+
+
+</body>
+</html>
