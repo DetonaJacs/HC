@@ -18,6 +18,7 @@
     }
 
     #container {
+        position: relative; /* Importante para o posicionamento absoluto do ícone */
         background-color: #fff;
         padding: 20px;
         border-radius: 10px;
@@ -75,14 +76,29 @@
         width: 50px; /* Largura da imagem */
         height: auto; /* Altura ajustada automaticamente de acordo com a largura */
         margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+     }
+		 #infoIcon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        background-color: #ffcc00;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 20px;
+        font-weight: bold;
+        cursor: help; /* Mudar o cursor para um ponto de interrogação */
+        color: #fff;
+        font-size: 14px;
     }
 </style>
 </head>
 <body>
 
-
 <div id="container">
-	<a href="../index.html">
+    <div id="infoIcon" title="Esta ferramenta permite extrair números de processo de um campo de texto. Após colar a lista de números de processo (x.xxxx.xx.xxx.xxx-x/xxx), clique no botão 'Extrair Números' para processá-los. Os números de processo serão exibidos em uma lista ordenada, com botões para acessar informações sobre cada processo nos sites do Tribunal de Justiça de Minas Gerais (TJMG) e do Ministério Público de Minas Gerais (MPMG). Você também pode copiar os números de processo para a área de transferência clicando no botão 'Copiar Números'.">!</div>
+    <a href="../index.html">
         <img id="logo" src="../img/logo.png" alt="J">
     </a>
     <h1 id="title">Extrair Números</h1>
@@ -150,7 +166,7 @@ function copyNumbers() {
     var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b/g);
     var numbersText = numbers.join('\n'); // Transformando a lista de Numeros em texto separado por quebras de linha
     navigator.clipboard.writeText(numbersText); // Copiando o texto para a área de transferência
-    alert("Números copiados para a area de transferência!");
+    alert("Números copiados para a área de transferência!");
 }
 </script>
 
