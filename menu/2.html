@@ -94,44 +94,15 @@ function extractProcesses() {
     var processList = document.getElementById('processList').value;
     var startIndex = processList.indexOf("Entregando documentos Encaminhados");
     if (startIndex === -1) {
-        alert("Texto inicial não encontrado.");
-        return;
-    }
-
-    processList = processList.substring(startIndex);
-    var processes = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3} - (RP\s+)?HABEAS CORPUS - (CIVEL|CRIMINAL)(?:\s+RP)? -> ([A-Za-z\s]+)/g);
-    var processByProcurador = {};
-    if (processes !== null) {
-        processes.forEach(function(process) {
-            var procuradorMatch = process.match(/->\s+([A-Za-z\s]+)/);
-            if (procuradorMatch) {
-                var procurador = procuradorMatch[1].trim().replace(/\b(?:DILIG|DEPEND|PREVEN)\b/g, "").trim();
-                var numeroProcesso = process.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b/)[0];
-                if (!processByProcurador[procurador]) {
-                    processByProcurador[procurador] = [];
-                }
-                processByProcurador[procurador].push(numeroProcesso);
-            }
-        });
+        var processes = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b/g);
 
         var resultDiv = document.getElementById('result');
         resultDiv.innerHTML = '';
-        var select = document.createElement('select');
 
-        var optionDefault = new Option('Selecione um procurador', '');
-        select.add(optionDefault);
-
-        Object.keys(processByProcurador).forEach(function(procurador) {
-            var option = new Option(procurador + ' - ' + processByProcurador[procurador].length + ' processo(s)', procurador);
-            select.add(option);
-        });
-
-        select.onchange = function() {
-            var procuradorSelecionado = select.value;
-            var procuradorProcesses = processByProcurador[procuradorSelecionado];
+        if (processes !== null) {
             var resultUl = document.createElement('ul');
 
-            procuradorProcesses.forEach(function(numeroProcesso) {
+            processes.forEach(function(numeroProcesso) {
                 var li = document.createElement('li');
                 var button = document.createElement('button');
                 button.textContent = numeroProcesso;
@@ -142,27 +113,74 @@ function extractProcesses() {
                 resultUl.appendChild(li);
             });
 
-            resultDiv.innerHTML = '';
             resultDiv.appendChild(resultUl);
-
-            var countElement = document.getElementById('count');
-            countElement.textContent = "Total de processos encontrados para " + procuradorSelecionado + ": " + procuradorProcesses.length;
-        };
-
-        resultDiv.appendChild(select);
+        } else {
+            var p = document.createElement('p');
+            p.textContent = 'Nenhum número de processo encontrado.';
+            resultDiv.appendChild(p);
+        }
     } else {
-        var resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = '';
-        var p = document.createElement('p');
-        p.textContent = 'Nenhum processo encontrado no formato adequado.';
-        resultDiv.appendChild(p);
+        processList = processList.substring(startIndex);
+        var processes = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3} - (RP\s+)?HABEAS CORPUS - (CIVEL|CRIMINAL)(?:\s+RP)? -> ([A-Za-z\s]+)/g);
+        var processByProcurador = {};
+        if (processes !== null) {
+            processes.forEach(function(process) {
+                var procuradorMatch = process.match(/->\s+([A-Za-z\s]+)/);
+                if (procuradorMatch) {
+                    var procurador = procuradorMatch[1].trim().replace(/\b(?:DILIG|DEPEND|PREVEN)\b/g, "").trim();
+                    var numeroProcesso = process.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b/)[0];
+                    if (!processByProcurador[procurador]) {
+                        processByProcurador[procurador] = [];
+                    }
+                    processByProcurador[procurador].push(numeroProcesso);
+                }
+            });
+
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+            var select = document.createElement('select');
+
+            var optionDefault = new Option('Selecione um procurador', '');
+            select.add(optionDefault);
+
+            Object.keys(processByProcurador).forEach(function(procurador) {
+                var option = new Option(procurador + ' - ' + processByProcurador[procurador].length + ' processo(s)', procurador);
+                select.add(option);
+            });
+
+            select.onchange = function() {
+                var procuradorSelecionado = select.value;
+                var procuradorProcesses = processByProcurador[procuradorSelecionado];
+                var resultUl = document.createElement('ul');
+
+                procuradorProcesses.forEach(function(numeroProcesso) {
+                    var li = document.createElement('li');
+                    var button = document.createElement('button');
+                    button.textContent = numeroProcesso;
+                    button.onclick = function() {
+                        window.open("https://www4.tjmg.jus.br/juridico/sf/proc_partes_advogados2.jsp?listaProcessos=" + numeroProcesso.replace(/\D/g,''));
+                    };
+                    li.appendChild(button);
+                    resultUl.appendChild(li);
+                });
+
+                resultDiv.innerHTML = '';
+                resultDiv.appendChild(resultUl);
+
+                var countElement = document.getElementById('count');
+                countElement.textContent = "Total de processos encontrados para " + procuradorSelecionado + ": " + procuradorProcesses.length;
+            };
+
+            resultDiv.appendChild(select);
+        } else {
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+            var p = document.createElement('p');
+            p.textContent = 'Nenhum processo encontrado no formato adequado.';
+            resultDiv.appendChild(p);
+        }
     }
 }
-
-function goToMainMenu() {
-    window.location.href = "index.html";
-}
 </script>
-
 </body>
 </html>
