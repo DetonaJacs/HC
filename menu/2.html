@@ -107,7 +107,6 @@
 <div id="infoIcon" title="Esta ferramenta permite extrair números de processos de um campo de texto. Cole a lista de números de processos (x.xxxx.xx.xxx.xxx-x/xxx) e clique em 'Extrair Números'. Os números serão exibidos em uma lista, e você pode clicar em cada um para obter mais informações sobre as partes e advogados substabelecidos no processo.">!</div>
 </div>
 
-<script>
 function extractProcesses() {
     var processList = document.getElementById('processList').value;
 	
@@ -186,7 +185,7 @@ function extractProcesses() {
 
 function searchForProcesses() {
     var processList = document.getElementById('processList').value;
-    var processMatches = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b/g);
+    var processMatches = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b|\b\d{1}\.\d{4}\.\d{2}\.\d{6}-\d{1}\/\d{3}\b|\b\d{1}\b/g);
     if (processMatches !== null) {
         var resultUl = document.getElementById('result');
         resultUl.innerHTML = ''; // Limpa a lista antes de adicionar novos itens
@@ -205,6 +204,5 @@ function searchForProcesses() {
         alert("Nenhum número de processo encontrado no formato adequado.");
     }
 }
-</script>
 </body>
 </html>
