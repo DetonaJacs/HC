@@ -97,7 +97,7 @@
 <body>
 
 <div id="container">
-    <div id="infoIcon" title="Esta ferramenta permite extrair números de processo de um campo de texto. Após colar a lista de números de processos (x.xxxx.xx.xxx.xxx-x/xxx), clique no botão 'Extrair Números' para processá-los. Os números de processos serão exibidos em uma lista ordenada, com botões para acessar informações sobre cada um nos sites do Tribunal de Justiça de Minas Gerais (TJMG) e do Ministério Público de Minas Gerais (MPMG). Você também pode copiar os números dos processos para a área de transferência clicando no botão 'Copiar Números'.">!</div>
+    <div id="infoIcon" title="Esta ferramenta permite extrair números de processo de um campo de texto. Após colar a lista de números de processos, clique no botão 'Extrair Números' para processá-los. Os números de processos serão exibidos em uma lista ordenada, com botões para acessar informações sobre cada um nos sites do Tribunal de Justiça de Minas Gerais (TJMG) e do Ministério Público de Minas Gerais (MPMG). Você também pode copiar os números dos processos para a área de transferência clicando no botão 'Copiar Números'.">!</div>
     <a href="../index.html">
         <img id="logo" src="../img/logo.png" alt="J">
     </a>
@@ -115,10 +115,9 @@
     <p id="developer">Desenvolvido por Jacson Costa Neves</p>
 </div>
 
-<script>
 function extractNumbers() {
     var processList = document.getElementById('processList').value;
-    var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b/g);
+    var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b|\b\d{1}\.\d{4}\.\d{2}\.\d{6}-\d{1}\/\d{3}\b|\b\d{17}\b/g);
     var resultUl = document.getElementById('result');
     resultUl.innerHTML = '';
     var count = 0;
@@ -163,7 +162,7 @@ function extractNumbers() {
 
 function copyNumbers() {
     var processList = document.getElementById('processList').value;
-    var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b/g);
+    var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b|\b\d{1}\.\d{4}\.\d{2}\.\d{6}-\d{1}\/\d{3}\b|\b\d{17}\b/g);
     var numbersText = numbers.join('\n'); // Transformando a lista de Numeros em texto separado por quebras de linha
     navigator.clipboard.writeText(numbersText); // Copiando o texto para a área de transferência
     alert("Números copiados para a área de transferência!");
