@@ -148,21 +148,31 @@ function extractNumbers() {
 
             // Adicionando ícone de exclusão sem caixa
             var removeButton = document.createElement('img');
-            removeButton.src = '../img/ico_excluir.gif'; // Caminho para o ícone de exclusão
-            removeButton.className = 'btn';
-            removeButton.style.width = '15px'; // Tamanho do ícone
-            removeButton.style.height = '15px'; // Tamanho do ícone
-            removeButton.style.cursor = 'pointer';
-            removeButton.onclick = function() {
-                resultUl.removeChild(li);
-                count--;
-                countElement.textContent = "Total de processos encontrados: " + count;
-                copyButton.style.display = count > 0 ? 'block' : 'none';
-            };
-            li.appendChild(removeButton);
+			removeButton.src = '../img/ico_excluir.gif';
+			removeButton.className = 'btn';
+			removeButton.style.width = '6px'; // Tamanho do ícone
+			removeButton.style.height = '6px'; // Tamanho do ícone
+			removeButton.style.cursor = 'pointer';
+			removeButton.style.border = '0'; // Remover borda
+			removeButton.title = 'Excluir da listagem'; // Adicionar título
+			removeButton.style.marginRight = '0px'; // Adicionar margem à direita para separar do próximo elemento
+			removeButton.style.verticalAlign = 'middle'; // Alinhar verticalmente ao meio
 
-            resultUl.appendChild(li);
-            count++;
+			removeButton.onclick = function() {
+			resultUl.removeChild(li);
+			count--;
+			countElement.textContent = "Total de processos encontrados: " + count;
+			copyButton.style.display = count > 0 ? 'block' : 'none';
+			};
+
+// Definir estilos para centralizar o botão dentro do elemento pai
+li.style.textAlign = 'center';
+
+li.appendChild(removeButton);
+resultUl.appendChild(li);
+count++;
+
+
         });
     } else {
         var li = document.createElement('li');
