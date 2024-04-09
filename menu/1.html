@@ -71,6 +71,15 @@
         border-radius: 5px;
         font-size: 12px; /* Reduzindo o tamanho da fonte */
     }
+	
+    .botaoexcluir {
+        margin: 0 0px;
+        padding: 0px 0px; /* Reduzindo o padding para torná-los menores */
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        font-size: 12px; /* Reduzindo o tamanho da fonte */
+    }
 
     #logo {
         width: 50px; /* Largura da imagem */
@@ -149,9 +158,9 @@ function extractNumbers() {
             // Adicionando ícone de exclusão sem caixa
             var removeButton = document.createElement('img');
 			removeButton.src = '../img/ico_excluir.gif';
-			removeButton.className = 'btn';
-			removeButton.style.width = '6px'; // Tamanho do ícone
-			removeButton.style.height = '6px'; // Tamanho do ícone
+			removeButton.className = 'botaoexcluir';
+			removeButton.style.width = '9px'; // Tamanho do ícone
+			removeButton.style.height = '9px'; // Tamanho do ícone
 			removeButton.style.cursor = 'pointer';
 			removeButton.style.border = '0'; // Remover borda
 			removeButton.title = 'Excluir da listagem'; // Adicionar título
