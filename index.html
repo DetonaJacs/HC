@@ -34,13 +34,18 @@
     }
 
     button {
-        padding: 10px 20px;
-        font-size: 16px;
-        margin: 10px;
-        cursor: pointer;
-        animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
-        opacity: 0; /* Começa com opacidade zero */
-    }
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
+    opacity: 0; /* Começa com opacidade zero */
+}
+
+button:hover {
+    background-color: #007bff; /* Altera a cor de fundo quando o mouse passa sobre o botão */
+}
 
     @keyframes appear {
         from { opacity: 0; }
@@ -75,9 +80,9 @@
 <div id="container">
     <img id="logo" src="./img/logo.png" alt="Logo" class="pulse">
     <h1 id="text">Como posso ajudá-lo hoje?</h1>
-    <button onclick="location.href='./menu/1'">Extrair Números de Processo</button>
-    <button onclick="location.href='./menu/2'">Pesquisar Advogado</button>
-    <br><button onclick="location.href='./inativo/maintenance'">Vínculo Processual (Em construção)</button>
+    <button onclick="location.href='./menu/1.html'">Extrair Números de Processo</button>
+    <button onclick="location.href='./menu/2.html'">Pesquisar Advogado</button>
+    <br><button onclick="location.href='./inativo/maintenance.html'">Vínculo Processual (Em construção)</button>
 
 </div>
 
