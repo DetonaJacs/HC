@@ -34,18 +34,18 @@
     }
 
     button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 10px;
-    cursor: pointer;
-    border-radius: 8px;
-    animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
-    opacity: 0; /* Começa com opacidade zero */
-}
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
+        opacity: 0; /* Começa com opacidade zero */
+    }
 
-button:hover {
-    background-color: #c7c7c7; /* Altera a cor de fundo quando o mouse passa sobre o botão */
-}
+    button:hover {
+        background-color: #c7c7c7; /* Altera a cor de fundo quando o mouse passa sobre o botão */
+    }
 
     @keyframes appear {
         from { opacity: 0; }
@@ -73,6 +73,44 @@ button:hover {
             transform: scale(1);
         }
     }
+
+    /* Estilos para o botão de interrogação e menu suspenso */
+    .dropdown {
+        position: fixed;
+        bottom: auto;
+        right: auto;
+        top: 20px;
+        left: 20px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1;
+        bottom: auto;
+        right: auto;
+        top: -10px;
+        left: 0;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-content a {
+        display: block;
+        padding: 6px 0;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f0f0f0;
+    }
 </style>
 </head>
 <body>
@@ -83,9 +121,25 @@ button:hover {
     <button onclick="location.href='./menu/1'">Extrair Números de Processo</button>
     <button onclick="location.href='./menu/2'">Pesquisar Advogado</button>
     <br><button onclick="location.href='./inativo/maintenance'">Vínculo Processual (Em construção)</button>
-
 </div>
 
+<!-- Botão de interrogação com menu suspenso -->
+<div class="dropdown">
+    <button onclick="toggleDropdown()" class="dropbtn">?</button>
+    <div class="dropdown-content" id="myDropdown">
+        <a href="./suspenso/t">Termos</a>
+        <a href="./suspenso/m">Manuais</a>
+        <!-- Adicione mais links conforme necessário -->
+    </div>
+</div>
+
+<script>
+    // Função para exibir/ocultar o menu suspenso
+    function toggleDropdown() {
+        var dropdown = document.getElementById("myDropdown");
+        dropdown.style.display === "none" ? dropdown.style.display = "block" : dropdown.style.display = "none";
+    }
+</script>
 
 </body>
 </html>
