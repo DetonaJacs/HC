@@ -77,10 +77,8 @@
     /* Estilos para o botão de interrogação e menu suspenso */
     .dropdown {
         position: fixed;
-        bottom: auto;
-        right: auto;
-        top: 10px;
-        left: 10px;
+        top: 20px; /* Posição do menu suspenso */
+        left: 20px; /* Posição do menu suspenso */
     }
 
     .dropdown-content {
@@ -88,22 +86,18 @@
         position: absolute;
         background-color: #f9f9f9;
         min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
         padding: 10px 10px;
         z-index: 1;
-        bottom: auto;
-        right: auto;
-        top: 10px;
-        left: 0;
     }
 
-    .dropdown:hover .dropdown-content {
+    .dropdown.active .dropdown-content {
         display: block;
     }
 
     .dropdown-content a {
         display: block;
-        padding: 6px 0;
+        padding: 10px 0;
         text-decoration: none;
         color: #333;
     }
@@ -124,7 +118,7 @@
 </div>
 
 <!-- Botão de interrogação com menu suspenso -->
-<div class="dropdown">
+<div class="dropdown" id="dropdown">
     <button onclick="toggleDropdown()" class="dropbtn">?</button>
     <div class="dropdown-content" id="myDropdown">
         <a href="./suspenso/t">Termos</a>
@@ -136,8 +130,8 @@
 <script>
     // Função para exibir/ocultar o menu suspenso
     function toggleDropdown() {
-        var dropdown = document.getElementById("myDropdown");
-        dropdown.style.display === "none" ? dropdown.style.display = "block" : dropdown.style.display = "none";
+        var dropdown = document.getElementById("dropdown");
+        dropdown.classList.toggle('active');
     }
 </script>
 
