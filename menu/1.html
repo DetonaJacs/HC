@@ -116,6 +116,7 @@
     <h2>Cole aqui:</h2>
     <textarea id="processList" rows="10" cols="50"></textarea><br>
     <button onclick="extractNumbers()">Extrair Números</button>
+    <button onclick="resetForm()">↺</button>
 
     <ul id="result"></ul>
 
@@ -210,6 +211,12 @@ function extractNumbers() {
     };
 }
 
+function resetForm() {
+    document.getElementById('processList').value = ''; // Limpa o campo de texto
+    document.getElementById('result').innerHTML = ''; // Limpa a lista de números de processo
+    document.getElementById('count').textContent = ''; // Limpa o contador de processos encontrados
+    document.getElementById('copyButton').style.display = 'none'; // Esconde o botão de cópia
+}
 </script>
 
 </body>
