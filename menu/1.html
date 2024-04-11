@@ -136,15 +136,17 @@ function extractNumbers() {
     if (numbers !== null) {
         numbers.forEach(function(number) {
             var li = document.createElement('li');
-            var processNumber = number; // Não remover caracteres não numéricos
-            li.textContent = number;
+            var processNumber = number; // Mantém a formatação original
+            var formattedNumber = number.replace(/(\d{1})(\d{4})(\d{2})(\d{3})(\d{3})(\d{1})\/(\d{3})/, '$1.$2.$3.$4.$5-$6/$7'); // Formata para exibição
+            li.textContent = formattedNumber;
             
             // Criando botões
             var button1 = document.createElement('button');
             button1.textContent = 'TJMG';
             button1.className = 'btn';
             button1.onclick = function() {
-                window.open('https://www4.tjmg.jus.br/juridico/sf/proc_complemento2.jsp?listaProcessos=' + processNumber);
+                var processNumberWithoutPunctuation = processNumber.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
+                window.open('https://www4.tjmg.jus.br/juridico/sf/proc_complemento2.jsp?listaProcessos=' + processNumberWithoutPunctuation);
             };
             li.appendChild(button1);
 
@@ -152,7 +154,8 @@ function extractNumbers() {
             button2.textContent = 'MPMG';
             button2.className = 'btn';
             button2.onclick = function() {
-                window.open('https://aplicacao.mpmg.mp.br/pareceres/processoParecerPesquisar.do?numProcessoCorrente=0' + processNumber);
+                var processNumberWithoutPunctuation = processNumber.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
+                window.open('https://aplicacao.mpmg.mp.br/pareceres/processoParecerPesquisar.do?numProcessoCorrente=0' + processNumberWithoutPunctuation);
             };
             li.appendChild(button2);
 
@@ -201,11 +204,12 @@ function extractNumbers() {
     copyButton.style.display = count > 0 ? 'block' : 'none';
 
     copyButton.onclick = function() {
-        var numbersText = validNumbers.join('\n'); // Usar apenas os números de processo válidos
-        navigator.clipboard.writeText(numbersText); // Copiando o texto para a área de transferência
+        var numbersText = validNumbers.join('\n'); // Usar os números de processo com pontuação
+        navigator.clipboard.writeText(numbersText);
         alert("Números copiados para a área de transferência!");
     };
 }
+
 </script>
 
 </body>
