@@ -27,7 +27,7 @@
     }
 
     #title {
-        margin-top: 10;
+        margin-top: 10px; /* Adicionado o 'px' que estava faltando */
         color: black;
         margin: 10px 0;
     }
@@ -71,7 +71,7 @@
         border-radius: 5px;
         font-size: 12px; /* Reduzindo o tamanho da fonte */
     }
-	
+    
     .botaoexcluir {
         margin: 0 0px;
         padding: 0px 0px; /* Reduzindo o padding para torná-los menores */
@@ -132,10 +132,11 @@ function extractNumbers() {
     var resultUl = document.getElementById('result');
     resultUl.innerHTML = '';
     var count = 0;
+    var validNumbers = []; // Array para armazenar os números válidos
     if (numbers !== null) {
         numbers.forEach(function(number) {
             var li = document.createElement('li');
-            var processNumber = number.replace(/\D/g, ''); // Removendo caracteres não numéricos
+            var processNumber = number; // Não remover caracteres não numéricos
             li.textContent = number;
             
             // Criando botões
@@ -157,31 +158,35 @@ function extractNumbers() {
 
             // Adicionando ícone de exclusão sem caixa
             var removeButton = document.createElement('img');
-			removeButton.src = '../img/ico_excluir.gif';
-			removeButton.className = 'botaoexcluir';
-			removeButton.style.width = '9px'; // Tamanho do ícone
-			removeButton.style.height = '9px'; // Tamanho do ícone
-			removeButton.style.cursor = 'pointer';
-			removeButton.style.border = '0'; // Remover borda
-			removeButton.title = 'Excluir da listagem'; // Adicionar título
-			removeButton.style.marginRight = '0px'; // Adicionar margem à direita para separar do próximo elemento
-			removeButton.style.verticalAlign = 'middle'; // Alinhar verticalmente ao meio
+            removeButton.src = '../img/ico_excluir.gif';
+            removeButton.className = 'botaoexcluir';
+            removeButton.style.width = '9px'; // Tamanho do ícone
+            removeButton.style.height = '9px'; // Tamanho do ícone
+            removeButton.style.cursor = 'pointer';
+            removeButton.style.border = '0'; // Remover borda
+            removeButton.title = 'Excluir da listagem'; // Adicionar título
+            removeButton.style.marginRight = '0px'; // Adicionar margem à direita para separar do próximo elemento
+            removeButton.style.verticalAlign = 'middle'; // Alinhar verticalmente ao meio
 
-			removeButton.onclick = function() {
-			resultUl.removeChild(li);
-			count--;
-			countElement.textContent = "Total de processos encontrados: " + count;
-			copyButton.style.display = count > 0 ? 'block' : 'none';
-			};
+            removeButton.onclick = function() {
+                resultUl.removeChild(li);
+                count--;
+                countElement.textContent = "Total de processos encontrados: " + count;
+                copyButton.style.display = count > 0 ? 'block' : 'none';
+                // Remover o número de processo da lista de números válidos
+                var index = validNumbers.indexOf(processNumber);
+                if (index !== -1) {
+                    validNumbers.splice(index, 1);
+                }
+            };
 
-// Definir estilos para centralizar o botão dentro do elemento pai
-li.style.textAlign = 'center';
+            // Definir estilos para centralizar o botão dentro do elemento pai
+            li.style.textAlign = 'center';
 
-li.appendChild(removeButton);
-resultUl.appendChild(li);
-count++;
-
-
+            li.appendChild(removeButton);
+            resultUl.appendChild(li);
+            count++;
+            validNumbers.push(processNumber); // Adicionar o número de processo à lista de números válidos
         });
     } else {
         var li = document.createElement('li');
@@ -194,14 +199,12 @@ count++;
 
     var copyButton = document.getElementById('copyButton');
     copyButton.style.display = count > 0 ? 'block' : 'none';
-}
 
-function copyNumbers() {
-    var processList = document.getElementById('processList').value;
-    var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b|\b\d{1}\.\d{4}\.\d{2}\.\d{6}-\d{1}\/\d{3}\b|\b\d{17}\b/g);
-    var numbersText = numbers.join('\n'); // Transformando a lista de Numeros em texto separado por quebras de linha
-    navigator.clipboard.writeText(numbersText); // Copiando o texto para a área de transferência
-    alert("Números copiados para a área de transferência!");
+    copyButton.onclick = function() {
+        var numbersText = validNumbers.join('\n'); // Usar apenas os números de processo válidos
+        navigator.clipboard.writeText(numbersText); // Copiando o texto para a área de transferência
+        alert("Números copiados para a área de transferência!");
+    };
 }
 </script>
 
