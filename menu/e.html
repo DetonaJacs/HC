@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extensão Google</title>
+<link rel="icon" href="../img/logo.png">
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+
+    #container {
+        max-width: 600px; /* Definindo a largura máxima */
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    #title {
+        margin-top: 10;
+        color: black;
+		margin: 10px 0;
+    }
+
+    h2 {
+        font-size: 15px;
+        margin-top: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #result {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin: 10px 0;
+		text-align: justify;
+    }
+
+    #developer {
+        color: #888;
+        font-size: smaller;
+    }
+
+    #returnButton {
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        margin: 0 2px;
+        padding: 10px 15px; /* Aumentando o padding para torná-los maiores */
+        cursor: pointer;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 14px; /* Aumentando o tamanho da fonte */
+    }
+	
+	#logo {
+        width: 50px; /* Largura da imagem */
+        height: auto; /* Altura ajustada automaticamente de acordo com a largura */
+        margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+    }
+
+    /* Estilo para a dica de ferramenta */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+</head>
+<body>
+
+
+<div id="container">
+	<a href="../index">
+        <img id="logo" src="../img/logo.png" alt="J">
+    </a>
+    <div class="maintenance-message">
+        <h1>Nome da Extensão: Busca de Processos TJMG/MPMG</h1>
+        <div class="tooltip"> <!-- Div para o botão com dica de ferramenta -->
+            <button id="downloadButton" class="btn">Baixar Arquivo</button>
+        </div>
+        <p><strong>Descrição:</strong><br>
+A extensão Busca de Processos TJMG/MPMG é uma ferramenta útil para advogados, pesquisadores jurídicos e cidadãos interessados em acessar rapidamente informações sobre processos judiciais nos sites do Tribunal de Justiça de Minas Gerais (TJMG) e do Ministério Público de Minas Gerais (MPMG).</p>
+        <p><strong>Recursos Principais:</strong><br>
+- Busque facilmente números de processo diretamente de páginas da web.<br>
+- Opções convenientes de busca nos sites do TJMG e do MPMG com um clique.<br>
+- Integração perfeita com o menu de contexto do botão direito do mouse para acesso rápido.</p>
+        <p><strong>Como Usar:</strong><br>
+1. Selecione o número de processo desejado em qualquer página da web.<br>
+2. Clique com o botão direito do mouse e escolha entre "Consultar no TJMG" ou "Consultar no MPMG".<br>
+3. Uma nova aba será aberta no navegador com os detalhes do processo no site correspondente.</p>
+        <p><strong>Privacidade e Segurança:</strong><br>
+A extensão Busca de Processos TJMG/MPMG respeita a privacidade do usuário e não coleta nem armazena quaisquer informações pessoais. Todas as consultas são realizadas localmente no navegador do usuário, garantindo segurança e confidencialidade.</p>
+        <p><strong>Feedback e Suporte:</strong><br>
+Valorizamos o feedback dos usuários! Se você tiver alguma dúvida, sugestão ou problema ao usar nossa extensão, entre em contato conosco em <span id="email" style="cursor: pointer; text-decoration: underline;">jacson311@gmail.com</span>.</p>
+
+    </div>
+</div>
+
+<script>
+    document.getElementById("email").addEventListener("click", function() {
+        var email = this.textContent;
+        navigator.clipboard.writeText(email).then(function() {
+            alert("Endereço de e-mail copiado com sucesso: " + email);
+        }, function(err) {
+            console.error('Erro ao copiar endereço de e-mail: ', err);
+        });
+    });
+</script>
+
+</body>
+</html>
