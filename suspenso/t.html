@@ -56,7 +56,23 @@
     <div class="maintenance-message">
         <h1 id="title">Termos de Serviço e Aviso de Responsabilidade</h1><br><br>
         <p>Como uma ferramenta privada, este script é desenvolvido com o propósito de oferecer funcionalidades específicas aos seus usuários. Qualquer link fornecido para sistemas judiciários governamentais é meramente para conveniência dos usuários e não implica em qualquer relação direta com esses sistemas por parte deste script. <br><br>É fundamental ressaltar que o uso desses acessso é de inteira responsabilidade do usuário final. O ingresso e a utilização desses sistemas estão sujeitos aos termos de serviço e políticas de privacidade estabelecidos pelas autoridades competentes. <br><br>Este script não assume qualquer responsabilidade pelo uso indevido ou não autorizado desses recursos. Portanto, ao utilizar este script e os recursos relacionados, o usuário final concorda em assumir total responsabilidade por suas ações e pela proteção dos dados fornecidos. Este script não se responsabiliza por quaisquer consequências decorrentes do uso dos recursos disponibilizados.</p>
+    <p><strong>Feedback e Suporte:</strong><br>
+Valorizamos o feedback dos usuários! Se você tiver alguma dúvida, sugestão ou problema ao usar nossa extensão, entre em contato conosco em <span id="email" style="cursor: pointer; text-decoration: underline;">jacson311@gmail.com</span>.</p>
+
     </div>
+</div>
+
+<script>
+    document.getElementById("email").addEventListener("click", function() {
+        var email = this.textContent;
+        navigator.clipboard.writeText(email).then(function() {
+            alert("Endereço de e-mail copiado com sucesso: " + email);
+        }, function(err) {
+            console.error('Erro ao copiar endereço de e-mail: ', err);
+        });
+    });
+</script>
+</div>
 </div>
 
 </body>
