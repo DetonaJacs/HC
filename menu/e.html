@@ -6,25 +6,35 @@
 <title>Extensão Google</title>
 <link rel="icon" href="../img/logo.png">
 <style>
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 100vh;
-        margin: 0;
-        background-color: #f0f0f0;
-        font-family: Arial, sans-serif;
-    }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
 
-    #container {
-        max-width: 600px; /* Definindo a largura máxima */
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
+#container {
+    width: 600px; /* Largura fixa */
+    margin-top: 5vh; /* Margem superior para centralização vertical */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow-y: auto; /* Adicionando rolagem vertical */
+}
+
+.maintenance-message {
+    margin-top: 10px; /* Adicionando margem ao conteúdo interno */
+    margin-bottom: 10px; /* Adicionando margem ao conteúdo interno */
+}
+
+
+
+
 
     #title {
         margin-top: 10;
@@ -119,7 +129,7 @@
     <div class="maintenance-message">
         <h1>Nome da Extensão: Busca de Processos TJMG/MPMG</h1>
         <div class="tooltip"> <!-- Div para o botão com dica de ferramenta -->
-            <button id="downloadButton" class="btn">Baixar Arquivo</button>
+            <button id="downloadButton" class="btn">Baixar Extensão</button>
         </div>
         <p><strong>Descrição:</strong><br>
 A extensão Busca de Processos TJMG/MPMG é uma ferramenta útil para advogados, pesquisadores jurídicos e cidadãos interessados em acessar rapidamente informações sobre processos judiciais nos sites do Tribunal de Justiça de Minas Gerais (TJMG) e do Ministério Público de Minas Gerais (MPMG).</p>
