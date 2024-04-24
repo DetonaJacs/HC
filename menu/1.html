@@ -154,7 +154,7 @@ function extractNumbers() {
             button1.className = 'btn';
             button1.onclick = function() {
                 var processNumberWithoutPunctuation = processNumber.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
-                window.open('https://www4.tjmg.jus.br/juridico/sf/proc_complemento2.jsp?listaProcessos=' + processNumberWithoutPunctuation);
+                window.open('https://www4.tjmg.jus.br/juridico/sf/proc_resultado2.jsp?listaProcessos=' + processNumberWithoutPunctuation);
             };
             li.appendChild(button1);
 
