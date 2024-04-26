@@ -6,6 +6,47 @@
 <title>Extrair Números de Processo</title>
 <link rel="icon" href="../img/logo.png">
 <style>
+    /* CSS para o modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Estilos originais */
     body {
         display: flex;
         justify-content: center;
@@ -18,7 +59,7 @@
     }
 
     #container {
-        position: relative; /* Importante para o posicionamento absoluto do ícone */
+        position: relative;
         background-color: #fff;
         padding: 20px;
         border-radius: 10px;
@@ -27,7 +68,7 @@
     }
 
     #title {
-        margin-top: 10px; /* Adicionado o 'px' que estava faltando */
+        margin-top: 10px;
         color: black;
         margin: 10px 0;
     }
@@ -50,6 +91,7 @@
 
     p {
         margin: 10px 0;
+        text-align: justify; /* Justificado */
     }
 
     #developer {
@@ -63,28 +105,28 @@
 
     .btn {
         margin: 0 2px;
-        padding: 2px 7px; /* Reduzindo o padding para torná-los menores */
+        padding: 2px 7px;
         cursor: pointer;
         border: none;
         background-color: #007bff;
         color: #fff;
         border-radius: 5px;
-        font-size: 12px; /* Reduzindo o tamanho da fonte */
+        font-size: 12px;
     }
     
     .botaoexcluir {
         margin: 0 0px;
-        padding: 0px 0px; /* Reduzindo o padding para torná-los menores */
+        padding: 0px 0px;
         cursor: pointer;
         border: none;
         border-radius: 5px;
-        font-size: 12px; /* Reduzindo o tamanho da fonte */
+        font-size: 12px;
     }
 
     #logo {
-        width: 50px; /* Largura da imagem */
-        height: auto; /* Altura ajustada automaticamente de acordo com a largura */
-        margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+        width: 50px;
+        height: auto;
+        margin-bottom: 20px;
     }
 
     #infoIcon {
@@ -98,42 +140,81 @@
         text-align: center;
         line-height: 20px;
         font-weight: bold;
-        cursor: help; /* Mudar o cursor para um ponto de interrogação */
+        cursor: help;
         color: #fff;
         font-size: 14px;
     }
-	
-	#resetButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-	}
+    
+    #resetButton {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
 </style>
 </head>
 <body>
 
 <div id="container">
-    <div id="infoIcon" title="Esta ferramenta permite extrair números de processo de um campo de texto. Após colar a lista de números de processos, clique no botão 'Extrair Números' para processá-los. Os números de processos serão exibidos em uma lista ordenada, com botões para acessar informações sobre cada um nos sites do Tribunal de Justiça de Minas Gerais (TJMG) e do Gestão de Processos (2ª instância) do Ministério Público de Minas Gerais (MPMG). Você também pode copiar os números dos processos para a área de transferência clicando no botão 'Copiar Números'.">!</div>
+    <!-- Botão de exclamação -->
+    <div id="infoIcon" onclick="openModal()">!</div>
+
+    <!-- Conteúdo do modal -->
+    <div id="myModal" class="modal">
+        <!-- Conteúdo do modal -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>
+                Esta ferramenta permite extrair números de processo de um campo de texto. Após colar a lista de números de processos, clique no botão 'Extrair Números' para processá-los. Os números de processos serão exibidos em uma lista ordenada, com botões para acessar informações sobre cada um nos sites do Tribunal de Justiça de Minas Gerais (TJMG) e do Ministério Público de Minas Gerais (MPMG). Você também pode copiar os números dos processos para a área de transferência clicando no botão 'Copiar Números'.
+            </p>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <!-- Centralizar o vídeo horizontalmente e verticalmente -->
+                <iframe width="560" height="315" src="https://youtu.be/giLeMnx5yUY" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logo -->
     <a href="../index">
         <img id="logo" src="../img/logo.png" alt="J">
     </a>
+    <!-- Título -->
     <h1 id="title">Extrair Números</h1>
 
+    <!-- Campo de texto -->
     <h2>Cole aqui:</h2>
     <textarea id="processList" rows="10" cols="50"></textarea><br>
+    <!-- Botão para extrair números -->
     <button onclick="extractNumbers()">Extrair Números</button>
-<button id="resetButton" onclick="resetForm()">↺</button>
+    <!-- Botão para limpar o campo de texto -->
+    <button id="resetButton" onclick="resetForm()">↺</button>
 
+    <!-- Lista de números de processo -->
     <ul id="result"></ul>
 
+    <!-- Contador de processos -->
     <p id="count"></p>
+    <!-- Botão para copiar números de processo -->
     <button id="copyButton" style="display:none;" onclick="copyNumbers()">Copiar Números</button>
 
+    <!-- Informações do desenvolvedor -->
     <p id="developer">Desenvolvido por Jacson Costa Neves</p>
 </div>
 
 <script>
+// Abrir modal
+function openModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+}
+
+// Fechar modal
+function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
+
+// Função para extrair números de processo
 function extractNumbers() {
     var processList = document.getElementById('processList').value;
     var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b|\b\d{1}\.\d{4}\.\d{2}\.\d{6}-\d{1}\/\d{3}\b|\b\d{17}\b/g);
@@ -218,6 +299,7 @@ function extractNumbers() {
     };
 }
 
+// Função para limpar o formulário
 function resetForm() {
     document.getElementById('processList').value = ''; // Limpa o campo de texto
     document.getElementById('result').innerHTML = ''; // Limpa a lista de números de processo
