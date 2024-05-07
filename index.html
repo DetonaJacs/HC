@@ -1,16 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYY5ELR3B3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HYY5ELR3B3');
-</script>
 <meta charset="UTF-8">
+<meta name="google-site-verification" content="OxNHvYguFeWWgUCZhYacBwmFuUgxUi6yZeLoNdVedz8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Como posso ajudá-lo hoje?</title>
 <link rel="icon" href="./img/logo.png">
@@ -18,7 +10,6 @@
     body {
         font-family: Arial, sans-serif;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
@@ -55,11 +46,6 @@
 
     button:hover {
         background-color: #c7c7c7; /* Altera a cor de fundo quando o mouse passa sobre o botão */
-    }
-
-    button#exte nsao {
-        background-color: #007bff; /* Altera a cor de fundo para azul */
-        color: #fff; /* Altera a cor do texto para branco */
     }
 
     @keyframes appear {
@@ -120,36 +106,6 @@
     .dropdown-content a:hover {
         background-color: #f0f0f0;
     }
-
-    /* Estilos para o bloco "Fique de Olho" */
-    #fiqueDeOlho {
-        margin-top: 20px;
-        text-align: center;
-		animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
-        opacity: 0; /* Começa com opacidade zero */
-    }
-
-    /* Estilos para o título "Fique de Olho" */
-    #newsTitle {
-        font-size: 24px;
-        margin-bottom: 10px;
-		animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
-        opacity: 0; /* Começa com opacidade zero */
-    }
-
-    /* Estilos para a cotação do dólar e euro */
-    #exchangeRate {
-        font-size: 16px;
-        margin-bottom: 10px;
-		
-    }
-
-    /* Estilos para o bloco de notícias */
-    #rssFeed {
-        text-align: center;
-        animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
-        opacity: 0; /* Começa com opacidade zero */
-    }
 </style>
 </head>
 <body>
@@ -171,89 +127,6 @@
         <!-- Adicione mais links conforme necessário -->
     </div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<!-- Bloco "Fique de Olho" -->
-<div id="fiqueDeOlho">
-    <!-- Título "Fique de Olho" -->
-    <div id="newsTitle">
-        Fique de Olho
-    </div>
-
-    <!-- Cotação do Dólar e Euro -->
-    <div id="exchangeRate">
-        <span id="dollarRate">Carregando...</span> | <span id="euroRate">Carregando...</span>
-    </div>
-
-    <!-- Bloco de Notícias -->
-    <div id="rssFeed">
-        <!-- start sw-rss-feed code -->
-        <script type="text/javascript"> 
-        function fetchExchangeRates() {
-            fetch('https://api.exchangerate-api.com/v4/latest/USD')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('dollarRate').innerText = `Dólar: ${data.rates.BRL.toFixed(2)}`;
-                })
-                .catch(error => console.error('Error fetching exchange rates:', error));
-
-            fetch('https://api.exchangerate-api.com/v4/latest/EUR')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('euroRate').innerText = `Euro: ${data.rates.BRL.toFixed(2)}`;
-                })
-                .catch(error => console.error('Error fetching exchange rates:', error));
-        }
-
-        fetchExchangeRates();
-        </script>
-        <!-- end sw-rss-feed code -->
-
-        <!-- start sw-rss-feed code -->
-        <script type="text/javascript"> 
-        rssfeed_url = new Array(); 
-        rssfeed_url[0]="https://rss.uol.com.br/feed/noticias.xml"; rssfeed_url[1]="http://www.bbc.co.uk/portuguese/index.xml"; rssfeed_url[2]="https://globominas.globo.com/GloboMinas/RSS2/0,,AS0-8982-0,00.xml"; rssfeed_url[3]="https://news.un.org/feed/subscribe/pt/news/region/americas/feed/rss.xml";
-        rssfeed_frame_width="280"; 
-        rssfeed_frame_height="200"; 
-        rssfeed_scroll="on"; 
-        rssfeed_scroll_step="6"; 
-        rssfeed_scroll_bar="on"; 
-        rssfeed_target="_blank"; 
-        rssfeed_font_size="12"; 
-        rssfeed_font_face=""; 
-        rssfeed_border="on"; 
-        rssfeed_css_url="https://feed.surfing-waves.com/css/style4.css"; 
-        rssfeed_title="off"; 
-        rssfeed_title_name=""; 
-        rssfeed_title_bgcolor="#3366ff"; 
-        rssfeed_title_color="#fff"; 
-        rssfeed_title_bgimage=""; 
-        rssfeed_footer="off"; 
-        rssfeed_footer_name="rss feed"; 
-        rssfeed_footer_bgcolor="#fff"; 
-        rssfeed_footer_color="#333"; 
-        rssfeed_footer_bgimage=""; 
-        rssfeed_item_title_length="50"; 
-        rssfeed_item_title_color="#666"; 
-        rssfeed_item_bgcolor="#fff"; 
-        rssfeed_item_bgimage=""; 
-        rssfeed_item_border_bottom="on"; 
-        rssfeed_item_source_icon="off"; 
-        rssfeed_item_date="off"; 
-        rssfeed_item_description="on"; 
-        rssfeed_item_description_length="120"; 
-        rssfeed_item_description_color="#666"; 
-        rssfeed_item_description_link_color="#333"; 
-        rssfeed_item_description_tag="off"; 
-        rssfeed_no_items="0"; 
-        rssfeed_cache = "9d3afcc57accea0af64697dfd94ea84d"; 
-        </script> 
-        <script type="text/javascript" src="https://feed.surfing-waves.com/js/rss-feed.js"></script> 
-        <!-- end sw-rss-feed code -->
-    </div>
-</div>
 
 <script>
     // Função para exibir/ocultar o menu suspenso
@@ -261,7 +134,6 @@
         var dropdown = document.getElementById("dropdown");
         dropdown.classList.toggle('active');
     }
-	
 </script>
 
 </body>
