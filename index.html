@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-	<!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYY5ELR3B3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -10,7 +10,7 @@
 
   gtag('config', 'G-HYY5ELR3B3');
 </script>
-	
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Como posso ajudá-lo hoje?</title>
@@ -19,6 +19,7 @@
     body {
         font-family: Arial, sans-serif;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
@@ -55,6 +56,11 @@
 
     button:hover {
         background-color: #c7c7c7; /* Altera a cor de fundo quando o mouse passa sobre o botão */
+    }
+
+    button#exte nsao {
+        background-color: #007bff; /* Altera a cor de fundo para azul */
+        color: #fff; /* Altera a cor do texto para branco */
     }
 
     @keyframes appear {
@@ -115,6 +121,46 @@
     .dropdown-content a:hover {
         background-color: #f0f0f0;
     }
+
+    /* Estilos para o bloco "Fique de Olho" */
+    #fiqueDeOlho {
+        margin-top: 20px;
+        text-align: center;
+		animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
+        opacity: 0; /* Começa com opacidade zero */
+    }
+
+    /* Estilos para o título "Fique de Olho" */
+    #newsTitle {
+        font-size: 24px;
+        margin-bottom: 10px;
+		animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
+        opacity: 0; /* Começa com opacidade zero */
+    }
+
+    /* Estilos para a cotação do dólar e euro */
+    #exchangeRate {
+        font-size: 16px;
+        margin-bottom: 10px;
+		
+    }
+
+    /* Estilos para o bloco de notícias */
+    #rssFeed {
+        text-align: center;
+        animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
+        opacity: 0; /* Começa com opacidade zero */
+    }
+	
+	#rssFeedContainer {
+        max-width: 482px;
+        height: 460px;
+        overflow: hidden; /* Desabilita a rolagem */
+        margin: 0 auto;
+        padding: 0; /* Remove o padding */
+        box-sizing: border-box;
+        border: none; /* Remove a borda */
+    }
 </style>
 </head>
 <body>
@@ -136,6 +182,20 @@
         <!-- Adicione mais links conforme necessário -->
     </div>
 </div>
+<br>
+
+<!-- Bloco "Fique de Olho" -->
+<div id="fiqueDeOlho">
+    <!-- Título "Fique de Olho" -->
+    <div id="newsTitle">
+        Fique de Olho
+     </div>
+    <div id="rssFeedContainer" style="max-width: 600px; margin: 600;">
+        <!-- Conteúdo do feed de notícias será carregado aqui -->
+        <script src="https://static.elfsight.com/platform/platform.js"  defer></script>
+        <div class="elfsight-app-af1594f2-fd07-4dfc-b9a2-311daeb0f87d"></div>
+    </div>
+</div>
 
 <script>
     // Função para exibir/ocultar o menu suspenso
@@ -143,6 +203,7 @@
         var dropdown = document.getElementById("dropdown");
         dropdown.classList.toggle('active');
     }
+	
 </script>
 
 </body>
