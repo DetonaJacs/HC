@@ -193,6 +193,9 @@ Com a possibilidade de colar o LOG da Distribuição (Processos 2ª Instância),
         
         // Remove texto entre "PULOU" e números de processo
         processList = processList.replace(/PULOU.*?(\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3})\b/g, '$1');
+
+	// Remove texto entre "COMPLETOU" e números de processo
+        processList = processList.replace(/COMPLETOU.*?(\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3})\b/g, '$1');
         
         var startIndex = processList.indexOf("Entregando documentos Encaminhados");
         if (startIndex === -1) {
