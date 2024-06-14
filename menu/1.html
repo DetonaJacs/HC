@@ -2,165 +2,164 @@
 <html lang="pt-br">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYY5ELR3B3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYY5ELR3B3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-HYY5ELR3B3');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrair Números de Processo</title>
+    <link rel="icon" href="../img/logo.png">
+    <style>
+        /* CSS para o modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
 
-  gtag('config', 'G-HYY5ELR3B3');
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Extrair Números de Processo</title>
-<link rel="icon" href="../img/logo.png">
-<style>
-    /* CSS para o modal */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.5);
-    }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 600px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+        /* Estilos originais */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
 
-    /* Estilos originais */
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 100vh;
-        margin: 0;
-        background-color: #f0f0f0;
-        font-family: Arial, sans-serif;
-    }
+        #container {
+            position: relative;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-    #container {
-        position: relative;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
+        #title {
+            margin-top: 10px;
+            color: black;
+            margin: 10px 0;
+        }
 
-    #title {
-        margin-top: 10px;
-        color: black;
-        margin: 10px 0;
-    }
+        h2 {
+            font-size: 15px;
+            margin-top: 0;
+        }
 
-    h2 {
-        font-size: 15px;
-        margin-top: 0;
-    }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
+        #result {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
 
-    #result {
-        max-height: 200px;
-        overflow-y: auto;
-        margin-bottom: 10px;
-    }
+        p {
+            margin: 10px 0;
+            text-align: justify; /* Justificado */
+        }
 
-    p {
-        margin: 10px 0;
-        text-align: justify; /* Justificado */
-    }
+        #developer {
+            color: #888;
+            font-size: smaller;
+        }
 
-    #developer {
-        color: #888;
-        font-size: smaller;
-    }
+        #returnButton {
+            margin-bottom: 20px;
+        }
 
-    #returnButton {
-        margin-bottom: 20px;
-    }
+        .btn {
+            margin: 0 2px;
+            padding: 2px 7px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        
+        .botaoexcluir {
+            margin: 0 0px;
+            padding: 0px 0px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+        }
 
-    .btn {
-        margin: 0 2px;
-        padding: 2px 7px;
-        cursor: pointer;
-        border: none;
-        background-color: #007bff;
-        color: #fff;
-        border-radius: 5px;
-        font-size: 12px;
-    }
-    
-    .botaoexcluir {
-        margin: 0 0px;
-        padding: 0px 0px;
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
-        font-size: 12px;
-    }
+        #logo {
+            width: 50px;
+            height: auto;
+            margin-bottom: 20px;
+        }
 
-    #logo {
-        width: 50px;
-        height: auto;
-        margin-bottom: 20px;
-    }
-
-    #infoIcon {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 20px;
-        height: 20px;
-        background-color: #c4302b;
-        border-radius: 50%;
-        text-align: center;
-        line-height: 20px;
-        font-weight: bold;
-        cursor: help;
-        color: #fff;
-        font-size: 14px;
-    }
-    
-    #resetButton {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
-    }
-</style>
+        #infoIcon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background-color: #c4302b;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-weight: bold;
+            cursor: help;
+            color: #fff;
+            font-size: 14px;
+        }
+        
+        #resetButton {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
 
@@ -203,25 +202,19 @@
 
     <!-- Contador de processos -->
     <p id="count"></p>
-    <!-- Botão para copiar números de processo -->
-    <button id="copyButton" style="display:none;" onclick="copyNumbers()">Copiar Números</button>
+    <!-- Botões para copiar e abrir números de processo -->
+    <div id="actionButtons" style="display: none;">
+        <button id="copyButton" onclick="copyNumbers()">Copiar Números</button>
+        <button id="openTJMGButton" onclick="openAllTJMG()">Abrir TJMG</button>
+        <button id="openMPMGButton" onclick="openAllMPMG()">Abrir MPMG</button>
+    </div>
 
     <!-- Informações do desenvolvedor -->
     <p id="developer">Desenvolvido por Jacson Costa Neves</p>
 </div>
 
 <script>
-// Abrir modal
-function openModal() {
-    var modal = document.getElementById("myModal");
-    modal.style.display = "block";
-}
-
-// Fechar modal
-function closeModal() {
-    var modal = document.getElementById("myModal");
-    modal.style.display = "none";
-}
+var validNumbers = []; // Array para armazenar os números válidos
 
 // Função para extrair números de processo
 function extractNumbers() {
@@ -230,20 +223,19 @@ function extractNumbers() {
     var resultUl = document.getElementById('result');
     resultUl.innerHTML = '';
     var count = 0;
-    var validNumbers = []; // Array para armazenar os números válidos
+    validNumbers = [];
     if (numbers !== null) {
         numbers.forEach(function(number) {
             var li = document.createElement('li');
-            var processNumber = number; // Mantém a formatação original
-            var formattedNumber = number.replace(/(\d{1})(\d{4})(\d{2})(\d{3})(\d{3})(\d{1})\/(\d{3})/, '$1.$2.$3.$4.$5-$6/$7'); // Formata para exibição
+            var processNumber = number;
+            var formattedNumber = number.replace(/(\d{1})(\d{4})(\d{2})(\d{3})(\d{3})(\d{1})\/(\d{3})/, '$1.$2.$3.$4.$5-$6/$7');
             li.textContent = formattedNumber;
-            
-            // Criando botões
+
             var button1 = document.createElement('button');
             button1.textContent = 'TJMG';
             button1.className = 'btn';
             button1.onclick = function() {
-                var processNumberWithoutPunctuation = processNumber.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
+                var processNumberWithoutPunctuation = processNumber.replace(/[^\d]/g, '');
                 window.open('https://www4.tjmg.jus.br/juridico/sf/proc_resultado2.jsp?listaProcessos=' + processNumberWithoutPunctuation);
             };
             li.appendChild(button1);
@@ -252,42 +244,38 @@ function extractNumbers() {
             button2.textContent = 'MPMG';
             button2.className = 'btn';
             button2.onclick = function() {
-                var processNumberWithoutPunctuation = processNumber.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
+                var processNumberWithoutPunctuation = processNumber.replace(/[^\d]/g, '');
                 window.open('https://aplicacao.mpmg.mp.br/pareceres/processoParecerPesquisar.do?numProcessoCorrente=0' + processNumberWithoutPunctuation);
             };
             li.appendChild(button2);
 
-            // Adicionando ícone de exclusão sem caixa
             var removeButton = document.createElement('img');
             removeButton.src = '../img/ico_excluir.gif';
             removeButton.className = 'botaoexcluir';
-            removeButton.style.width = '9px'; // Tamanho do ícone
-            removeButton.style.height = '9px'; // Tamanho do ícone
+            removeButton.style.width = '9px';
+            removeButton.style.height = '9px';
             removeButton.style.cursor = 'pointer';
-            removeButton.style.border = '0'; // Remover borda
-            removeButton.title = 'Excluir da listagem'; // Adicionar título
-            removeButton.style.marginRight = '0px'; // Adicionar margem à direita para separar do próximo elemento
-            removeButton.style.verticalAlign = 'middle'; // Alinhar verticalmente ao meio
-
+            removeButton.style.border = '0';
+            removeButton.title = 'Excluir da listagem';
+            removeButton.style.marginRight = '0px';
+            removeButton.style.verticalAlign = 'middle';
             removeButton.onclick = function() {
                 resultUl.removeChild(li);
                 count--;
                 countElement.textContent = "Total de processos encontrados: " + count;
-                copyButton.style.display = count > 0 ? 'block' : 'none';
-                // Remover o número de processo da lista de números válidos
+                toggleButtons();
                 var index = validNumbers.indexOf(processNumber);
                 if (index !== -1) {
                     validNumbers.splice(index, 1);
                 }
             };
 
-            // Definir estilos para centralizar o botão dentro do elemento pai
             li.style.textAlign = 'center';
 
             li.appendChild(removeButton);
             resultUl.appendChild(li);
             count++;
-            validNumbers.push(processNumber); // Adicionar o número de processo à lista de números válidos
+            validNumbers.push(processNumber);
         });
     } else {
         var li = document.createElement('li');
@@ -298,22 +286,56 @@ function extractNumbers() {
     var countElement = document.getElementById('count');
     countElement.textContent = "Total de processos encontrados: " + count;
 
-    var copyButton = document.getElementById('copyButton');
-    copyButton.style.display = count > 0 ? 'block' : 'none';
-
-    copyButton.onclick = function() {
-        var numbersText = validNumbers.join('\n'); // Usar os números de processo com pontuação
-        navigator.clipboard.writeText(numbersText);
-        alert("Números copiados para a área de transferência!");
-    };
+    toggleButtons();
 }
 
 // Função para limpar o formulário
 function resetForm() {
-    document.getElementById('processList').value = ''; // Limpa o campo de texto
-    document.getElementById('result').innerHTML = ''; // Limpa a lista de números de processo
-    document.getElementById('count').textContent = ''; // Limpa o contador de processos encontrados
-    document.getElementById('copyButton').style.display = 'none'; // Esconde o botão de cópia
+    document.getElementById('processList').value = '';
+    document.getElementById('result').innerHTML = '';
+    document.getElementById('count').textContent = '';
+    toggleButtons();
+}
+
+// Função para copiar números de processo
+function copyNumbers() {
+    var numbersText = validNumbers.join('\n');
+    navigator.clipboard.writeText(numbersText);
+    alert("Números copiados para a área de transferência!");
+}
+
+// Função para abrir todos os links TJMG
+function openAllTJMG() {
+    validNumbers.forEach(function(number) {
+        var processNumberWithoutPunctuation = number.replace(/[^\d]/g, '');
+        window.open('https://www4.tjmg.jus.br/juridico/sf/proc_resultado2.jsp?listaProcessos=' + processNumberWithoutPunctuation);
+    });
+}
+
+// Função para abrir todos os links MPMG
+function openAllMPMG() {
+    validNumbers.forEach(function(number) {
+        var processNumberWithoutPunctuation = number.replace(/[^\d]/g, '');
+        window.open('https://aplicacao.mpmg.mp.br/pareceres/processoParecerPesquisar.do?numProcessoCorrente=0' + processNumberWithoutPunctuation);
+    });
+}
+
+// Função para alternar a visibilidade dos botões de ação
+function toggleButtons() {
+    var actionButtons = document.getElementById('actionButtons');
+    actionButtons.style.display = validNumbers.length > 0 ? 'block' : 'none';
+}
+
+// Abrir modal
+function openModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+}
+
+// Fechar modal
+function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
 }
 </script>
 
