@@ -210,6 +210,13 @@
                 snake.cells.pop();
             }
 
+            // Desenhar bolinha vermelha atrás do ícone
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.arc(apple.x + grid / 2, apple.y + grid / 2, grid / 2, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Desenhar ícone
             ctx.drawImage(logo, apple.x, apple.y, grid, grid);
 
             ctx.fillStyle = 'green';
