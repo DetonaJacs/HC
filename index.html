@@ -106,13 +106,19 @@
     .dropdown-content a:hover {
         background-color: #f0f0f0;
     }
+
+    /* Estilos para o jogo da cobrinha */
+    #snakeGame {
+        display: none; /* Inicialmente escondido */
+        border: 1px solid #000;
+    }
 </style>
 </head>
 <body>
 
 <div id="container">
     <img id="logo" src="./img/logo.png" alt="Logo" class="pulse">
-    <h1 id="text">Como posso te ajudar?</h1>
+    <h1 id="text" onclick="handleTextClick()">Como posso te ajudar?</h1>
     <button onclick="location.href='./menu/1'">Extrair Números de Processo</button>
     <button onclick="location.href='./menu/2'">Pesquisar Advogado</button>
     <br><button onclick="location.href='./menu/e'">Instale nossa Extensão Google</button>
@@ -120,19 +126,135 @@
 
 <!-- Botão de interrogação com menu suspenso -->
 <div class="dropdown" id="dropdown">
-    <button onclick="toggleDropdown()" class="dropbtn">?</button>
-    <div class="dropdown-content" id="myDropdown">
+    <button onclick="toggleDropdown()" class="dropbtn" aria-haspopup="true" aria-expanded="false">?</button>
+    <div class="dropdown-content" id="myDropdown" aria-label="Menu suspenso">
         <a href="./suspenso/t">Termos</a>
         <a href="./suspenso/m">Manuais</a>
         <!-- Adicione mais links conforme necessário -->
     </div>
 </div>
 
+<!-- Área de jogo da cobrinha -->
+<canvas id="snakeGame" width="400" height="400"></canvas>
+
 <script>
-    // Função para exibir/ocultar o menu suspenso
+    let clickCount = 0;
+
+    function handleTextClick() {
+        clickCount++;
+        if (clickCount === 5) {
+            startSnakeGame();
+        }
+    }
+
     function toggleDropdown() {
         var dropdown = document.getElementById("dropdown");
         dropdown.classList.toggle('active');
+        var expanded = dropdown.classList.contains('active');
+        dropdown.querySelector('.dropbtn').setAttribute('aria-expanded', expanded);
+    }
+
+    function startSnakeGame() {
+        document.getElementById('container').style.display = 'none';
+        const canvas = document.getElementById('snakeGame');
+        canvas.style.display = 'block';
+        const ctx = canvas.getContext('2d');
+
+        const logo = new Image();
+        logo.src = './img/logo.png';
+
+        // Jogo da cobrinha
+        const grid = 16;
+        let count = 0;
+        let snake = {
+            x: 160,
+            y: 160,
+            dx: grid,
+            dy: 0,
+            cells: [],
+            maxCells: 4
+        };
+        let apple = {
+            x: 320,
+            y: 320
+        };
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        function loop() {
+            requestAnimationFrame(loop);
+            if (++count < 4) {
+                return;
+            }
+            count = 0;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            snake.x += snake.dx;
+            snake.y += snake.dy;
+
+            if (snake.x < 0) {
+                snake.x = canvas.width - grid;
+            } else if (snake.x >= canvas.width) {
+                snake.x = 0;
+            }
+
+            if (snake.y < 0) {
+                snake.y = canvas.height - grid;
+            } else if (snake.y >= canvas.height) {
+                snake.y = 0;
+            }
+
+            snake.cells.unshift({ x: snake.x, y: snake.y });
+            if (snake.cells.length > snake.maxCells) {
+                snake.cells.pop();
+            }
+
+            ctx.drawImage(logo, apple.x, apple.y, grid, grid);
+
+            ctx.fillStyle = 'green';
+            snake.cells.forEach((cell, index) => {
+                ctx.fillRect(cell.x, cell.y, grid - 1, grid - 1);
+
+                if (cell.x === apple.x && cell.y === apple.y) {
+                    snake.maxCells++;
+                    apple.x = getRandomInt(0, 25) * grid;
+                    apple.y = getRandomInt(0, 25) * grid;
+                }
+
+                for (let i = index + 1; i < snake.cells.length; i++) {
+                    if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+                        snake.x = 160;
+                        snake.y = 160;
+                        snake.cells = [];
+                        snake.maxCells = 4;
+                        snake.dx = grid;
+                        snake.dy = 0;
+
+                        apple.x = getRandomInt(0, 25) * grid;
+                        apple.y = getRandomInt(0, 25) * grid;
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.which === 37 && snake.dx === 0) {
+                snake.dx = -grid;
+                snake.dy = 0;
+            } else if (e.which === 38 && snake.dy === 0) {
+                snake.dy = -grid;
+                snake.dx = 0;
+            } else if (e.which === 39 && snake.dx === 0) {
+                snake.dx = grid;
+                snake.dy = 0;
+            } else if (e.which === 40 && snake.dy === 0) {
+                snake.dy = grid;
+                snake.dx = 0;
+            }
+        });
+
+        requestAnimationFrame(loop);
     }
 </script>
 
