@@ -258,7 +258,7 @@
             }))
         }();
         let t = document.querySelector("#canvas");
-        x = t.getContext("2d"), f = new n, window.scl = t.width / tileCount, u = new o(6, Math.floor(tileCount / 2), 5), window.snake = new s(4, Math.floor(tileCount / 2), 3, "rgb(50, 255, 50)"), w = f._hscore || 0, setInterval(p, 1e3 / 90), y()
+        x = t.getContext("2d"), f = new n, window.scl = t.width / tileCount, u = new o(6, Math.floor(tileCount / 2), 5), window.snake = new s(4, Math.floor(tileCount / 2), 3, "rgb(88, 88, 88)"), w = f._hscore || 0, setInterval(p, 1e3 / 90), y()
     }, window.keys = {};
     document.addEventListener("keydown", t => {
         snake.isDead && window.location.reload(), keys[t.key.toLowerCase()] = !0
