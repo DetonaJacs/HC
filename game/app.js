@@ -1,5 +1,6 @@
 !function(t) {
     var e = {};
+
     function i(r) {
         if (e[r]) return e[r].exports;
         var s = e[r] = {
@@ -67,10 +68,10 @@
             return this.xx == t.xx && this.yy == t.yy
         }
         get xx() {
-            return Math.round(this.x / scl)
+            return Math.round(this.x / window.scl)
         }
         get yy() {
-            return Math.round(this.y / scl)
+            return Math.round(this.y / window.scl)
         }
     }
     class s {
@@ -82,27 +83,49 @@
                 x: 0,
                 y: 0
             }, this.greenFace = new Image, this.greenFace.src = "./game/images/head.png", this.redFace = new Image, this.redFace.src = "./game/images/redHead.png", this.face = this.greenFace;
-            for (var n = 0; n < i; n++) this.body.push(new r((this.x - n) * scl, this.y * scl, {
+            for (var n = 0; n < i; n++) this.body.push(new r((this.x - n) * window.scl, this.y * window.scl, {
                 x: 1,
                 y: 0
             }))
         }
         update() {
             if (!this.isDead && ((keys.a || keys.arrowleft) && 0 == this.dir.x && (this.newDir.x = -1, this.newDir.y = 0), (keys.d || keys.arrowright) && 0 == this.dir.x && (this.newDir.x = 1, this.newDir.y = 0), (keys.s || keys.arrowdown) && 0 == this.dir.y && (this.newDir.y = 1, this.newDir.x = 0), (keys.w || keys.arrowup) && 0 == this.dir.y && (this.newDir.y = -1, this.newDir.x = 0), 0 != this.dir.x || 0 != this.dir.y || 0 != this.newDir.x || 0 != this.newDir.y)) {
-                if (0 == (this.head.x / scl).toFixed(1).substr(-1) && 0 == (this.head.y / scl).toFixed(1).substr(-1)) {
+                if (0 == (this.head.x / window.scl).toFixed(1).substr(-1) && 0 == (this.head.y / window.scl).toFixed(1).substr(-1)) {
                     if (this.checkDeath() && !this.isDead) return this.die();
                     this.body[1].xx == this.head.xx + this.newDir.x && this.body[1].yy == this.head.yy + this.newDir.y || (this.dir.x = this.newDir.x, this.dir.y = this.newDir.y, this.head.dir.x = this.dir.x, this.head.dir.y = this.dir.y);
-                    for (let t = this.length - 1; t > 0; t--) this.body[t].dir.x = (this.body[t - 1].x - this.body[t].x) / scl, this.body[t].dir.y = (this.body[t - 1].y - this.body[t].y) / scl
+                    for (let t = this.length - 1; t > 0; t--) this.body[t].dir.x = (this.body[t - 1].x - this.body[t].x) / window.scl, this.body[t].dir.y = (this.body[t - 1].y - this.body[t].y) / window.scl
                 }
                 this.body.forEach(t => {
-                    t.x += t.dir.x * speed, t.y += t.dir.y * speed
+                    t.x += t.dir.x * window.speed, t.y += t.dir.y * window.speed
                 })
+            } else if (this.isDead) {
+                // Reset game state
+                this.isDead = false;
+                this.body = [];
+                this.dir = { x: 0, y: 0 };
+                this.newDir = { x: 0, y: 0 };
+                this.color = "rgb(88, 88, 88)";
+                this.face = this.greenFace;
+
+                // Recreate initial snake body
+                for (let n = 0; n < 4; n++) {
+                    this.body.push(new r((this.x - n) * window.scl, this.y * window.scl, { x: 1, y: 0 }));
+                }
+
+                // Reset apple position
+                apple.generateNew();
+
+                // Reset score
+                g = 0;
+
+                // Restart the game loop
+                setInterval(p, 1000 / 90);
             }
         }
         draw(t) {
             this.body.forEach(e => {
-                t.fillStyle = this.color, t.fillRect(e.x, e.y, scl, scl), keys.shift && (t.strokeStyle = "red", t.strokeRect(e.xx * scl, e.yy * scl, scl, scl))
-            }), t.drawImage(this.face, this.head.x, this.head.y, scl, scl)
+                t.fillStyle = this.color, t.fillRect(e.x, e.y, window.scl, window.scl), keys.shift && (t.strokeStyle = "red", t.strokeRect(e.xx * window.scl, e.yy * window.scl, window.scl, window.scl))
+            }), t.drawImage(this.face, this.head.x, this.head.y, window.scl, window.scl)
         }
         appendNew() {
             let t = this.tail;
@@ -112,7 +135,7 @@
             }))
         }
         checkDeath() {
-            if (this.head.xx >= tileCount || this.head.yy >= tileCount || this.head.xx < 0 || this.head.yy < 0) return !0;
+            if (this.head.xx >= window.tileCount || this.head.yy >= window.tileCount || this.head.xx < 0 || this.head.yy < 0) return !0;
             for (let t = 1; t < this.length; t++)
                 if (this.head.collides(this.body[t])) return !0;
             return !1
@@ -122,7 +145,7 @@
             let t = this.color;
             this.color = "red", this.face = this.redFace, setTimeout(() => {
                 this.color = t, this.face = this.greenFace, setTimeout(() => {
-                    this.color = "red", this.face = this.redFace
+                    this.color = "rgb(88, 88, 88)", this.face = this.redFace
                 }, 200)
             }, 200)
         }
@@ -171,29 +194,29 @@
 		}
 
 		generateNew() {
-			this.xx = Math.round(Math.random() * (tileCount - 1));
-			this.yy = Math.round(Math.random() * (tileCount - 1));
+			this.xx = Math.round(Math.random() * (window.tileCount - 1));
+			this.yy = Math.round(Math.random() * (window.tileCount - 1));
 			let t = !1;
-			snake.body.forEach(e => {
+			window.snake.body.forEach(e => {
 				e.xx == this.xx && this.yy == e.yy && (t = !0);
 			});
-			t ? this.generateNew() : this.p = scl / 2;
+			t ? this.generateNew() : this.p = window.scl / 2;
 		}
 
 		draw(t) {
 			t.fillStyle = this.color;
 			t.beginPath();
-			t.arc(this.x + scl / 2, this.y + scl / 2, scl / 2 - this.p, 0, Math.PI * 2); // Desenha um círculo
+			t.arc(this.x + window.scl / 2, this.y + window.scl / 2, window.scl / 2 - this.p, 0, Math.PI * 2); // Desenha um círculo
 			t.fill();
 			if (this.p > this.padding) this.p--;
 		}
 
 		get x() {
-			return this.xx * scl;
+			return this.xx * window.scl;
 		}
 
 		get y() {
-			return this.yy * scl;
+			return this.yy * window.scl;
 		}
 	}
 
@@ -245,7 +268,7 @@
     let u, f, w, x, g = 0;
     window.tileCount = 11, window.speed = 7;
     function p() {
-        x.fillStyle = "white", x.fillRect(0, 0, canvas.width, canvas.height), u.draw(x), snake.update(), snake.draw(x), x.font = 1.5 * scl + "px Arial", x.fillStyle = "#000000", x.fillText(g, canvas.width / 2 - x.measureText(g).width / 2, 2.5 * scl), x.font = .5 * scl + "px Arial", x.fillStyle = "#000000", x.fillText("Maior score: " + w, canvas.width / 2 - x.measureText("High score: " + w).width / 2, 3.5 * scl), snake.head.collides(u) && (u.generateNew(), snake.appendNew(), g++), g > w && (w = g, f._hscore = w)
+        x.fillStyle = "white", x.fillRect(0, 0, canvas.width, canvas.height), u.draw(x), snake.update(), snake.draw(x), x.font = 1.5 * window.scl + "px Arial", x.fillStyle = "#000000", x.fillText(g, canvas.width / 2 - x.measureText(g).width / 2, 2.5 * window.scl), x.font = .5 * window.scl + "px Arial", x.fillStyle = "#000000", x.fillText("Maior score: " + w, canvas.width / 2 - x.measureText("High score: " + w).width / 2, 3.5 * window.scl), snake.head.collides(u) && (u.generateNew(), snake.appendNew(), g++), g > w && (w = g, f._hscore = w)
     }
     window.onload = function() {
         !async function() {
@@ -258,9 +281,26 @@
             }))
         }();
         let t = document.querySelector("#canvas");
-        x = t.getContext("2d"), f = new n, window.scl = t.width / tileCount, u = new o(6, Math.floor(tileCount / 2), 5), window.snake = new s(4, Math.floor(tileCount / 2), 3, "rgb(88, 88, 88)"), w = f._hscore || 0, setInterval(p, 1e3 / 90), y()
+        x = t.getContext("2d"), f = new n, window.scl = t.width / window.tileCount, u = new o(6, Math.floor(window.tileCount / 2), 5), window.snake = new s(4, Math.floor(window.tileCount / 2), 3, "rgb(88, 88, 88)"), w = f._hscore || 0, setInterval(p, 1e3 / 90), y()
     }, window.keys = {};
     document.addEventListener("keydown", t => {
-        snake.isDead && window.location.reload(), keys[t.key.toLowerCase()] = !0
+        if (snake.isDead) {
+            // Reset game on spacebar press
+            if (t.key.toLowerCase() === ' ') {
+                snake.isDead = false;
+                snake.body = [];
+                snake.dir = { x: 0, y: 0 };
+                snake.newDir = { x: 0, y: 0 };
+                snake.color = "rgb(88, 88, 88)";
+                snake.face = snake.greenFace;
+                for (let n = 0; n < 4; n++) {
+                    snake.body.push(new r((snake.x - n) * window.scl, snake.y * window.scl, { x: 1, y: 0 }));
+                }
+                apple.generateNew();
+                g = 0;
+                setInterval(p, 1000 / 90);
+            }
+        }
+        keys[t.key.toLowerCase()] = !0
     }), document.addEventListener("keyup", t => keys[t.key.toLowerCase()] = !1)
 }]);
