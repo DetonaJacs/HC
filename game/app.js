@@ -141,14 +141,15 @@
             return !1
         }
         die() {
-            this.isDead = !0;
-            let t = this.color;
-            this.color = "red", this.face = this.redFace, setTimeout(() => {
-                this.color = t, this.face = this.greenFace, setTimeout(() => {
-                    this.color = "rgb(88, 88, 88)", this.face = this.redFace
-                }, 200)
-            }, 200)
-        }
+			this.isDead = !0;
+			let t = this.color;
+			this.color = "red", this.face = this.redFace, setTimeout(() => {
+				this.color = t, this.face = this.greenFace, setTimeout(() => {
+					this.color = "rgb(88, 88, 88)", this.face = this.redFace
+				}, 200)
+			}, 200);
+			g = 0; // Reset score when the snake dies
+		}
         get length() {
             return this.body.length
         }
