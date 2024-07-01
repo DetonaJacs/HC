@@ -1,21 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYY5ELR3B3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HYY5ELR3B3');
-</script>
-	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Extrair Números de Processo</title>
     <style>
-/* CSS para o modal */
+        /* CSS para o modal */
         .modal {
             display: none;
             position: fixed;
@@ -74,7 +64,6 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            
         }
 
         #title {
@@ -139,15 +128,19 @@
             padding: 0px 0px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 50%;
             font-size: 12px;
+            width: 18px;
+            height: 18px;
             position: absolute;
             right: 10px;
             top: 50%;
             transform: translateY(-50%);
         }
-		
-		#duplicateList {
+
+        #duplicateList {
             list-style-type: none;
             padding: 0;
             margin-top: 5px; /* Espaçamento superior para separar da lista principal */
@@ -181,8 +174,7 @@
             cursor: pointer;
             font-size: 16px;
         }
-		
-        </style>
+    </style>
 </head>
 <body>
 
@@ -303,6 +295,19 @@ function extractNumbers() {
             };
             li.appendChild(button2);
 
+            var deleteButton = document.createElement('button');
+            deleteButton.textContent = 'X';
+            deleteButton.className = 'botaoexcluir';
+            deleteButton.onclick = function() {
+                li.remove();
+                validNumbers = validNumbers.filter(function(n) {
+                    return n !== number;
+                });
+                updateCount();
+                toggleButtons();
+            };
+            li.appendChild(deleteButton);
+
             resultUl.appendChild(li);
             count++;
         });
@@ -314,8 +319,7 @@ function extractNumbers() {
             duplicateList.appendChild(li);
         });
 
-        var countElement = document.getElementById('count');
-        countElement.textContent = "Total de processos encontrados: " + count;
+        updateCount();
 
         var duplicateMsg = document.getElementById('duplicateMsg');
         if (duplicateNumbers.length > 0) {
@@ -393,6 +397,12 @@ function openModal() {
 function closeModal() {
     var modal = document.getElementById("myModal");
     modal.style.display = "none";
+}
+
+// Função para atualizar o contador de processos
+function updateCount() {
+    var countElement = document.getElementById('count');
+    countElement.textContent = "Total de processos encontrados: " + validNumbers.length;
 }
 </script>
 
