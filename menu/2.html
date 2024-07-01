@@ -2,14 +2,13 @@
 <html lang="pt-br">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYY5ELR3B3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HYY5ELR3B3');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYY5ELR3B3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HYY5ELR3B3');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesquisar Advogado</title>
@@ -138,12 +137,15 @@
         }
         
         #openAllButton, #copyButton {
-            display: none;
-            margin: 0 5px;
-            background-color: #007bff;
+			display: none;
+            margin: 0 2px;
+            padding: 2px 7px;
+            cursor: pointer;
             border: none;
-            border-radius: 5px;
+            background-color: #007bff;
             color: #fff;
+            border-radius: 5px;
+            font-size: 15px;
         }
 
         #openAllButton:hover, #copyButton:hover {
@@ -188,8 +190,8 @@
     <ul id="result"></ul>
     <p id="count"></p>
     <div id="buttonContainer">
-        <button id="copyButton" onclick="copyNumbers()">Copiar Números</button>
-        <button id="openAllButton" onclick="openAllLinks()">Abrir Todos</button>
+        <button id="copyButton" onclick="copyNumbers()">Copiar <br>Números</button>
+        <button id="openAllButton" onclick="openAllLinks()">Abrir <br>Todos</button>
     </div>
     <p id="developer">Desenvolvido por Jacson Costa Neves</p>
 </div>
