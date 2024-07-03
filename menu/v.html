@@ -156,7 +156,7 @@
         .info-container {
             text-align: left;
             margin-top: 20px;
-            width: 78%; /* Ajustado para 80% */
+            width: 78%; /* Mesma largura do container principal */
             margin: 0 auto; /* Centraliza horizontalmente */
             border: 2px solid #171717;
             border-radius: 10px;
@@ -170,7 +170,14 @@
         }
 
         .info-container ul {
-			padding-left: 20px;
+            padding-left: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            
+            color: #666;
         }
     </style>
 </head>
@@ -188,15 +195,17 @@
     <input type="file" id="inputFile" accept=".xls,.xlsx" onchange="handleFileSelect(event)">
 </div>
 
-<div class="table-container">
+<div class="table-container" id="tableContainer" style="display: none;">
     <div id="tabelaResultado">
         <!-- Tabela resultante será inserida aqui -->
     </div>
 </div>
 
-<div class="info-container" id="informacoesGerais" style="display:none;">
+<div class="info-container" id="informacoesGerais" style="display: none;">
     <!-- Informações gerais serão inseridas aqui -->
 </div>
+
+<footer>Desenvolvido por Jacson Costa Neves</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 <script>
@@ -283,7 +292,8 @@ function processarArquivo() {
                 }
             }
 
-            if (!processosMesclados.hasOwnProperty(processo)) {
+            // Lógica para mesclar células de número de processo
+            if (!processosMesclados[processo]) {
                 processosMesclados[processo] = {
                     start: i,
                     count: numeroProcessoLinha[processo].length
@@ -366,6 +376,11 @@ function handleFileSelect(event) {
     document.getElementById('fileLabel').textContent = inputFile.name;
 
     processarArquivo();
+
+    // Mostrar os containers após o processamento do arquivo
+    document.getElementById('fileContainer').style.display = 'none';
+    document.getElementById('tableContainer').style.display = 'block';
+    document.getElementById('informacoesGerais').style.display = 'block';
 }
 
 </script>
