@@ -176,7 +176,6 @@
         footer {
             text-align: center;
             margin-top: 20px;
-            
             color: #666;
         }
     </style>
@@ -277,7 +276,7 @@ function processarArquivo() {
                 if (parte && parte !== 'undefined' && parte !== 'Procurador') {
                     for (var j = 0; j < jsonData.length; j++) {
                         if (j !== i && jsonData[j][2] === parte) {
-                            nomesDuplicados.push(processo);
+                            nomesDuplicados.push(parte);
                             break;
                         }
                     }
@@ -292,7 +291,7 @@ function processarArquivo() {
                 }
             }
 
-            // Lógica para mesclar células de número de processo
+                        // Lógica para mesclar células de número de processo
             if (!processosMesclados[processo]) {
                 processosMesclados[processo] = {
                     start: i,
@@ -337,12 +336,14 @@ function processarArquivo() {
         }
         infoGeralHTML += '</ul>';
 
-        infoGeralHTML += '<p><strong>Ocorrências por procurador:</strong></p>';
+        infoGeralHTML += '<p><strong>Ocorrências por procurador (ordem alfabética):</strong></p>';
         infoGeralHTML += '<ul>';
-        for (var procurador in procuradores) {
+        Object.keys(procuradores).sort().forEach(function(procurador) {
             infoGeralHTML += '<li>' + procurador + ': ' + procuradores[procurador] + '</li>';
-        }
+        });
         infoGeralHTML += '</ul>';
+
+      
 
         infoGeralHTML += '</div>';
 
@@ -359,14 +360,20 @@ function destacarDuplicatas() {
     var rows = table.rows;
 
     var seen = {}; // Objeto para controlar duplicatas
+
     for (var i = 5; i < rows.length - 1; i++) { // Começa do 5 para pular o cabeçalho e rodapé fixos
         var parteCell = rows[i].querySelector('.col3'); // Seleciona a célula da coluna 'Nome da Parte'
         var parte = parteCell.textContent.trim(); // Obtém o texto da célula
 
-        if (parte !== '' && seen[parte]) { // Se a parte já foi vista e não é vazia
-            parteCell.classList.add('duplicate'); // Adiciona classe para destacar
-        } else {
-            seen[parte] = true; // Marca como vista pela primeira vez
+        if (parte !== '') {
+            // Verifica se é o primeiro nome da ocorrência de duplicidade
+            if (seen[parte] === undefined) { // Se ainda não foi visto
+                seen[parte] = i; // Marca a linha onde foi visto pela primeira vez
+            } else {
+                // Já foi visto antes, então marca a classe duplicate no primeiro visto
+                rows[seen[parte]].querySelector('.col3').classList.add('duplicate');
+                parteCell.classList.add('duplicate');
+            }
         }
     }
 }
@@ -382,7 +389,6 @@ function handleFileSelect(event) {
     document.getElementById('tableContainer').style.display = 'block';
     document.getElementById('informacoesGerais').style.display = 'block';
 }
-
 </script>
 </body>
 </html>
