@@ -56,7 +56,7 @@
     i.d(e, "a", (function() {
         return r
     }));
-    const r = "https://k-ext.pages.dev/"
+    const r = ""
 }, , function(t, e, i) {
     "use strict";
     i.r(e);
