@@ -169,13 +169,6 @@
 </div>
 <br>
 
-<!-- Novo conteúdo que será exibido após cinco cliques na logo -->
-<div id="newContent" hidden>
-    <canvas id="canvas" width="960" height="960"></canvas>
-    <script src="./game/app.js"></script>
-    <div id="ads"></div>
-    
-</div>
 
 <script>
     // Função para exibir/ocultar o menu suspenso
@@ -183,18 +176,6 @@
         var dropdown = document.getElementById("dropdown");
         dropdown.classList.toggle('active');
     }
-
-    // Contador de cliques na logo
-    let clickCount = 0;
-    const text = document.getElementById('text');
-    const newContent = document.getElementById('newContent');
-
-    text.addEventListener('click', () => {
-        clickCount++;
-        if (clickCount >= 5) {
-            newContent.hidden = false; // Exibe o novo conteúdo
-        }
-    });
 </script>
 
 </body>
