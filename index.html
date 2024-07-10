@@ -15,9 +15,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Como posso ajudá-lo hoje?</title>
 <link rel="icon" href="./img/logo.png">
+<!-- Link para a fonte do Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Roboto', Arial, sans-serif;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -121,15 +123,15 @@
     .dropdown-content a:hover {
         background-color: #f0f0f0;
     }
-	
-	#canvas {
-		margin: 1px;
-		display: block;
-		height: 400px;
-		margin-bottom: 0;
-		border: 3px solid #585858; /* Altera a cor de fundo para cinza */
-		background: #fff; /* Define o fundo do canvas como branco */
-	}
+    
+    #canvas {
+        margin: 1px;
+        display: block;
+        height: 400px;
+        margin-bottom: 0;
+        border: 3px solid #585858; /* Altera a cor de fundo para cinza */
+        background: #fff; /* Define o fundo do canvas como branco */
+    }
 </style>
 </head>
 <body>
@@ -139,10 +141,10 @@
         <img id="logo" src="./img/logo.png" alt="J" class="pulse">
     </a> 
     <h1 id="text">Como posso te ajudar?</h1>
-	<button id="Extrair" onclick="window.open('./menu/1', '_self')">Extrair Números de Processo</button>  
-	<button id="Pesquisar" onclick="window.open('./menu/2', '_self')">Pesquisar Advogado</button>
-	<br><button id="extensao" onclick="window.open('./menu/e', '_self')">Instale Extensão Google</button>
-	<button id="Distribuição" onclick="window.open('./menu/v', '_self')">Processamento Distribuição</button>	
+    <button id="Extrair" onclick="window.open('./menu/1', '_self')">Extrair Números de Processo</button>  
+    <button id="Pesquisar" onclick="window.open('./menu/2', '_self')">Pesquisar Advogado</button>
+    <br><button id="extensao" onclick="window.open('./menu/e', '_self')">Instale Extensão Google</button>
+    <button id="Distribuição" onclick="window.open('./menu/v', '_self')">Processamento Distribuição</button>    
 </div>
 
 <!-- Botão de interrogação com menu suspenso -->
@@ -161,7 +163,7 @@
     <canvas id="canvas" width="960" height="960"></canvas>
     <script src="./game/app.js"></script>
     <div id="ads"></div>
-	
+    
 </div>
 
 <script>
