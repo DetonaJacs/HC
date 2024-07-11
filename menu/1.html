@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <!-- Google tag (gtag.js) -->
@@ -13,7 +13,7 @@
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Extrair Números de Processo</title>
-<link rel="icon" href="../img/logo.png">
+	<link rel="icon" href="../img/logo.png">
     <style>
         /* CSS para o modal */
         .modal {
@@ -371,9 +371,17 @@ function resetForm() {
 // Função para copiar números de processo
 function copyNumbers() {
     var numbersText = validNumbers.join('\n');
-    navigator.clipboard.writeText(numbersText);
-    alert("Números copiados para a área de transferência!");
+    
+    // Copiar os números para a área de transferência
+    navigator.clipboard.writeText(numbersText).then(function() {
+        // Exibir o alerta após a cópia ser concluída
+        alert("Números copiados para a área de transferência!");
+    }).catch(function(error) {
+        // Lidar com qualquer erro que possa ocorrer durante a cópia
+        console.error('Erro ao copiar para a área de transferência: ', error);
+    });
 }
+
 
 // Função para abrir todos os links TJMG
 function openAllTJMG() {
