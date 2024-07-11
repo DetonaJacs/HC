@@ -334,14 +334,19 @@
         }
     });
 
-    function copyNumbers() {
-        var resultItems = document.getElementById('result').getElementsByTagName('button');
-        var numbersText = Array.from(resultItems).map(function(item) {
-            return item.textContent;
-        }).join('\n');
-        navigator.clipboard.writeText(numbersText);
+    // Função para copiar números de processo
+function copyNumbers() {
+    var numbersText = validNumbers.join('\n');
+    
+    // Copiar os números para a área de transferência
+    navigator.clipboard.writeText(numbersText).then(function() {
+        // Exibir o alerta após a cópia ser concluída
         alert("Números copiados para a área de transferência!");
-    }
+    }).catch(function(error) {
+        // Lidar com qualquer erro que possa ocorrer durante a cópia
+        console.error('Erro ao copiar para a área de transferência: ', error);
+    });
+}
 </script>
 </body>
 </html>
