@@ -11,13 +11,14 @@
   gtag('config', 'G-DQED1910EF');
 </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5578483282621835"
-     crossorigin="anonymous"></script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Como posso ajudá-lo hoje?</title>
 <link rel="icon" href="./img/logo.png">
+
+<!-- Estilos padrão -->
+<link rel="stylesheet" href="styles/default.css" id="themeStylesheet">
+
 <style>
     @font-face {
         font-family: 'Roboto';
@@ -85,7 +86,7 @@
     }
 
     #logo {
-        width: 50px; /* Largura da imagem */
+        width: 80px; /* Largura da imagem */
         height: auto; /* Altura ajustada automaticamente de acordo com a largura */
         margin-bottom: 20px; /* Espaçamento abaixo da imagem */
     }
@@ -146,7 +147,51 @@
         border: 3px solid #585858; /* Altera a cor de fundo para cinza */
         background: #fff; /* Define o fundo do canvas como branco */
     }
+    
+    /* Estilos para o botão de tema e menu suspenso de temas */
+    .theme-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+    }
+
+    .theme-button .dropbtn {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+    .theme-button .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+        padding: 10px 10px;
+        z-index: 1;
+        right: 0;
+    }
+
+    .theme-button.active .dropdown-content {
+        display: block;
+    }
+
+    .theme-button .dropdown-content a {
+        display: block;
+        padding: 10px 0;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .theme-button .dropdown-content a:hover {
+        background-color: #f0f0f0;
+    }
 </style>
+
 </head>
 <body>
 
@@ -154,8 +199,8 @@
     <a href="./index.html">
         <img id="logo" src="./img/logo.png" alt="J" class="pulse">
     </a> 
-    <h1 id="text">Como posso te ajudar?</h1>
-    <button id="Extrair" onclick="window.open('./menu/1', '_self')">Extrair Números de Processo</button>  
+	<h1 id="text" class="theme-text"></h1>    
+	<button id="Extrair" onclick="window.open('./menu/1', '_self')">Extrair Números de Processo</button>  
     <button id="Pesquisar" onclick="window.open('./menu/2', '_self')">Pesquisar Advogado</button>
     <br><button id="extensao" onclick="window.open('./menu/e', '_self')">Instale Extensão Google</button>
     <button id="Distribuição" onclick="window.open('./menu/v', '_self')">Processamento Distribuição</button>    
@@ -170,15 +215,62 @@
         <!-- Adicione mais links conforme necessário -->
     </div>
 </div>
-<br>
 
+<!-- Botão para exibir temas -->
+<div class="theme-button" id="theme-button">
+    <button onclick="toggleThemeOptions()" class="dropbtn">Temas</button>
+    <div id="theme-options" class="dropdown-content">
+        <a href="#" onclick="setTheme('default')">Padrão</a>
+        <a href="#" onclick="setTheme('starwars')">Star Wars</a>
+		<a href="#" onclick="setTheme('paz')">Paz</a>
+		<a href="#" onclick="setTheme('starwars')">Star Wars</a>
+        <!-- Adicione mais temas conforme necessário -->
+    </div>
+</div>
 
 <script>
-    // Função para exibir/ocultar o menu suspenso
-    function toggleDropdown() {
-        var dropdown = document.getElementById("dropdown");
-        dropdown.classList.toggle('active');
+   // Função para definir o tema
+function setTheme(themeName) {
+    // Altera o href do link de estilo para o CSS correspondente ao tema escolhido
+    document.getElementById('themeStylesheet').setAttribute('href', './styles/' + themeName + '.css');
+
+    // Salva o tema selecionado no localStorage
+    localStorage.setItem('selectedTheme', themeName);
+
+    // Recarrega o texto do h1 após a troca de tema
+    var textElement = document.getElementById('text');
+    textElement.style.display = 'none'; // Esconde o texto
+    setTimeout(function() {
+        textElement.style.display = 'block'; // Mostra o texto novamente
+        textElement.textContent = ''; // Atualiza o conteúdo do texto
+    }, 0);
+
+    // Fecha o menu suspenso de temas
+    var themeButton = document.getElementById("theme-button");
+    themeButton.classList.remove('active');
+}
+
+
+// Função para carregar o tema salvo no localStorage ao carregar a página
+window.onload = function() {
+    var savedTheme = localStorage.getItem('selectedTheme');
+    if (savedTheme) {
+        setTheme(savedTheme);
     }
+}
+
+// Função para exibir/ocultar o menu suspenso
+function toggleDropdown() {
+    var dropdown = document.getElementById("dropdown");
+    dropdown.classList.toggle('active');
+}
+
+// Função para exibir/ocultar opções de temas
+function toggleThemeOptions() {
+    var themeButton = document.getElementById("theme-button");
+    themeButton.classList.toggle('active');
+}
+
 </script>
 
 </body>
