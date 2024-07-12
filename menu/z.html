@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Processamento de Arquivo Processos na caixa de Distribuição</title>
+  <link rel="icon" href="../img/logo.png">
+  <style>
+    #logo {
+      width: 50px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .titulo {
+      text-align: center;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+
+    .table-container {
+      height: 500px;
+      background-color: #fff;
+      overflow-y: auto;
+      position: relative;
+      border: 2px solid #171717;
+      border-radius: 10px;
+      width: 80%;
+      margin: 0 auto 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      border: 2px solid #ccc;
+    }
+
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      position: relative;
+    }
+
+    th.bold {
+      font-weight: bold;
+    }
+
+    .sort-buttons {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .sort-buttons button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 0;
+      margin: 2px 0;
+    }
+
+    form {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .col1 { width: 150px; }
+    .col2 { width: 300px; }
+    .col3 { width: 450px; }
+    .col4 { width: 100px; }
+    .col5 { width: 60px; }
+    .col6 { width: 100px; }
+    .col7 { width: 100px; }
+    .col8 { width: 200px; }
+    .col9 { width: 40px; }
+    .col10 { width: 40px; }
+    .col11 { width: 100px; }
+    .col12 { width: 200px; }
+    .col13 { width: 40px; }
+    .col14 { width: 60px; }
+    .duplicate {
+      background-color: #ffcccc;
+    }
+
+    .sticky-top {
+      position: sticky;
+      top: 0;
+      background: #ccc;
+      z-index: 10;
+      border: 2px solid #ccc;
+      color: #333;
+    }
+
+    .sticky-bottom {
+      position: sticky;
+      bottom: 0;
+      background: #ccc;
+      z-index: 10;
+      border: 2px solid #ccc;
+    }
+
+    .file-container {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      background-color: #eaeaea;
+      position: relative;
+      border: 2px dashed #999;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      width: 78%; /* Ajuste para o tamanho desejado */
+      margin: 0 auto; /* Centraliza horizontalmente */
+    }
+
+    .file-container:hover {
+      background-color: #d9fbe5;
+    }
+
+    #fileLabel {
+      font-size: 16px;
+    }
+
+    #inputFile {
+      display: none;
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-container img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .info-container {
+      text-align: left;
+      margin-top: 20px;
+      width: 78%; /* Mesma largura do container principal */
+      margin: 0 auto; /* Centraliza horizontalmente */
+      border: 2px solid #171717;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .info-container h2 {
+      text-align: center;
+      margin-bottom: 0px;
+    }
+
+    .info-container ul {
+      padding-left: 20px;
+    }
+
+    .info-columns {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .info-column {
+      flex: 1;
+      padding: 10px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+<div class="logo-container">
+  <a href="../index">
+    <img id="logo" src="../img/logo.png" alt="J">
+  </a>
+</div>
+
+<h1 class="titulo">Processamento de Arquivo <br> Processos na caixa de Distribuição</h1>
+
+<div class="file-container" id="fileContainer" title="Permite inserir e processar arquivo em formato XLS do Relatório de Processos na Caixa de Distribuição (SCPJ - Relatórios - Processos na caixa de distribuição). Os nomes das partes repetidos aparecem em destaque vermelho. Resume a quantidade de ocorrências gerais e por procurador." onclick="document.getElementById('inputFile').click();">
+  <label for="inputFile" id="fileLabel">Clique para selecionar o arquivo XLS</label>
+  <input type="file" id="inputFile" accept=".xls,.xlsx" onchange="handleFileSelect(event)">
+</div>
+
+<div class="table-container" id="tableContainer" style="display: none;">
+  <h2 class="titulo">Tabela de Processos</h2>
+  <div id="tabelaResultado">
+    <!-- Tabela resultante será inserida aqui -->
+  </div>
+</div>
+
+<div id="informacoesGerais" style="display: none;">
+  <!-- Informações gerais serão inseridas aqui -->
+</div>
+
+<footer>Desenvolvido por Jacson Costa Neves</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+<script>
+function processarArquivo() {
+  var inputFile = document.getElementById('inputFile').files[0];
+
+  if (!inputFile) {
+    alert('Por favor, selecione um arquivo.');
+    return;
+  }
+
+  var reader = new FileReader();
+  reader.onload = function(event) {
+    var data = new Uint8Array(event.target.result);
+    var workbook = XLSX.read(data, { type: 'array' });
+
+    var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+    var jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+
+    var tabelaHTML = '<table>';
+
+    var ocorrencias = {
+      'DEPENDÊNCIA': 0,
+      'DILIGÊNCIA': 0,
+      'PREVENÇÃO': 0,
+      'RODÍZIO O.G.': 0
+    };
+
+    var nomesDuplicados = [];
+    var procuradores = {};
+
+    var processosMesclados = {};
+    var numeroProcessoLinha = {};
+
+    // Estrutura para armazenar ocorrências únicas por número de processo
+    var ocorrenciasPorProcesso = {};
+
+    for (var i = 0; i < jsonData.length; i++) {
+      var processo = jsonData[i][1];
+      if (!numeroProcessoLinha[processo]) {
+        numeroProcessoLinha[processo] = [];
+      }
+      numeroProcessoLinha[processo].push(i);
+    }
+
+    for (var processo in numeroProcessoLinha) {
+      var linhaPrincipal = numeroProcessoLinha[processo][0];
+      var linhasMesclar = numeroProcessoLinha[processo];
+
+      var linhaMesclada = new Array(14).fill("");
+      linhaMesclada[1] = processo;
+
+      linhasMesclar.forEach(function(linha) {
+        for (var col = 0; col < jsonData[linha].length; col++) {
+          if (col != 2 && col != 3) {
+            if (!linhaMesclada[col]) {
+              linhaMesclada[col] = jsonData[linha][col];
+            } else {
+              linhaMesclada[col] += " " + jsonData[linha][col];
+            }
+          }
+        }
+      });
+
+      processosMesclados[processo] = linhaMesclada;
+    }
+
+    tabelaHTML += '<tr class="sticky-top">';
+    for (var j = 0; j < jsonData[0].length; j++) {
+      tabelaHTML += '<th class="bold col' + (j + 1) + '">' + jsonData[0][j];
+      tabelaHTML += '<span class="sort-buttons">';
+      tabelaHTML += '<button onclick="sortTable(' + j + ', true)">&#9650;</button>';
+      tabelaHTML += '<button onclick="sortTable(' + j + ', false)">&#9660;</button>';
+      tabelaHTML += '</span></th>';
+    }
+    tabelaHTML += '</tr>';
+
+    for (var processo in processosMesclados) {
+      tabelaHTML += '<tr>';
+
+      var linhaMesclada = processosMesclados[processo];
+
+      for (var j = 0; j < linhaMesclada.length; j++) {
+        if (nomesDuplicados.includes(linhaMesclada[2]) && j == 2) {
+          tabelaHTML += '<td class="col' + (j + 1) + ' duplicate">' + linhaMesclada[j] + '</td>';
+        } else {
+          tabelaHTML += '<td class="col' + (j + 1) + '">' + linhaMesclada[j] + '</td>';
+        }
+      }
+
+      var tipo = linhaMesclada[10];
+      var parte = linhaMesclada[2];
+      var procurador = linhaMesclada[11];
+
+      if (ocorrencias.hasOwnProperty(tipo)) {
+        ocorrencias[tipo]++;
+      }
+
+      if (!ocorrenciasPorProcesso[processo]) {
+        ocorrenciasPorProcesso[processo] = {};
+      }
+      if (!ocorrenciasPorProcesso[processo][tipo]) {
+        ocorrenciasPorProcesso[processo][tipo] = true;
+        if (ocorrencias[tipo] !== undefined) {
+          ocorrencias[tipo]++;
+        }
+      }
+
+      if (!nomesDuplicados.includes(parte) && jsonData.filter(row => row[2] === parte).length > 1) {
+        nomesDuplicados.push(parte);
+      }
+
+      if (procurador && procurador !== "Procurador") {
+        if (!procuradores[procurador]) {
+          procuradores[procurador] = new Set();
+        }
+        procuradores[procurador].add(processo + '-' + tipo);
+      }
+
+      tabelaHTML += '</tr>';
+    }
+
+    tabelaHTML += '</table>';
+
+    document.getElementById('tabelaResultado').innerHTML = tabelaHTML;
+    document.getElementById('tableContainer').style.display = 'block';
+
+    var informacoesGeraisHTML = '<div class="info-container">';
+    informacoesGeraisHTML += '<h2>Informações Gerais</h2>';
+    informacoesGeraisHTML += '<div class="info-columns">';
+    informacoesGeraisHTML += '<div class="info-column">';
+
+    informacoesGeraisHTML += '<h3>Ocorrências por tipo:</h3><ul>';
+    for (var tipo in ocorrencias) {
+      informacoesGeraisHTML += '<li>' + tipo + ': ' + ocorrencias[tipo] + '</li>';
+    }
+    informacoesGeraisHTML += '</ul>';
+
+    informacoesGeraisHTML += '</div>';
+    informacoesGeraisHTML += '<div class="info-column">';
+
+    informacoesGeraisHTML += '<h3>Ocorrências por procurador:</h3><ul>';
+    for (var procurador in procuradores) {
+      if (procurador && procurador !== "Procurador") {
+        informacoesGeraisHTML += '<li>' + procurador + ': ' + procuradores[procurador].size + '</li>';
+      }
+    }
+    informacoesGeraisHTML += '</ul>';
+
+    informacoesGeraisHTML += '</div>';
+    informacoesGeraisHTML += '<div class="info-column">';
+
+    informacoesGeraisHTML += '<h3>Nomes marcados com destaque:</h3><ul>';
+    nomesDuplicados.forEach(function(nome) {
+      informacoesGeraisHTML += '<li>' + nome + '</li>';
+    });
+    informacoesGeraisHTML += '</ul>';
+
+    informacoesGeraisHTML += '</div>';
+    informacoesGeraisHTML += '</div>';
+    informacoesGeraisHTML += '</div>';
+
+    document.getElementById('informacoesGerais').innerHTML = informacoesGeraisHTML;
+    document.getElementById('informacoesGerais').style.display = 'block';
+  };
+
+  reader.readAsArrayBuffer(inputFile);
+}
+
+function handleFileSelect(event) {
+  var file = event.target.files[0];
+  if (file) {
+    document.getElementById('fileLabel').textContent = file.name;
+    processarArquivo();
+  }
+}
+
+document.getElementById('fileContainer').addEventListener('dragover', function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  event.dataTransfer.dropEffect = 'copy';
+});
+
+document.getElementById('fileContainer').addEventListener('drop', function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  var files = event.dataTransfer.files;
+  if (files.length > 0) {
+    document.getElementById('inputFile').files = files;
+    document.getElementById('fileLabel').textContent = files[0].name;
+    processarArquivo();
+  }
+});
+</script>
+</body>
+</html>

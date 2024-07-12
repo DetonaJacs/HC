@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+   <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DQED1910EF');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar Advogado</title>
+    <link rel="icon" href="../img/logo.png">
+    <style>
+        /* Estilos CSS */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative; /* Importante para o posicionamento absoluto do ícone */
+        }
+
+        #title {
+            margin-top: 10px;
+            color: black;
+            margin: 10px 0;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #result {
+            max-height: 210px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        #developer {
+            color: #888;
+            font-size: smaller;
+        }
+
+        #returnButton {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #logo {
+            width: 50px; /* Largura da imagem */
+            height: auto; /* Altura ajustada automaticamente de acordo com a largura */
+            margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+        }
+
+        #infoIcon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background-color: #c4302b;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-weight: bold;
+            cursor: help; /* Mudar o cursor para um ponto de interrogação */
+            color: #fff;
+            font-size: 14px;
+        }
+
+        /* CSS para o modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        #resetButton {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        #openAllButton, #copyButton {
+			display: none;
+            margin: 0 2px;
+            padding: 2px 7px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        #openAllButton:hover, #copyButton:hover {
+            background-color: #0056b3;
+        }
+
+        #buttonContainer {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <!-- Botão de explicação -->
+    <div id="infoIcon" onclick="openModal()">▹</div>
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p style="text-align: justify;">
+                Permite extrair números de processos de um campo de texto. Serão exibidos em lista e clicando em cada poderá obter informações sobre as partes e advogados substabelecidos nos autos.
+                Com a possibilidade de colar o LOG da Distribuição (Processos 2ª Instância), retornará a informação de processos separados por Procuradores que irão receber os autos.
+            </p>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <video width="560" height="315" controls>
+                    <source src="../video/Advogado.mp4" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+            </div>
+        </div>
+    </div>
+    <a href="../index">
+        <img id="logo" src="../img/logo.png" alt="J">
+    </a>
+    <h1 id="title">Pesquisar Advogado</h1>
+    <h2>Cole aqui:</h2>
+    <textarea id="processList" rows="10" cols="50"></textarea><br>
+    <button onclick="extractProcesses()">Extrair Números</button>
+    <button id="resetButton" onclick="resetForm()">↺</button>
+    <ul id="result"></ul>
+    <p id="count"></p>
+    <div id="buttonContainer">
+        <button id="copyButton" onclick="copyNumbers()">Copiar <br>Números</button>
+        <button id="openAllButton" onclick="openAllLinks()">Abrir <br>Todos</button>
+    </div>
+    <p id="developer">Desenvolvido por Jacson Costa Neves</p>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            // Recuperar o nome do tema do localStorage
+            var themeName = localStorage.getItem('selectedTheme');
+            
+            // Verificar se o tema está definido e se corresponde a um arquivo CSS existente
+            if (themeName && themeName !== '') {
+                var themeCSS = '../styles/' + themeName + '.css'; // Caminho para o arquivo CSS do tema
+                var linkElement = document.createElement('link');
+                linkElement.setAttribute('rel', 'stylesheet');
+                linkElement.setAttribute('href', themeCSS);
+                document.head.appendChild(linkElement);
+            }
+        });
+		
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("infoIcon").addEventListener("click", openModal);
+        document.getElementById("myModal").querySelector(".close").addEventListener("click", closeModal);
+
+        function openModal() {
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        window.extractProcesses = function() {
+            var processList = document.getElementById('processList').value.replace(/(\r\n|\n|\r)/gm, '');
+            processList = processList.replace(/PULOU.*?(\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3})\b/g, '$1');
+            processList = processList.replace(/COMPLETOU.*?(\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3})\b/g, '$1');
+
+            var startIndex = processList.indexOf("Entregando documentos Encaminhados");
+            if (startIndex === -1) {
+                searchForProcesses(); 
+                return;
+            }
+
+            processList = processList.substring(startIndex);
+            var processes = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3} - (RP\s+)?HABEAS CORPUS - (CIVEL|CRIMINAL)(?:\s+RP)? -> ([A-Za-z\s]+)/g);
+            var processByProcurador = {};
+            if (processes !== null) {
+                processes.forEach(function(process) {
+                    var procuradorMatch = process.match(/->\s+([A-Za-z\s]+)/);
+                    if (procuradorMatch) {
+                        var procurador = procuradorMatch[1].trim().replace(/\b(?:DILIG|DEPEND|PREVEN)\b/g, "").trim();
+                        var numeroProcesso = process.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b/)[0];
+                        if (!processByProcurador[procurador]) {
+                            processByProcurador[procurador] = [];
+                        }
+                        processByProcurador[procurador].push(numeroProcesso);
+                    }
+                });
+
+                var resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '';
+                var select = document.createElement('select');
+                var optionDefault = new Option('Selecione um procurador', '');
+                select.add(optionDefault);
+                var procuradoresOrdenados = Object.keys(processByProcurador).sort();
+                procuradoresOrdenados.forEach(function(procurador) {
+                    var option = new Option(procurador + ' - ' + processByProcurador[procurador].length + ' processo(s)', procurador);
+                    select.add(option);
+                });
+
+                select.onchange = function() {
+                    var procuradorSelecionado = select.value;
+                    var procuradorProcesses = processByProcurador[procuradorSelecionado];
+                    var resultUl = document.createElement('ul');
+                    var links = [];
+
+                    procuradorProcesses.forEach(function(numeroProcesso) {
+                        var li = document.createElement('li');
+                        var button = document.createElement('button');
+                        button.textContent = numeroProcesso;
+                        button.onclick = function() {
+                            window.open("https://www4.tjmg.jus.br/juridico/sf/proc_partes_advogados2.jsp?listaProcessos=" + numeroProcesso.replace(/\D/g,''));
+                        };
+                        links.push("https://www4.tjmg.jus.br/juridico/sf/proc_partes_advogados2.jsp?listaProcessos=" + numeroProcesso.replace(/\D/g,''));
+                        li.appendChild(button);
+                        resultUl.appendChild(li);
+                    });
+
+                    resultDiv.innerHTML = '';
+                    resultDiv.appendChild(resultUl);
+                    document.getElementById('count').textContent = "Total de processos encontrados para " + procuradorSelecionado + ": " + procuradorProcesses.length;
+                    document.getElementById('openAllButton').style.display = 'block';
+                    document.getElementById('copyButton').style.display = 'block'; // Mostra o botão 'Copiar Números'
+                    document.getElementById('openAllButton').onclick = function() {
+                        links.forEach(function(link) {
+                            window.open(link);
+                        });
+                    };
+
+                    document.getElementById('copyButton').onclick = function() {
+                        var numbersText = procuradorProcesses.join('\n');
+                        navigator.clipboard.writeText(numbersText);
+                        alert("Números copiados para a área de transferência!");
+                    };
+                };
+
+                resultDiv.appendChild(select);
+            } else {
+                var resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '';
+                var p = document.createElement('p');
+                p.textContent = 'Nenhum processo encontrado no formato adequado.';
+                resultDiv.appendChild(p);
+            }
+        }
+
+        window.searchForProcesses = function() {
+            var processList = document.getElementById('processList').value;
+            var processMatches = processList.match(/(?:\b|^)(\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}|\d{1}\.\d{4}\.\d{2}\.\d{6}-\d{1}\/\d{3}|\d{17})(?:\b|$)/g);
+            if (processMatches !== null) {
+                var resultUl = document.getElementById('result');
+                resultUl.innerHTML = '';
+                var links = [];
+
+                processMatches.forEach(function(numeroProcesso) {
+                    var li = document.createElement('li');
+                    var button = document.createElement('button');
+                    button.textContent = numeroProcesso;
+                    button.onclick = function() {
+                        window.open("https://www4.tjmg.jus.br/juridico/sf/proc_partes_advogados2.jsp?listaProcessos=" + numeroProcesso.replace(/\D/g,''));
+                    };
+                    links.push("https://www4.tjmg.jus.br/juridico/sf/proc_partes_advogados2.jsp?listaProcessos=" + numeroProcesso.replace(/\D/g,''));
+                    li.appendChild(button);
+                    resultUl.appendChild(li);
+                });
+
+                document.getElementById('openAllButton').style.display = 'block';
+                document.getElementById('copyButton').style.display = 'none';
+                document.getElementById('openAllButton').onclick = function() {
+                    links.forEach(function(link) {
+                        window.open(link);
+                    });
+                };
+            } else {
+                alert("Nenhum número de processo encontrado no formato adequado.");
+            }
+        }
+
+        window.resetForm = function() {
+            document.getElementById('processList').value = '';
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('count').textContent = '';
+            document.getElementById('copyButton').style.display = 'none';
+            document.getElementById('openAllButton').style.display = 'none';
+        }
+    });
+
+    // Função para copiar números de processo
+function copyNumbers() {
+    var numbersText = validNumbers.join('\n');
+    
+    // Copiar os números para a área de transferência
+    navigator.clipboard.writeText(numbersText).then(function() {
+        // Exibir o alerta após a cópia ser concluída
+        alert("Números copiados para a área de transferência!");
+    }).catch(function(error) {
+        // Lidar com qualquer erro que possa ocorrer durante a cópia
+        console.error('Erro ao copiar para a área de transferência: ', error);
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DQED1910EF');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extensão Google</title>
+<link rel="icon" href="../img/logo.png">
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+#container {
+    width: 600px; /* Largura fixa */
+    margin-top: 5vh; /* Margem superior para centralização vertical */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow-y: auto; /* Adicionando rolagem vertical */
+}
+
+.maintenance-message {
+    margin-top: 10px; /* Adicionando margem ao conteúdo interno */
+    margin-bottom: 10px; /* Adicionando margem ao conteúdo interno */
+}
+
+
+
+
+
+    #title {
+        margin-top: 10;
+        color: black;
+		margin: 10px 0;
+    }
+
+    h2 {
+        font-size: 15px;
+        margin-top: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #result {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin: 10px 0;
+		text-align: justify;
+    }
+
+    #developer {
+        color: #888;
+        font-size: smaller;
+    }
+
+    #returnButton {
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        margin: 0 2px;
+        padding: 10px 15px; /* Aumentando o padding para torná-los maiores */
+        cursor: pointer;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 14px; /* Aumentando o tamanho da fonte */
+    }
+	
+	#logo {
+        width: 50px; /* Largura da imagem */
+        height: auto; /* Altura ajustada automaticamente de acordo com a largura */
+        margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+    }
+
+    /* Estilo para a dica de ferramenta */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+</head>
+<body>
+
+
+<div id="container">
+	<a href="../index">
+        <img id="logo" src="../img/logo.png" alt="J">
+    </a>
+    <div class="maintenance-message">
+         <h1>Nome da Extensão: Busca de Processos</h1>
+    <div class="tooltip"> <!-- Div para o botão com dica de ferramenta -->
+        <a href="https://chromewebstore.google.com/detail/busca-de-processos/ekhaiapibhbbnnfnmbjhhfdgdinlhcbl?hl=pt-BR&authuser=0" target="_blank">
+            <button id="downloadButton" class="btn">Acessar Web Store</button>
+        </a>
+    </div>
+        <p><strong>Descrição:</strong><br>
+A extensão Busca de Processos é uma ferramenta útil para profissionais interessados em acessar rapidamente informações sobre processos judiciais nos respectivos sites de gestão processual.</p>
+        <p><strong>Recursos Principais:</strong><br>
+- Permite a busca rápida de números de processo em páginas da web.<br>
+- Oferece opções de busca nos sites relevantes com apenas um clique.<br>
+- Integra-se ao menu de contexto do botão direito do mouse para acesso conveniente.</p>
+        <p><strong>Como Usar:</strong><br>
+1. Selecione o número de processo desejado em qualquer página da web.<br>
+2. Clique com o botão direito do mouse e escolha entre as opções disponíveis.<br>
+3. Uma nova aba será aberta no navegador exibindo os detalhes do processo no site correspondente.</p>
+        <p><strong>Privacidade e Segurança:</strong><br>
+A extensão Busca de Processos respeita a privacidade do usuário, não coletando nem armazenando informações pessoais. Todas as consultas são realizadas localmente no navegador do usuário, assegurando segurança e confidencialidade.</p>
+        <p><strong>Feedback e Suporte:</strong><br>
+Valorizamos o feedback dos usuários! Se você tiver alguma dúvida, sugestão ou problema ao usar nossa extensão, entre em contato conosco em <span id="email" style="cursor: pointer; text-decoration: underline;">jacson311@gmail.com</span>.</p>
+
+    </div>
+</div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+            // Recuperar o nome do tema do localStorage
+            var themeName = localStorage.getItem('selectedTheme');
+            
+            // Verificar se o tema está definido e se corresponde a um arquivo CSS existente
+            if (themeName && themeName !== '') {
+                var themeCSS = '../styles/' + themeName + '.css'; // Caminho para o arquivo CSS do tema
+                var linkElement = document.createElement('link');
+                linkElement.setAttribute('rel', 'stylesheet');
+                linkElement.setAttribute('href', themeCSS);
+                document.head.appendChild(linkElement);
+            }
+        });
+		
+    document.getElementById("email").addEventListener("click", function() {
+        var email = this.textContent;
+        navigator.clipboard.writeText(email).then(function() {
+            alert("Endereço de e-mail copiado com sucesso: " + email);
+        }, function(err) {
+            console.error('Erro ao copiar endereço de e-mail: ', err);
+        });
+    });
+</script>
+
+</body>
+</html>

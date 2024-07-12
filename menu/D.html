@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DQED1910EF');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extrair Números de Processo</title>
+<link rel="icon" href="../img/logo.png">
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+
+    #container {
+        position: relative; /* Importante para o posicionamento absoluto do ícone */
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    #title {
+        margin-top: 10;
+        color: black;
+		margin: 10px 0;
+    }
+
+    h2 {
+        font-size: 15px;
+        margin-top: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #result {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin: 10px 0;
+    }
+
+    #developer {
+        color: #888;
+        font-size: smaller;
+    }
+
+    #returnButton {
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        margin: 0 2px;
+        padding: 2px 7px; /* Reduzindo o padding para torná-los menores */
+        cursor: pointer;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 12px; /* Reduzindo o tamanho da fonte */
+    }
+	
+	#logo {
+        width: 50px; /* Largura da imagem */
+        height: auto; /* Altura ajustada automaticamente de acordo com a largura */
+        margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+     }
+		 #infoIcon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        background-color: #888;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 20px;
+        font-weight: bold;
+        cursor: help; /* Mudar o cursor para um ponto de interrogação */
+        color: #fff;
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+
+<div id="container">
+    <div id="infoIcon" title="Esta ferramenta permite extrair números de processo de um campo de texto. Após colar a lista de números de processos, clique no botão 'Extrair Números' para processá-los. Os números de processos serão exibidos em uma lista ordenada, com botões para acessar informações sobre cada um nos sites do Tribunal de Justiça de Minas Gerais (TJMG) e do Ministério Público de Minas Gerais (MPMG). Você também pode copiar os números dos processos para a área de transferência clicando no botão 'Copiar Números'.">!</div>
+    <a href="../index.html">
+        <img id="logo" src="../img/logo.png" alt="J">
+    </a>
+    <h1 id="title">Extrair Números</h1>
+
+    <h2>Cole aqui:</h2>
+    <textarea id="processList" rows="10" cols="50"></textarea><br>
+    <button onclick="extractNumbers()">Extrair Números</button>
+
+    <ul id="result"></ul>
+
+    <p id="count"></p>
+    <button id="copyButton" style="display:none;" onclick="copyNumbers()">Copiar Números</button>
+
+    <p id="developer">Desenvolvido por Jacson Costa Neves</p>
+</div>
+
+<script>
+function extractNumbers() {
+    var processList = document.getElementById('processList').value;
+    var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b|\b\d{1}\.\d{4}\.\d{2}\.\d{6}-\d{1}\/\d{3}\b|\b\d{17}\b/g);
+    var resultUl = document.getElementById('result');
+    resultUl.innerHTML = '';
+    var count = 0;
+    if (numbers !== null) {
+        numbers.forEach(function(number) {
+            var li = document.createElement('li');
+            var processNumber = number.replace(/\D/g, ''); // Removendo caracteres não numéricos
+            li.textContent = number;
+            
+            // Criando botões
+            var button1 = document.createElement('button');
+            button1.textContent = 'TJMG';
+            button1.className = 'btn';
+            button1.onclick = function() {
+                window.open('https://www4.tjmg.jus.br/juridico/sf/proc_complemento2.jsp?listaProcessos=' + processNumber);
+            };
+            li.appendChild(button1);
+
+            var button2 = document.createElement('button');
+            button2.textContent = 'MPMG';
+            button2.className = 'btn';
+            button2.onclick = function() {
+                window.open('https://aplicacao.mpmg.mp.br/pareceres/processoParecerPesquisar.do?numProcessoCorrente=0' + processNumber);
+            };
+            li.appendChild(button2);
+
+            resultUl.appendChild(li);
+            count++;
+        });
+    } else {
+        var li = document.createElement('li');
+        li.textContent = 'Nenhum número de processo encontrado no formato adequado.';
+        resultUl.appendChild(li);
+    }
+
+    var countElement = document.getElementById('count');
+    countElement.textContent = "Total de processos encontrados: " + count;
+
+    var copyButton = document.getElementById('copyButton');
+    copyButton.style.display = count > 0 ? 'block' : 'none';
+}
+
+function copyNumbers() {
+    var processList = document.getElementById('processList').value;
+    var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b|\b\d{1}\.\d{4}\.\d{2}\.\d{6}-\d{1}\/\d{3}\b|\b\d{17}\b/g);
+    var numbersText = numbers.join('\n'); // Transformando a lista de Numeros em texto separado por quebras de linha
+    navigator.clipboard.writeText(numbersText); // Copiando o texto para a área de transferência
+    alert("Números copiados para a área de transferência!");
+}
+</script>
+
+</body>
+</html>
