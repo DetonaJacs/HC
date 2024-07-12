@@ -1,0 +1,16 @@
+/* Estilos do tema Star Wars */
+body {
+    background-image: url('../styles/img/starwars.jpg'); /* Imagem de fundo espacial */
+}
+
+#container {
+    /* Estilos específicos para o container no tema Star Wars */
+}
+
+.theme-text::after {
+    content: "Que a Força esteja com você!";
+     }
+}
+}
+
+/* Outros estilos específicos do tema Star Wars */

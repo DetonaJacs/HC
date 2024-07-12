@@ -1,0 +1,13 @@
+/* Estilos padrão */
+body {
+    background-color: #f0f0f0; /* Cor de fundo padrão */
+    color: #333; /* Cor do texto padrão */
+}
+
+.theme-text::after {
+    content: "Como posso te ajudar?";
+   }
+
+#container {
+    /* Estilos específicos para o container no tema padrão */
+}
