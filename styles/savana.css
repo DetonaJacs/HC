@@ -1,0 +1,16 @@
+/* Estilos do tema Star Wars */
+body {
+    background-image: url('../styles/img/savana.jpg'); /* Imagem de fundo espacial */
+}
+
+#container {
+    /* Estilos específicos para o container no tema*/
+}
+
+.theme-text::after {
+    content: "A harmonia da natureza acalma a alma!";
+        }
+}
+}
+
+/* Outros estilos específicos do tema Star Wars */
