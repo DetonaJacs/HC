@@ -42,6 +42,10 @@
         height: 100vh;
         margin: 0;
         background-color: #f0f0f0;
+		-webkit-user-select: none; /* Para navegadores baseados em Webkit (Chrome, Safari) */
+		-moz-user-select: none; /* Para navegadores baseados em Mozilla (Firefox) */
+		-ms-user-select: none; /* Para Internet Explorer */
+		user-select: none; /* Padrão */
     }
 
     #container {
@@ -190,6 +194,14 @@
     .theme-button .dropdown-content a:hover {
         background-color: #f0f0f0;
     }
+	
+	img {
+    -webkit-user-drag: none; /* Para navegadores baseados em Webkit (Chrome, Safari) */
+    -khtml-user-drag: none; /* Para navegadores baseados em KHTML */
+    -moz-user-drag: none; /* Para navegadores baseados em Mozilla (Firefox) */
+    -o-user-drag: none; /* Para navegadores baseados em Opera */
+    user-drag: none; /* Padrão */
+}
 </style>
 
 </head>
@@ -197,7 +209,7 @@
 
 <div id="container">
     <a href="./index.html">
-        <img id="logo" src="./img/logo.png" alt="J" class="pulse">
+		<img id="logo" src="./img/logo.png" alt="J" class="pulse" draggable="false" oncontextmenu="return false;">
     </a> 
 	<h1 id="text" class="theme-text"></h1>    
 	<button id="Extrair" onclick="window.open('./menu/1', '_self')">Extrair Números de Processo</button>  
@@ -222,10 +234,9 @@
     <div id="theme-options" class="dropdown-content">
         <a href="#" onclick="setTheme('default')">Padrão</a>
         <a href="#" onclick="setTheme('cores')">Cores</a>
-	<a href="#" onclick="setTheme('paz')">Paz</a>
-	<a href="#" onclick="setTheme('savana')">Savana</a>
-	<a href="#" onclick="setTheme('lei')">Justiça</a>
-	<a href="#" onclick="setTheme('floral')">Floral</a>
+		<a href="#" onclick="setTheme('paz')">Paz</a>
+		<a href="#" onclick="setTheme('savana')">Savana</a>
+		<a href="#" onclick="setTheme('lei')">Lei</a>
         <!-- Adicione mais temas conforme necessário -->
     </div>
 </div>
