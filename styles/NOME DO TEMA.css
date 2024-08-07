@@ -1,0 +1,37 @@
+body {
+    position: relative; /* Para que os filhos posicionados de forma absoluta sejam relativos ao body */
+    overflow: hidden; /* Para garantir que o pseudo-elemento não cause barras de rolagem */
+    color: #333; /* Cor do texto padrão */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../styles/img/CAMINHO.jpg');
+    background-size: cover; /* Faz a imagem cobrir todo o espaço do elemento pai (no caso, o body) */
+    background-position: center; /* Centraliza a imagem no elemento pai */
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+    background-attachment: fixed; /* Fixa a imagem de fundo, fazendo com que ela não role com o conteúdo */
+    filter: blur(3px); /* Aplica um desfoque de 8px */
+    z-index: -1; /* Coloca o pseudo-elemento atrás do conteúdo do body */
+}
+
+#container {
+    position: relative;
+    z-index: 1; /* Garante que o container esteja acima do pseudo-elemento */
+    /* Estilos específicos para o container no tema */
+}
+
+.theme-text::after {
+    content: "FRASE";
+	color: black;
+}
+
+/* Outros estilos específicos do tema*/

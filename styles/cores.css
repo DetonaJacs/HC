@@ -1,0 +1,35 @@
+body {
+    position: relative;
+    overflow-y: auto; /* Permite a rolagem vertical */
+}
+
+body::before {
+    content: "";
+    position: fixed;
+	overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../styles/img/cores.jpg'); /* Imagem de fundo espacial */
+    background-size: cover; /* Faz a imagem cobrir todo o espaço do elemento pai */
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+    filter: blur(5px); /* Aplica um desfoque de 5 pixels à imagem de fundo */
+    z-index: -1; /* Coloca a imagem de fundo atrás de todo o conteúdo */
+}
+
+#container {
+    position: relative; /* Certifique-se de que o conteúdo fique acima da imagem de fundo */
+    z-index: 1; /* Garante que o container fique acima da imagem de fundo */
+    /* Estilos específicos para o container no tema Star Wars */
+}
+
+.theme-text::after {
+    content: "Que a Força esteja com você!";
+    display: block;
+    text-align: 100%;
+    margin: 10px 0;
+    padding: 0 5%;
+}
+
+

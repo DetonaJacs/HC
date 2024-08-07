@@ -1,0 +1,32 @@
+body {
+    position: relative;
+    overflow-y: auto; /* Permite a rolagem vertical */
+}
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../styles/img/lei.jpg');
+    background-size: cover; /* Faz a imagem cobrir todo o espaço do elemento pai (no caso, o body) */
+    background-position: center; /* Centraliza a imagem no elemento pai */
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+    background-attachment: fixed; /* Fixa a imagem de fundo, fazendo com que ela não role com o conteúdo */
+    filter: blur(3px); /* Aplica um desfoque de 8px */
+    z-index: -1; /* Coloca o pseudo-elemento atrás do conteúdo do body */
+}
+
+#container {
+    position: relative;
+    z-index: 1; /* Garante que o container esteja acima do pseudo-elemento */
+    /* Estilos específicos para o container no tema */
+}
+
+.theme-text::after {
+    content: "A verdade nunca prejudica uma causa que é justa.";
+	color: black;
+}
+
+/* Outros estilos específicos do tema*/
