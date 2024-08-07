@@ -416,14 +416,15 @@ function destacarDuplicatas() {
 
 function handleFileSelect(event) {
     var inputFile = event.target.files[0];
-    document.getElementById('fileLabel').textContent = inputFile.name;
+    if (inputFile) {
+        document.getElementById('fileLabel').textContent = inputFile.name;
+        processarArquivo(inputFile); // Passar o arquivo selecionado para a função de processamento
 
-    processarArquivo();
-
-    // Mostrar os containers após o processamento do arquivo
-    document.getElementById('fileContainer').style.display = 'none';
-    document.getElementById('tableContainer').style.display = 'block';
-    document.getElementById('informacoesGerais').style.display = 'block';
+        // Mostrar os containers após o processamento do arquivo
+        document.getElementById('fileContainer').style.display = 'none';
+        document.getElementById('tableContainer').style.display = 'block';
+        document.getElementById('informacoesGerais').style.display = 'block';
+    }
 }
 </script>
 </body>
