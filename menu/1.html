@@ -184,6 +184,13 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
+			transition: transform 0.2s ease;
+    }
+
+    #resetButton:active {
+        transform: rotate(-15deg);
+    }
+
         }
 		
 		#toggleOrderButton {
@@ -191,6 +198,12 @@
 		background: none; /* Remove o fundo do botão */
 		padding: 0; /* Remove o preenchimento padrão */
 		cursor: pointer; /* Adiciona o cursor de ponteiro ao passar sobre o botão */
+		transition: transform 0.3s ease;
+    }
+
+    #toggleOrderButton:active {
+        transform: scaleX(-1);
+    }
 		}
 
 		#toggleOrderButton img {
@@ -235,7 +248,8 @@
     <button id="resetButton" onclick="resetForm()">↺</button>
 	
 	<!-- Botão para classificar ordem dos processos -->
-	<button id="toggleOrderButton" onclick="toggleOrder()" style="font-size: 16px; border: none; background: transparent; cursor: pointer;">⥮</button>
+<button id="toggleOrderButton" onclick="toggleOrder()" style="font-size: 16px; border: none; background: transparent; cursor: pointer;">⥮</button>
+
 
     <!-- Lista de números de processo -->
     <ul id="result"></ul>
@@ -259,6 +273,8 @@
 </div>
 
 <script>
+
+
 
   document.addEventListener('DOMContentLoaded', function() {
             // Recuperar o nome do tema do localStorage
