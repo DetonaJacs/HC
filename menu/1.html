@@ -7,7 +7,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-DQED1910EF');
 </script>
 	<meta charset="UTF-8">
@@ -158,9 +157,7 @@
             transform: translateY(-50%);
         }
 
-        
-
-        #logo {
+                #logo {
             width: 50px;
             height: auto;
             margin-bottom: 20px;
@@ -188,6 +185,18 @@
             cursor: pointer;
             font-size: 16px;
         }
+		
+		#toggleOrderButton {
+		border: none; /* Remove a borda do botão */
+		background: none; /* Remove o fundo do botão */
+		padding: 0; /* Remove o preenchimento padrão */
+		cursor: pointer; /* Adiciona o cursor de ponteiro ao passar sobre o botão */
+		}
+
+		#toggleOrderButton img {
+		border: none; /* Remove a borda da imagem */
+		}
+
     </style>
 </head>
 <body>
@@ -224,6 +233,11 @@
     <button onclick="extractNumbers()">Extrair Números</button>
     <!-- Botão para limpar o campo de texto -->
     <button id="resetButton" onclick="resetForm()">↺</button>
+	
+	<!-- Botão para classificar ordem dos processos -->
+	<button id="toggleOrderButton" onclick="toggleOrder()">
+        <img src="../img/order.png" alt="Ordenar" style="width: 10px; height: auto; border: none">
+    </button>
 
     <!-- Lista de números de processo -->
     <ul id="result"></ul>
@@ -262,7 +276,7 @@
             }
         });
 		
-var validNumbers = []; // Array para armazenar os números válidos
+	var validNumbers = []; // Array para armazenar os números válidos
 
 // Função para extrair números de processo
 function extractNumbers() {
@@ -439,8 +453,59 @@ function closeModal() {
 // Função para atualizar o contador de processos
 function updateCount() {
     var countElement = document.getElementById('count');
-    countElement.textContent = "Total de processos encontrados: " + validNumbers.length;
+    countElement.textContent = 'Total de Números de Processo: ' + validNumbers.length;
 }
+
+var isAscending = true; // Variável para rastrear a ordem atual
+
+// Função para alternar a ordem dos processos
+function toggleOrder() {
+    var resultUl = document.getElementById('result');
+    var items = Array.from(resultUl.children);
+    
+    // Classificar a lista de números em ordem crescente ou decrescente
+    items.sort(function(a, b) {
+        var numA = a.textContent.replace(/\D/g, ''); // Remover todos os caracteres não numéricos
+        var numB = b.textContent.replace(/\D/g, '');
+        if (isAscending) {
+            return numA.localeCompare(numB, undefined, { numeric: true });
+        } else {
+            return numB.localeCompare(numA, undefined, { numeric: true });
+        }
+    });
+
+    // Limpar a lista antes de adicionar os itens reordenados
+    resultUl.innerHTML = '';
+
+    // Adicionar os itens reordenados à lista
+    items.forEach(function(item) {
+        resultUl.appendChild(item);
+    });
+
+    // Alternar a ordem para a próxima vez que a função for chamada
+    isAscending = !isAscending;
+}
+
+
+    // Função para verificar se a mensagem já foi exibida
+    function checkForUpdates() {
+        // Recuperar a flag que indica se a mensagem foi exibida
+        var messageShown = localStorage.getItem('messageShown');
+
+        // Se a flag não estiver definida, exibir a mensagem
+        if (!messageShown) {
+            // Exibir a mensagem
+            alert('Novidades na página! Agora é possível classificar por ordem crescente/decrescente a lista final de processos.');
+
+            // Definir a flag para indicar que a mensagem foi exibida
+            localStorage.setItem('messageShown', 'true');
+        }
+    }
+
+    // Chamar a função ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+        checkForUpdates();
+    });
 
 
 </script>
