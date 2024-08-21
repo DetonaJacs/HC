@@ -413,8 +413,16 @@ function resetForm() {
 
 // Função para copiar números de processo
 function copyNumbers() {
-    var numbersText = validNumbers.join('\n');
-    
+    var resultUl = document.getElementById('result');
+    var items = Array.from(resultUl.children);
+
+    // Extrair apenas os números formatados da lista ordenada
+    var orderedNumbers = items.map(function(item) {
+        return item.firstChild.textContent.trim(); // Pegando apenas o número do processo, ignorando os botões
+    });
+
+    var numbersText = orderedNumbers.join('\n');
+
     // Copiar os números para a área de transferência
     navigator.clipboard.writeText(numbersText).then(function() {
         // Exibir o alerta após a cópia ser concluída
