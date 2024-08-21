@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DQED1910EF');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Termos de Serviço</title>
+<link rel="icon" href="../img/logo.png">
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+
+    #container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: justify;
+        max-width: 500px; /* Definindo uma largura máxima para o container */
+        display: flex; /* Adicionando flexbox para centralizar */
+        flex-direction: column; /* Direção da coluna para alinhar verticalmente */
+        align-items: center; /* Centralizar itens na horizontal */
+    }
+
+    #title {
+        margin-top: 20px; /* Aumentando a margem superior */
+        color: black; /* Mudando a cor do texto */
+        text-align: center; /* Centralizando o texto */
+    }
+
+    p {
+        margin: 10px 0;
+        text-align: justify;
+    }
+
+    #logo {
+        width: 50px;
+        height: auto;
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div id="container">
+    <a href="../index">
+        <img id="logo" src="../img/logo.png" alt="J">
+    </a>
+    <div class="maintenance-message">
+        <h1 id="title">Sugestões e Feedback</h1><br><br>
+		<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdkPV9spCRzM00c0twoafpcXT4iLmY_QFT9l4gZCs8J0sL4vQ/viewform?embedded=true" width="500" height="500" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
+    </div>
+</div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+            // Recuperar o nome do tema do localStorage
+            var themeName = localStorage.getItem('selectedTheme');
+            
+            // Verificar se o tema está definido e se corresponde a um arquivo CSS existente
+            if (themeName && themeName !== '') {
+                var themeCSS = '../styles/' + themeName + '.css'; // Caminho para o arquivo CSS do tema
+                var linkElement = document.createElement('link');
+                linkElement.setAttribute('rel', 'stylesheet');
+                linkElement.setAttribute('href', themeCSS);
+                document.head.appendChild(linkElement);
+            }
+        });
+    document.getElementById("email").addEventListener("click", function() {
+        var email = this.textContent;
+        navigator.clipboard.writeText(email).then(function() {
+            alert("Endereço de e-mail copiado com sucesso: " + email);
+        }, function(err) {
+            console.error('Erro ao copiar endereço de e-mail: ', err);
+        });
+    });
+</script>
+</div>
+</div>
+
+</body>
+</html>
