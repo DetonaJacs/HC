@@ -138,23 +138,28 @@
             border: 2px solid #ccc;
         }
 
-        .file-container {
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-			background-color: #eaeaea;
-            position: relative;
-            border: 2px dashed #999;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            width: 78%; /* Ajuste para o tamanho desejado */
-            margin: 0 auto; /* Centraliza horizontalmente */
-        }
+      .file-container {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        background-color: #eaeaea;
+        position: relative;
+        border: 2px dashed #999;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        width: 78%;
+        margin: 0 auto;
+    }
 
-        .file-container:hover {
-            background-color: #d9fbe5;
-        }
+    .file-container.highlight {
+        background-color: #b3e5fc; /* Nova cor quando o arquivo é arrastado */
+        border-color: #0288d1; /* Cor da borda quando o arquivo é arrastado */
+    }
+
+    .file-container:hover {
+        background-color: #d9fbe5;
+    }
 
         #fileLabel {
             font-size: 16px;
@@ -211,7 +216,13 @@
 
 <h1 class="titulo">Processamento de Arquivo <br> Processos na caixa de Distribuição</h1>
 
-<div class="file-container" id="fileContainer" title="Permite inserir e processar arquivo em formato XLS do Relatório de Processos na Caixa de Distribuição (SCPJ - Relatórios - Processos na caixa de distribuição). Os partes com nomes repetidos aparecem em destaque vermelho. Resume a quantidade de ocorrências gerais e por procurador." onclick="document.getElementById('inputFile').click();">    <label for="inputFile" id="fileLabel">Clique para selecionar o arquivo XLS</label>
+<div class="file-container" id="fileContainer" 
+     onclick="document.getElementById('inputFile').click();" 
+     ondragover="handleDragOver(event)" 
+     ondragenter="highlight(event)" 
+     ondragleave="unhighlight(event)" 
+     ondrop="handleFileDrop(event)">
+    <label for="inputFile" id="fileLabel">Clique ou arraste para selecionar o arquivo XLS</label>
     <input type="file" id="inputFile" accept=".xls,.xlsx" onchange="handleFileSelect(event)">
 </div>
 
@@ -414,18 +425,73 @@ function destacarDuplicatas() {
     }
 }
 
-function handleFileSelect(event) {
-    var inputFile = event.target.files[0];
-    if (inputFile) {
-        document.getElementById('fileLabel').textContent = inputFile.name;
-        processarArquivo(inputFile); // Passar o arquivo selecionado para a função de processamento
 
-        // Mostrar os containers após o processamento do arquivo
-        document.getElementById('fileContainer').style.display = 'none';
-        document.getElementById('tableContainer').style.display = 'block';
-        document.getElementById('informacoesGerais').style.display = 'block';
+    function handleFileDrop(event) {
+        event.preventDefault();
+        var inputFile = event.dataTransfer.files[0];
+        if (inputFile) {
+            document.getElementById('inputFile').files = event.dataTransfer.files;
+            document.getElementById('fileLabel').textContent = inputFile.name;
+            processarArquivo();
+            document.getElementById('fileContainer').style.display = 'none';
+            document.getElementById('tableContainer').style.display = 'block';
+            document.getElementById('informacoesGerais').style.display = 'block';
+        }
     }
-}
+
+
+	
+    // Função que destaca a área de drag and drop
+    function highlight(event) {
+        event.preventDefault();
+        document.getElementById('fileContainer').classList.add('highlight');
+    }
+
+    // Função que remove o destaque da área de drag and drop
+    function unhighlight(event) {
+        event.preventDefault();
+        document.getElementById('fileContainer').classList.remove('highlight');
+    }
+
+    function handleFileSelect(event) {
+        var inputFile = event.target.files[0];
+        if (inputFile) {
+            document.getElementById('fileLabel').textContent = inputFile.name;
+            processarArquivo(inputFile);
+
+            document.getElementById('fileContainer').style.display = 'none';
+            document.getElementById('tableContainer').style.display = 'block';
+            document.getElementById('informacoesGerais').style.display = 'block';
+        }
+    }
+
+
+    function handleDragOver(event) {
+        event.preventDefault();
+    }
+
+// Função para verificar se a mensagem já foi exibida
+    function checkForUpdates() {
+        // Recuperar a flag que indica se a mensagem foi exibida
+        var messageShown = localStorage.getItem('28/08/2024');
+
+        // Se a flag não estiver definida, exibir a mensagem
+        if (!messageShown) {
+            // Exibir a mensagem
+            alert('Novidades na página! Agora é possível adicionar o arquivo XLS arrastando.');
+
+            // Definir a flag para indicar que a mensagem foi exibida
+            localStorage.setItem('28/08/2024', 'true');
+        }
+    }
+
+    // Chamar a função ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+        checkForUpdates();
+    });
+
+
 </script>
+
 </body>
 </html>
