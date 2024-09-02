@@ -215,16 +215,17 @@
 	<button id="Extrair" onclick="window.open('./menu/1', '_self')">Extrair Números de Processo</button>  
     <button id="Pesquisar" onclick="window.open('./menu/2', '_self')">Pesquisar Advogado</button>
     <br><button id="extensao" onclick="window.open('./menu/e', '_self')">Instale Extensão Google</button>
-    <button id="Distribuição" onclick="window.open('./menu/v', '_self')">Processamento Distribuição</button>    
+    <button id="Distribuição" onclick="window.open('./menu/v', '_self')">Processamento Distribuição</button>
+	<button id="DistribuiçãoTeste" onclick="window.open('./menu/v', '_self')">Processamento Distribuição (Em teste)</button>        
 </div>
 
 <!-- Botão de interrogação com menu suspenso -->
 <div class="dropdown" id="dropdown">
-    <button onclick="toggleDropdown()" class="dropbtn"> <img src="./img/menu.png" alt="Menu" style="width: 20px; height: auto; border: none; position: relative"> </button>
+    <button onclick="toggleDropdown()" class="dropbtn"> <img src="./img/menu.png" alt="Ordenar" style="width: 20px; height: auto; border: none; position: relative"> </button>
     <div class="dropdown-content" id="myDropdown">
         <a href="./suspenso/t">Termos</a>
-	<a href="./suspenso/s">Sugestões</a>
-	<!-- Adicione mais links conforme necessário -->
+		<a href="./suspenso/s">Sugestões</a>
+        <!-- Adicione mais links conforme necessário -->
     </div>
 	
 	
@@ -235,11 +236,11 @@
     <button onclick="toggleThemeOptions()" class="dropbtn">Temas</button>
     <div id="theme-options" class="dropdown-content">
         <a href="#" onclick="setTheme('default')">Padrão</a>
-        <a href="#" onclick="setTheme('alpes')">Alpes</a>
-	   	<a href="#" onclick="setTheme('cores')">Cores</a>
-	    	<a href="#" onclick="setTheme('floral')">Floral</a>
-		<a href="#" onclick="setTheme('lei')">Lei</a>
-	    	<a href="#" onclick="setTheme('paz')">Paz</a>
+        <a href="#" onclick="setTheme('1')">Alpes</a>
+	   	<a href="#" onclick="setTheme('2')">Cores</a>
+	    <a href="#" onclick="setTheme('3')">Floral</a>
+		<a href="#" onclick="setTheme('4')">Lei</a>
+	    <a href="#" onclick="setTheme('5')">Paz</a>
 
         <!-- Adicione mais temas conforme necessário -->
     </div>
@@ -296,7 +297,7 @@ function toggleThemeOptions() {
         // Se a flag não estiver definida, exibir a mensagem
         if (!messageShown) {
             // Exibir a mensagem
-            alert('Tem alguma sugestão de melhoria? Envie-nos suas ideias! Acesse o formulário no menu à esquerda para compartilhar sua opinião.');
+            alert('Gostou do site? Tem alguma sugestão de melhoria? Envie-nos suas ideias! Acesse o formulário no menu para compartilhar sua opinião.');
 
             // Definir a flag para indicar que a mensagem foi exibida
             localStorage.setItem('messagestart', 'true');
