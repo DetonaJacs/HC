@@ -206,10 +206,7 @@
             margin-top: 20px;
             color: #666;
         }
-	.highlight-similar {
-		background-color: yellow;
-		font-weight: bold;
-	}
+
 
     </style>
 </head>
@@ -493,9 +490,11 @@ function destacarDuplicatas() {
     style.innerHTML = `
         .highlight-yellow {
             background-color: #ffff99; /* Amarelo claro */
+			font-weight: bold;
         }
         .duplicate {
             background-color: #ff9999; /* Vermelho claro */
+			font-weight: bold;
         }
     `;
     document.head.appendChild(style);
