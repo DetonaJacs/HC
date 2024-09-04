@@ -79,9 +79,14 @@
         background-color: #c7c7c7; /* Altera a cor de fundo quando o mouse passa sobre o botão */
     }
 
-    button#extensaoDESATIVADO {
-        background-color: #007bff; /* Altera a cor de fundo para azul */
-        color: #fff; /* Altera a cor do texto para branco */
+    button#DistribuiçãoTeste {
+        background-color: #ff9999; /* Vermelho claro */
+		font-weight: bold;
+    }
+	
+	button#DistribuiçãoTeste:hover {
+    background-color: #ff4a3d; /* Vermelho escuro */
+	font-weight: bold;
     }
 
     @keyframes appear {
@@ -213,10 +218,11 @@
     </a> 
 	<h1 id="text" class="theme-text"></h1>    
 	<button id="Extrair" onclick="window.open('./menu/1', '_self')">Extrair Números de Processo</button>  
-    	<button id="Pesquisar" onclick="window.open('./menu/2', '_self')">Pesquisar Advogado</button>
-   	<br><button id="extensao" onclick="window.open('./menu/e', '_self')">Instale Extensão Google</button>
-   	<button id="Distribuição" onclick="window.open('./menu/v', '_self')">Processamento Distribuição</button>
-	<button id="DistribuiçãoTeste" onclick="window.open('./menu/t', '_self')">Processamento Distribuição (Em teste)</button>        
+    <button id="Pesquisar" onclick="window.open('./menu/2', '_self')">Pesquisar Advogado</button>
+    <br><button id="extensao" onclick="window.open('./menu/e', '_self')">Instale Extensão Google</button>
+    <button id="Distribuição" onclick="window.open('./menu/v', '_self')">Processamento Distribuição</button>
+	<button id="DistribuiçãoTeste" onclick="window.open('./menu/t', '_self')">Processamento Distribuição (Em teste)</button>   
+		
 </div>
 
 <!-- Botão de interrogação com menu suspenso -->
