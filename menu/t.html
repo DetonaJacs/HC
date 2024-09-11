@@ -26,7 +26,7 @@
 
         .titulo {
             text-align: center;
-			color: red;
+			color: black;
         }
 
         body {
@@ -217,7 +217,7 @@
     </a>
 </div>
 
-<h1 class="titulo">Processamento de Arquivo <br> Processos na caixa de Distribuição (Em testes)</h1>
+<h1 class="titulo">Processamento de Arquivo <br>Processos na caixa de Distribuição</h1>
 
 <div class="file-container" id="fileContainer" title="Permite inserir e processar arquivo em formato XLS do Relatório de Processos na Caixa de Distribuição (SCPJ - Relatórios - Processos na caixa de distribuição). As partes com nomes 100% idênticos são apresentados em destaque vermelho e nomes similares em destaque amarelo. Resume a quantidade de ocorrências gerais e por procurador."
      onclick="document.getElementById('inputFile').click();" 
@@ -436,7 +436,7 @@ function destacarDuplicatas() {
     var table = document.querySelector('table');
     var rows = table.rows;
 
-    var termosExcluir = ["JUIZ", "MINISTÉRIO", "DESEMBARGADOR", "PROCURADOR-GERAL"]; // Termos para desconsiderar
+    var termosExcluir = ["JUIZ", "MINISTÉRIO", "DESEMBARGADOR"]; // Termos para desconsiderar
     var seenExact = {}; // Objeto para armazenar nomes exatos já vistos
 
     function deveDesconsiderar(nome) {
