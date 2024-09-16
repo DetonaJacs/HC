@@ -208,6 +208,7 @@
         }
 
 
+
     </style>
 </head>
 <body>
@@ -219,14 +220,19 @@
 
 <h1 class="titulo">Processamento de Arquivo <br>Processos na caixa de Distribuição</h1>
 
-<div class="file-container" id="fileContainer" title="Permite inserir e processar arquivo em formato XLS do Relatório de Processos na Caixa de Distribuição (SCPJ - Relatórios - Processos na caixa de distribuição). As partes com nomes 100% idênticos são apresentados em destaque vermelho e nomes similares em destaque amarelo. Resume a quantidade de ocorrências gerais e por procurador."
-     onclick="document.getElementById('inputFile').click();" 
-     ondragover="handleDragOver(event)" 
-     ondragenter="highlight(event)" 
-     ondragleave="unhighlight(event)" 
-     ondrop="handleFileDrop(event)">
+<div class="file-container" id="fileContainer" title="Permite inserir e processar arquivo em formato XLS do Relatório de Processos na Caixa de Distribuição (SCPJ - Relatórios - Processos na caixa de distribuição). As partes com nomes 100% idênticos são apresentados em destaque vermelho e nomes similares em destaque amarelo. Resume a quantidade de ocorrências gerais e por procurador." 
+    onclick="document.getElementById('inputFile').click();" 
+    ondragover="handleDragOver(event)" 
+    ondragenter="highlight(event)" 
+    ondragleave="unhighlight(event)" 
+    ondrop="handleFileDrop(event)">
     <label for="inputFile" id="fileLabel">Clique ou arraste para selecionar o arquivo XLS</label>
-    <input type="file" id="inputFile" accept=".xls,.xlsx" onchange="handleFileSelect(event)">
+    <input type="file" id="inputFile" accept=".xls,.xlsx" onchange="handleFileSelect(event)" style="display: none;">
+</div>
+
+<!-- Container da tabela (inicialmente oculto) -->
+<div class="table-container" id="tableContainer" style="display: none;">
+    <div id="tabelaResultado"></div>
 </div>
 
 <div class="table-container" id="tableContainer" style="display: none;">
@@ -243,6 +249,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 <script>
+
 
 document.addEventListener('DOMContentLoaded', function() {
             // Recuperar o nome do tema do localStorage
@@ -274,8 +281,16 @@ function processarArquivo() {
         var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
         var jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
 
-        var tabelaHTML = '<table>';
+        // Verifica se a primeira célula contém o termo "PROCESSOS NA CAIXA DE DISTRIBUIÇÃO"
+        if (!jsonData[0] || jsonData[0][0] !== "PROCESSOS NA CAIXA DE DISTRIBUIÇÃO") {
+            alert('O arquivo selecionado não é válido. Certifique-se de que o arquivo selecionado seja o Relatório de Processos na Caixa de Distribuição.');
+            reloadPage();  // Retorna à tela de carregamento de arquivo
+            return; // Não prossegue com o processamento do arquivo
+        }
 
+        var tabelaHTML = '<table>';
+        
+        // (Continua com o processamento do arquivo normalmente)
         var ocorrencias = {
             'DEPENDÊNCIA': 0,
             'DILIGÊNCIA': 0,
@@ -404,6 +419,32 @@ function processarArquivo() {
     };
 
     reader.readAsArrayBuffer(inputFile);
+}
+
+function reloadPage() {
+    // Esconder o container da tabela
+    var tableContainer = document.getElementById('tableContainer');
+    if (tableContainer) {
+        tableContainer.style.display = 'none';
+    } else {
+        console.error('Elemento "tableContainer" não encontrado.');
+    }
+
+    // Mostrar o container de arquivo
+    var fileContainer = document.getElementById('fileContainer');
+    if (fileContainer) {
+        fileContainer.style.display = 'block';
+    } else {
+        console.error('Elemento "fileContainer" não encontrado.');
+    }
+
+    // Limpar o input de arquivo para permitir novo carregamento
+    var inputFile = document.getElementById('inputFile');
+    if (inputFile) {
+        inputFile.value = ''; // Limpa o campo de seleção de arquivo
+    } else {
+        console.error('Elemento "inputFile" não encontrado.');
+    }
 }
 
 
