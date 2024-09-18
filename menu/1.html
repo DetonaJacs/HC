@@ -421,12 +421,14 @@ function copyNumbers() {
         return item.firstChild.textContent.trim(); // Pegando apenas o número do processo, ignorando os botões
     });
 
-    var numbersText = orderedNumbers.join('\n');
+    // Adicionar o total de processos ao texto copiado
+    var totalProcesses = orderedNumbers.length;
+    var numbersText = "Total de processos: " + totalProcesses + "\n\n" + orderedNumbers.join('\n');
 
-    // Copiar os números para a área de transferência
+    // Copiar os números e o total de processos para a área de transferência
     navigator.clipboard.writeText(numbersText).then(function() {
         // Exibir o alerta após a cópia ser concluída
-        alert("Números copiados para a área de transferência!");
+        alert("Números e total de processos copiados para a área de transferência!");
     }).catch(function(error) {
         // Lidar com qualquer erro que possa ocorrer durante a cópia
         console.error('Erro ao copiar para a área de transferência: ', error);
@@ -512,15 +514,15 @@ function toggleOrder() {
     // Função para verificar se a mensagem já foi exibida
     function checkForUpdates() {
         // Recuperar a flag que indica se a mensagem foi exibida
-        var messageShown = localStorage.getItem('messageShown');
+        var messageShown = localStorage.getItem('18/09');
 
         // Se a flag não estiver definida, exibir a mensagem
         if (!messageShown) {
             // Exibir a mensagem
-            alert('Novidades na página! Agora é possível classificar por ordem crescente/decrescente a lista final de processos.');
+            alert('Novidades na página! Agora, ao copiar os números dos processos, também constarão informações sobre a quantidade total.');
 
             // Definir a flag para indicar que a mensagem foi exibida
-            localStorage.setItem('messageShown', 'true');
+            localStorage.setItem('18/09', 'true');
         }
     }
 
