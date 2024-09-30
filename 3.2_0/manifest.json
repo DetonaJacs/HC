@@ -1,0 +1,24 @@
+{
+   "action": {
+      "default_icon": {
+         "128": "icon-128.png",
+         "16": "icon-16.png",
+         "48": "icon-48.png"
+      },
+      "default_popup": "popup.html"
+   },
+   "background": {
+      "service_worker": "background.js"
+   },
+   "description": "Extensão para buscar processos nos sites do TJMG e do MPMG.",
+   "host_permissions": [ "https://aplicacao.mpmg.mp.br/*" ],
+   "icons": {
+      "128": "icon-128.png",
+      "16": "icon-16.png",
+      "48": "icon-48.png"
+   },
+   "manifest_version": 3.3,
+   "name": "Busca de Processos - Minas Gerais",
+   "permissions": [ "contextMenus", "tabs", "scripting", "activeTab" ],
+   "version": "3.3"
+}
