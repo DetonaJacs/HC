@@ -286,7 +286,7 @@ function processarArquivo() {
 
         // Verifica se a primeira célula contém o termo "PROCESSOS NA CAIXA DE DISTRIBUIÇÃO"
         if (!jsonData[0] || jsonData[0][0] !== "PROCESSOS NA CAIXA DE DISTRIBUIÇÃO") {
-            alert('O arquivo selecionado não é válido. Certifique-se de que o arquivo selecionado seja o Relatório de Processos na Caixa de Distribuição.');
+            alert('O arquivo selecionado não é válido. Certifique-se de que o arquivo selecionado seja o "Relatório de Processos na Caixa de Distribuição" e esteja em formato XLS.');
             reloadPage();  // Retorna à tela de carregamento de arquivo
             return; // Não prossegue com o processamento do arquivo
         }
