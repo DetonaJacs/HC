@@ -245,6 +245,7 @@
     <!-- Informações gerais serão inseridas aqui -->
 </div>
 
+
 <footer>Desenvolvido por Jacson Costa Neves</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
@@ -264,6 +265,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.head.appendChild(linkElement);
             }
         });
+		
+		
 		
 function processarArquivo() {
     var inputFile = document.getElementById('inputFile').files[0];
@@ -393,7 +396,6 @@ function processarArquivo() {
 
         // Constrói informações gerais considerando ocorrências únicas por processo
         var infoGeralHTML = '<div class="info-container">';
-        infoGeralHTML += '<h2>Informações Gerais</h2>';
         infoGeralHTML += '<p><strong>Ocorrências por tipo:</strong></p>';
         infoGeralHTML += '<ul>';
         for (var tipo in ocorrencias) {
@@ -408,7 +410,7 @@ function processarArquivo() {
         });
         infoGeralHTML += '</ul>';
 
-      
+		
 
         infoGeralHTML += '</div>';
 
@@ -478,68 +480,108 @@ function destacarDuplicatas() {
     var rows = table.rows;
 
     var termosExcluir = ["JUIZ", "MINISTÉRIO", "DESEMBARGADOR", "MINISTERIO", "PROCURADOR-GERAL"]; // Termos para desconsiderar
-    var seenExact = {}; // Objeto para armazenar nomes exatos já vistos
+    var seenExact = {}; // Armazena nomes exatos já vistos
+    var exactMatches = []; // Armazena nomes 100% idênticos
+    var similarMatches = []; // Armazena pares de nomes similares
 
     function deveDesconsiderar(nome) {
-        // Verifica se algum termo de exclusão está presente no nome
-        return termosExcluir.some(termo => nome.includes(termo));
+        return termosExcluir.some(termo => nome.toUpperCase().includes(termo));
     }
 
     function limparNome(nome) {
-        // Remove espaços extras
         return nome.trim();
     }
 
-    for (var i = 5; i < rows.length - 1; i++) { // Começa do 5 para pular o cabeçalho e rodapé fixos
-        var parteCell = rows[i].querySelector('.col3'); // Seleciona a célula da coluna 'Nome da Parte'
-        var parte = limparNome(parteCell.textContent); // Obtém o texto da célula e limpa
+    // Verifica duplicatas exatas
+    for (var i = 1; i < rows.length; i++) { // Pular cabeçalhos fixos, começando do índice 1
+        var parteCell = rows[i].querySelector('.col3');
+        if (!parteCell) continue; // Pular linhas sem a classe .col3
+
+        var parte = limparNome(parteCell.textContent);
 
         if (parte !== '' && !deveDesconsiderar(parte)) {
-            // Verifica duplicatas exatas
             if (seenExact[parte] === undefined) {
-                seenExact[parte] = i; // Marca a linha onde foi visto pela primeira vez
+                seenExact[parte] = i;
             } else {
-                // Marca a classe duplicate para o nome exato
                 rows[seenExact[parte]].querySelector('.col3').classList.add('duplicate');
                 parteCell.classList.add('duplicate');
+                exactMatches.push(parte); // Armazena nomes 100% idênticos
             }
         }
     }
 
-    for (var i = 5; i < rows.length - 1; i++) {
+    // Verifica nomes similares
+    for (var i = 1; i < rows.length; i++) {
         var parteCell = rows[i].querySelector('.col3');
+        if (!parteCell) continue;
+
         var parte = limparNome(parteCell.textContent);
 
         if (parte !== '' && !deveDesconsiderar(parte)) {
-            for (var j = i + 1; j < rows.length - 1; j++) {
+            for (var j = i + 1; j < rows.length; j++) {
                 var parteCellCompare = rows[j].querySelector('.col3');
+                if (!parteCellCompare) continue;
+
                 var parteCompare = limparNome(parteCellCompare.textContent);
 
                 if (parteCompare !== '' && parte !== parteCompare && !deveDesconsiderar(parteCompare)) {
-                    var similarity = calculateNameSimilarity(parte, parteCompare);
+                    var similarity = calculateNameSimilarity(parte, parteCompare); // Função de similaridade
 
                     if (similarity >= 0.75) { // Ajuste o limite de similaridade
                         parteCell.classList.add('highlight-yellow');
                         parteCellCompare.classList.add('highlight-yellow');
+                        similarMatches.push(`${parte} - ${parteCompare}`); // Armazena nomes similares
                     }
                 }
             }
         }
     }
 
-    var style = document.createElement('style');
-    style.innerHTML = `
-        .highlight-yellow {
-            background-color: #ffff99; /* Amarelo claro */
-			font-weight: bold;
-        }
-        .duplicate {
-            background-color: #ff9999; /* Vermelho claro */
-			font-weight: bold;
-        }
-    `;
-    document.head.appendChild(style);
+    // Criação do resumo
+    var resumoHTML = '<h2>Informações Gerais</h2><br>';
+    resumoHTML += '<strong>Nomes Idênticos:</strong><br>';
+    if (exactMatches.length > 0) {
+        resumoHTML += '<ul>';
+        exactMatches.forEach(function(nome) {
+            resumoHTML += '<li>' + nome + '</li>';
+        });
+        resumoHTML += '</ul>';
+    } else {
+        resumoHTML += '<p>Nenhum nome idêntico encontrado.</p>';
+    }
+
+    resumoHTML += '<strong>Nomes Similares:</strong><br>';
+    if (similarMatches.length > 0) {
+        resumoHTML += '<ul>';
+        similarMatches.forEach(function(par) {
+            resumoHTML += '<li>' + par + '</li>';
+        });
+        resumoHTML += '</ul>';
+    } else {
+        resumoHTML += '<p>Nenhum nome similar encontrado.</p>';
+    }
+
+    // Adicione esta linha para garantir que o resumo seja exibido dentro do info-container
+    document.querySelector('.info-container').insertAdjacentHTML('afterbegin', resumoHTML);
 }
+
+
+
+// Estilos para destaques
+var style = document.createElement('style');
+style.innerHTML = `
+    .highlight-yellow {
+        background-color: #ffff99; /* Amarelo claro */
+        font-weight: bold;
+    }
+    .duplicate {
+        background-color: #ff9999; /* Vermelho claro */
+        font-weight: bold;
+    }
+`;
+document.head.appendChild(style);
+
+
 
 // Função para calcular a similaridade entre nomes
 function calculateNameSimilarity(name1, name2) {
