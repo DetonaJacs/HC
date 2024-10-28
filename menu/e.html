@@ -1,188 +1,257 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DQED1910EF');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extensão Google</title>
+    <link rel="icon" href="../img/logo.png">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
 
-  gtag('config', 'G-DQED1910EF');
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Extensão Google</title>
-<link rel="icon" href="../img/logo.png">
-<style>
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 0;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-}
+        #container {
+            width: 600px; /* Largura fixa */
+            margin-top: 5vh; /* Margem superior para centralização vertical */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            overflow-y: auto; /* Adicionando rolagem vertical */
+        }
 
-#container {
-    width: 600px; /* Largura fixa */
-    margin-top: 5vh; /* Margem superior para centralização vertical */
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    overflow-y: auto; /* Adicionando rolagem vertical */
-}
+        .maintenance-message {
+            margin-top: 10px; /* Adicionando margem ao conteúdo interno */
+            margin-bottom: 10px; /* Adicionando margem ao conteúdo interno */
+        }
 
-.maintenance-message {
-    margin-top: 10px; /* Adicionando margem ao conteúdo interno */
-    margin-bottom: 10px; /* Adicionando margem ao conteúdo interno */
-}
+        h1 {
+            color: black;
+        }
 
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
+        .icon {
+            margin: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
 
+        .icon img {
+            width: 60px;
+            height: 60px;
+        }
 
+        .modal {
+            display: none; /* Oculta o modal por padrão */
+            position: fixed; 
+            z-index: 100; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4); 
+            padding-top: 60px;
+        }
 
-    #title {
-        margin-top: 10;
-        color: black;
-		margin: 10px 0;
-    }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
 
-    h2 {
-        font-size: 15px;
-        margin-top: 0;
-    }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-    #result {
-        max-height: 200px;
-        overflow-y: auto;
-        margin-bottom: 10px;
-    }
+        #title {
+            margin-top: 10;
+            color: black;
+            margin: 10px 0;
+        }
 
-    p {
-        margin: 10px 0;
-		text-align: justify;
-    }
+        h2 {
+            font-size: 15px;
+            margin-top: 0;
+        }
 
-    #developer {
-        color: #888;
-        font-size: smaller;
-    }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-    #returnButton {
-        margin-bottom: 20px;
-    }
+        #result {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
 
-    .btn {
-        margin: 0 2px;
-        padding: 10px 15px; /* Aumentando o padding para torná-los maiores */
-        cursor: pointer;
-        border: none;
-        background-color: #007bff;
-        color: #fff;
-        border-radius: 5px;
-        font-size: 14px; /* Aumentando o tamanho da fonte */
-    }
-	
-	#logo {
-        width: 50px; /* Largura da imagem */
-        height: auto; /* Altura ajustada automaticamente de acordo com a largura */
-        margin-bottom: 20px; /* Espaçamento abaixo da imagem */
-    }
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
 
-    /* Estilo para a dica de ferramenta */
-    .tooltip {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-    }
+        #developer {
+            color: #888;
+            font-size: smaller;
+        }
 
-    .tooltip .tooltiptext {
-        visibility: hidden;
-        width: 120px;
-        background-color: black;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 0;
-        position: absolute;
-        z-index: 1;
-        bottom: 100%;
-        left: 50%;
-        margin-left: -60px;
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
+        #returnButton {
+            margin-bottom: 20px;
+        }
 
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-        opacity: 1;
-    }
-</style>
+        .btn {
+            margin: 0 2px;
+            padding: 10px 15px; /* Aumentando o padding para torná-los maiores */
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 14px; /* Aumentando o tamanho da fonte */
+        }
+        
+        #logo {
+            width: 50px; /* Largura da imagem */
+            height: auto; /* Altura ajustada automaticamente de acordo com a largura */
+            margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+        }
+
+        /* Estilo para a dica de ferramenta */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
 
-
 <div id="container">
-	<a href="../index">
-        <img id="logo" src="../img/logo.png" alt="J">
+    <a href="../index">
+        <img id="logo" src="../img/logo.png" alt="Logo">
     </a>
     <div class="maintenance-message">
-         <h1>Nome da Extensão: Busca de Processos</h1>
-    <div class="tooltip"> <!-- Div para o botão com dica de ferramenta -->
-        <a href="https://chromewebstore.google.com/detail/busca-de-processos/ekhaiapibhbbnnfnmbjhhfdgdinlhcbl?hl=pt-BR&authuser=0" target="_blank">
-            <button id="downloadButton" class="btn">Acessar Web Store</button>
-        </a>
-    </div>
-        <p><strong>Descrição:</strong><br>
-A extensão Busca de Processos é uma ferramenta útil para profissionais interessados em acessar rapidamente informações sobre processos judiciais nos respectivos sites de gestão processual.</p>
-        <p><strong>Recursos Principais:</strong><br>
-- Permite a busca rápida de número de processo em páginas da web.<br>
-- Oferece opções de busca nos sites relevantes com apenas um clique.<br>
-- Integra-se ao menu de contexto do botão direito do mouse para acesso conveniente.</p>
-        <p><strong>Como Usar:</strong><br>
-1. Selecione o número de processo desejado em qualquer página da web.<br>
-2. Clique com o botão direito do mouse e escolha entre as opções disponíveis.<br>
-3. Uma nova aba será aberta no navegador exibindo os detalhes do processo no site correspondente.</p>
-        <p><strong>Privacidade e Segurança:</strong><br>
-A extensão Busca de Processos respeita a privacidade do usuário, não coletando nem armazenando informações pessoais. Todas as consultas são realizadas localmente no navegador do usuário, assegurando segurança e confidencialidade.</p>
-        
+        <h1>Baixe as Extensões</h1>
+        <div class="icon-container">
+            <!-- Ícones das extensões -->
+            <div class="icon" onclick="openModal('Busca de Processos', 
+                '<p><strong>Descrição:</strong><br>A extensão Busca de Processos é uma ferramenta útil para profissionais interessados em acessar rapidamente informações sobre processos judiciais nos respectivos sites de gestão processual.</p>' +
+                '<p><strong>Recursos Principais:</strong><br>- Permite a busca rápida de número de processo em páginas da web.<br>- Oferece opções de busca nos sites relevantes com apenas um clique.<br>- Integra-se ao menu de contexto do botão direito do mouse para acesso conveniente.</p>' +
+                '<p><strong>Como Usar:</strong><br>1. Selecione o número de processo desejado em qualquer página da web.<br>2. Clique com o botão direito do mouse e escolha entre as opções disponíveis.<br>3. Uma nova aba será aberta no navegador exibindo os detalhes do processo no site correspondente.</p>' +
+                '<p><strong>Privacidade e Segurança:</strong><br>A extensão Busca de Processos respeita a privacidade do usuário, não coletando nem armazenando informações pessoais. Todas as consultas são realizadas localmente no navegador do usuário, assegurando segurança e confidencialidade.</p>', 
+                'https://chromewebstore.google.com/detail/busca-de-processos-mpmg-t/ekhaiapibhbbnnfnmbjhhfdgdinlhcbl?hl')">
+                <img src="../img/exBusca.png" alt="Extensão 1">
+                <p>Busca de Processos</p>
+            </div>
 
+            <div class="icon" onclick="openModal('Notas Adesivas', 
+                '<p><strong>Descrição:</strong><br>Use esta extensão para criar notas adesivas úteis e acessíveis a qualquer momento.</p>' +
+                '<p><strong>Recursos Principais:</strong><br>- Crie e edite notas diretamente na sua tela.<br>- Personalize a posição e o conteúdo das notas.<br>- Acesso rápido às notas em qualquer página da web.</p>' +
+                '<p><strong>Como Usar:</strong><br>1. Clique no ícone da extensão para criar uma nova nota.<br>2. Digite o conteúdo da sua nota e posicione-a na tela como desejar.<br>3. As notas são salvas automaticamente e acessíveis a qualquer momento.</p>' +
+                '<p><strong>Privacidade e Segurança:</strong><br>A extensão de notas adesivas não coleta informações pessoais e armazena dados localmente no seu dispositivo, garantindo segurança e privacidade.</p>', 
+                'https://chromewebstore.google.com/detail/notas-adesivas/oklgdplcbmgephnlmnbcnifhkedgjdbe')">
+                <img src="../img/exBloco.png" alt="Extensão 2">
+                <p>Notas Adesivas</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDescription"></p>
+        <a id="modalLink" href="#" target="_blank">
+            <button class="btn">Baixar</button>
+        </a>
     </div>
 </div>
 
 <script>
+function openModal(title, description, link) {
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalDescription').innerHTML = description; // Mudança aqui
+    document.getElementById('modalLink').href = link;
+    document.getElementById('myModal').style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById('myModal').style.display = "none";
+}
 
 document.addEventListener('DOMContentLoaded', function() {
-            // Recuperar o nome do tema do localStorage
-            var themeName = localStorage.getItem('selectedTheme');
-            
-            // Verificar se o tema está definido e se corresponde a um arquivo CSS existente
-            if (themeName && themeName !== '') {
-                var themeCSS = '../styles/' + themeName + '.css'; // Caminho para o arquivo CSS do tema
-                var linkElement = document.createElement('link');
-                linkElement.setAttribute('rel', 'stylesheet');
-                linkElement.setAttribute('href', themeCSS);
-                document.head.appendChild(linkElement);
-            }
-        });
-		
-    document.getElementById("email").addEventListener("click", function() {
-        var email = this.textContent;
-        navigator.clipboard.writeText(email).then(function() {
-            alert("Endereço de e-mail copiado com sucesso: " + email);
-        }, function(err) {
-            console.error('Erro ao copiar endereço de e-mail: ', err);
-        });
-    });
+    // Recuperar o nome do tema do localStorage
+    var themeName = localStorage.getItem('selectedTheme');
+    
+    // Verificar se o tema está definido e se corresponde a um arquivo CSS existente
+    if (themeName && themeName !== '') {
+        var themeCSS = '../styles/' + themeName + '.css'; // Caminho para o arquivo CSS do tema
+        var linkElement = document.createElement('link');
+        linkElement.setAttribute('rel', 'stylesheet');
+        linkElement.setAttribute('href', themeCSS);
+        document.head.appendChild(linkElement);
+    }
+});
 </script>
 
 </body>
