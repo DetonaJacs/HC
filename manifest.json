@@ -1,10 +1,12 @@
 {
   "name": "Como posso ajudá-lo hoje?",
-  "short_name": "Ajuda",
+  "short_name": "Assistente",
+  "description": "Site de ajuda para resolver problemas diários.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#f0f0f0",
   "theme_color": "#007bff",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "./img/logo.png",
