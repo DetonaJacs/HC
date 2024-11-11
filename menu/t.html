@@ -247,6 +247,10 @@
     <!-- Informações gerais serão inseridas aqui -->
 </div>
 
+<div id="tableContainer">
+    <!-- A mensagem de carregamento aparecerá aqui -->
+    <p id="loadingMessage" style="display: none;">Carregando, por favor aguarde<span id="dots">...</span></p>
+</div>
 
 <footer>Desenvolvido por Jacson Costa Neves</footer>
 
@@ -272,158 +276,181 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 function processarArquivo() {
     var inputFile = document.getElementById('inputFile').files[0];
+    var tableContainer = document.getElementById('tableContainer');
+    var informacoesGerais = document.getElementById('informacoesGerais');
 
     if (!inputFile) {
         alert('Por favor, selecione um arquivo.');
         return;
     }
 
-    var reader = new FileReader();
-    reader.onload = function(event) {
-        var data = new Uint8Array(event.target.result);
-        var workbook = XLSX.read(data, { type: 'array' });
+    // Exibe a mensagem de carregamento
+    tableContainer.innerHTML = '<p>Carregando, por favor aguarde...</p>';
 
-        var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-        var jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+    setTimeout(function() {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            var data = new Uint8Array(event.target.result);
+            var workbook = XLSX.read(data, { type: 'array' });
+            var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            var jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
 
-        // Verifica se a primeira célula contém o termo "PROCESSOS NA CAIXA DE DISTRIBUIÇÃO"
-        if (!jsonData[0] || jsonData[0][0] !== "PROCESSOS NA CAIXA DE DISTRIBUIÇÃO") {
-            alert('O arquivo selecionado não é válido. Certifique-se de que o arquivo selecionado seja o "Relatório de Processos na Caixa de Distribuição" e esteja em formato XLS.');
-            reloadPage();  // Retorna à tela de carregamento de arquivo
-            return; // Não prossegue com o processamento do arquivo
-        }
-
-        var tabelaHTML = '<table>';
-        
-        // (Continua com o processamento do arquivo normalmente)
-        var ocorrencias = {
-            'DEPENDÊNCIA': 0,
-            'DILIGÊNCIA': 0,
-            'PREVENÇÃO': 0,
-            'RODÍZIO O.G.': 0
-        };
-
-        var nomesDuplicados = [];
-        var procuradores = {};
-
-        var processosMesclados = {};
-        var numeroProcessoLinha = {};
-
-        // Estrutura para armazenar ocorrências únicas por número de processo
-        var ocorrenciasPorProcesso = {};
-
-        for (var i = 0; i < jsonData.length; i++) {
-            var processo = jsonData[i][1];
-            if (!numeroProcessoLinha[processo]) {
-                numeroProcessoLinha[processo] = [];
-            }
-            numeroProcessoLinha[processo].push(i);
-        }
-
-        for (var i = 0; i < jsonData.length; i++) {
-            if (i < 5) {
-                tabelaHTML += '<tr class="sticky-top">';
-            } else if (i == jsonData.length - 1) {
-                tabelaHTML += '<tr class="sticky-bottom">';
-            } else {
-                tabelaHTML += '<tr>';
+            if (!jsonData[0] || jsonData[0][0] !== "PROCESSOS NA CAIXA DE DISTRIBUIÇÃO") {
+                alert('O arquivo selecionado não é válido. Certifique-se de que o arquivo selecionado seja o "Relatório de Processos na Caixa de Distribuição" e esteja em formato XLS.');
+                reloadPage();
+                return;
             }
 
-            var processo = jsonData[i][1];
-            var parte = jsonData[i][2];
-            var camara = jsonData[i][3]; // Coluna ajustada para camara
-            var tipo = jsonData[i][10];
-            var procurador = jsonData[i][11];
+            // Processa os dados e constrói a tabela HTML
+            var tabelaHTML = '<table>';
+            var ocorrencias = { 'DEPENDÊNCIA': 0, 'DILIGÊNCIA': 0, 'PREVENÇÃO': 0, 'RODÍZIO O.G.': 0 };
+            var nomesDuplicados = [];
+            var procuradores = {};
+            var processosMesclados = {};
+            var numeroProcessoLinha = {};
+            var ocorrenciasPorProcesso = {};
 
-            // Contabiliza ocorrências únicas por número de processo
-            if (!ocorrenciasPorProcesso[processo]) {
-                ocorrenciasPorProcesso[processo] = true;
+            var processosMarcados = new Set(); // Conjunto para armazenar processos marcados
 
-                if (ocorrencias.hasOwnProperty(tipo)) {
-                    ocorrencias[tipo]++;
+            for (var i = 0; i < jsonData.length; i++) {
+                var processo = jsonData[i][1];
+                if (!numeroProcessoLinha[processo]) {
+                    numeroProcessoLinha[processo] = [];
+                }
+                numeroProcessoLinha[processo].push(i);
+            }
+
+            for (var i = 0; i < jsonData.length; i++) {
+                if (i < 5) {
+                    tabelaHTML += '<tr class="sticky-top">';
+                } else if (i == jsonData.length - 1) {
+                    tabelaHTML += '<tr class="sticky-bottom">';
+                } else {
+                    tabelaHTML += '<tr>';
                 }
 
-                if (parte && parte !== 'undefined' && parte !== 'Procurador') {
-                    for (var j = 0; j < jsonData.length; j++) {
-                        if (j !== i && jsonData[j][2] === parte) {
-                            nomesDuplicados.push(parte);
-                            break;
+                var processo = jsonData[i][1];
+                var parte = jsonData[i][2];
+                var camara = jsonData[i][3];
+                var tipo = jsonData[i][10];
+                var procurador = jsonData[i][11];
+
+                // Marcar processos duplicados para verificação posterior
+                if (numeroProcessoLinha[processo].length > 1 && !processosMarcados.has(processo)) {
+                    processosMarcados.add(processo);
+                    // Adiciona classe de marcação para o processo duplicado
+                    var processoCells = document.querySelectorAll('.col3[data-processo="' + processo + '"]');
+                    processoCells.forEach(cell => {
+                        cell.classList.add('marked-for-verification');
+                    });
+                }
+
+                if (!ocorrenciasPorProcesso[processo]) {
+                    ocorrenciasPorProcesso[processo] = true;
+                    if (ocorrencias.hasOwnProperty(tipo)) {
+                        ocorrencias[tipo]++;
+                    }
+                    if (parte && parte !== 'undefined' && parte !== 'Procurador') {
+                        for (var j = 0; j < jsonData.length; j++) {
+                            if (j !== i && jsonData[j][2] === parte) {
+                                nomesDuplicados.push(parte);
+                                break;
+                            }
+                        }
+                    }
+                    if (procurador && procurador !== 'undefined' && procurador !== 'Procurador') {
+                        if (procuradores.hasOwnProperty(procurador)) {
+                            procuradores[procurador]++;
+                        } else {
+                            procuradores[procurador] = 1;
                         }
                     }
                 }
 
-                if (procurador && procurador !== 'undefined' && procurador !== 'Procurador') {
-                    if (procuradores.hasOwnProperty(procurador)) {
-                        procuradores[procurador]++;
+                if (!processosMesclados[processo]) {
+                    processosMesclados[processo] = {
+                        start: i,
+                        count: numeroProcessoLinha[processo].length
+                    };
+                }
+
+                for (var j = 0; j < 14; j++) {
+                    var cellValue = jsonData[i][j];
+                    var colClass = 'col' + (j + 1);
+
+                    if (i < 4) {
+                        if (j === 0) {
+                            tabelaHTML += '<th colspan="14">' + (cellValue || '') + '</th>';
+                        }
                     } else {
-                        procuradores[procurador] = 1;
+                        if (j !== 2 && j !== 3 && processosMesclados[processo].start === i) {
+                            // Adiciona rowspan e data-processo para a col3
+                            if (j === 2) { // Se for a coluna 3
+                                tabelaHTML += '<td class="' + colClass + '" rowspan="' + processosMesclados[processo].count + '" data-processo="' + processo + '">' + (cellValue || '') + '</td>';
+                            } else {
+                                tabelaHTML += '<td class="' + colClass + '" rowspan="' + processosMesclados[processo].count + '" data-processo="' + processo + '">' + (cellValue || '') + '</td>';
+                            }
+                        } else if (j === 2 || j === 3) {
+                            tabelaHTML += '<td class="' + colClass + '">' + (cellValue || '') + '</td>';
+                        }
                     }
                 }
+                tabelaHTML += '</tr>';
             }
+            tabelaHTML += '</table>';
 
-                        // Lógica para mesclar células de número de processo
-            if (!processosMesclados[processo]) {
-                processosMesclados[processo] = {
-                    start: i,
-                    count: numeroProcessoLinha[processo].length
-                };
+            tableContainer.innerHTML = tabelaHTML;
+
+            // Constrói informações gerais
+            var infoGeralHTML = '<div class="info-container">';
+            infoGeralHTML += '<p><strong>Ocorrências por tipo:</strong></p><ul>';
+            for (var tipo in ocorrencias) {
+                infoGeralHTML += '<li>' + tipo + ': ' + ocorrencias[tipo] + '</li>';
             }
+            infoGeralHTML += '</ul><p><strong>Ocorrências por procurador (ordem alfabética):</strong></p><ul>';
+            Object.keys(procuradores).sort().forEach(function(procurador) {
+                infoGeralHTML += '<li>' + procurador + ': ' + procuradores[procurador] + '</li>';
+            });
+            infoGeralHTML += '</ul></div>';
+            informacoesGerais.innerHTML = infoGeralHTML;
 
-            for (var j = 0; j < 14; j++) {
-                var cellValue = jsonData[i][j];
-                var colClass = 'col' + (j + 1);
-
-                if (i < 4) {
-                    if (j === 0) {
-                        tabelaHTML += '<th colspan="14">' + (cellValue || '') + '</th>';
-                    } else {
-                        tabelaHTML += '';
-                    }
-                } else {
-                    if (j !== 2 && j !== 3 && processosMesclados[processo].start === i) {
-                        tabelaHTML += '<td class="' + colClass + '" rowspan="' + processosMesclados[processo].count + '">' + (cellValue || '') + '</td>';
-                    } else if (j === 2 || j === 3) {
-                        tabelaHTML += '<td class="' + colClass + '">' + (cellValue || '') + '</td>';
-                    } else if (!processosMesclados[processo].start === i) {
-                        tabelaHTML += '';
-                    }
-                }
-            }
-            tabelaHTML += '</tr>';
-        }
-
-        tabelaHTML += '</table>';
-
-        document.getElementById('tabelaResultado').innerHTML = tabelaHTML;
-
-        // Constrói informações gerais considerando ocorrências únicas por processo
-        var infoGeralHTML = '<div class="info-container">';
-        infoGeralHTML += '<p><strong>Ocorrências por tipo:</strong></p>';
-        infoGeralHTML += '<ul>';
-        for (var tipo in ocorrencias) {
-            infoGeralHTML += '<li>' + tipo + ': ' + ocorrencias[tipo] + '</li>';
-        }
-        infoGeralHTML += '</ul>';
-
-        infoGeralHTML += '<p><strong>Ocorrências por procurador (ordem alfabética):</strong></p>';
-        infoGeralHTML += '<ul>';
-        Object.keys(procuradores).sort().forEach(function(procurador) {
-            infoGeralHTML += '<li>' + procurador + ': ' + procuradores[procurador] + '</li>';
-        });
-        infoGeralHTML += '</ul>';
-
-		
-
-        infoGeralHTML += '</div>';
-
-        document.getElementById('informacoesGerais').innerHTML = infoGeralHTML;
-        destacarDuplicatas(); // Chama a função para destacar os nomes duplicados
-
-        exibirContainers(); // Função para exibir todos os containers após o carregamento do arquivo
-    };
-
-    reader.readAsArrayBuffer(inputFile);
+            destacarDuplicatas();
+            exibirContainers();
+        };
+        reader.readAsArrayBuffer(inputFile);
+    }, 1); 
 }
+
+
+
+
+function destacarDuplicatas() {
+    // Seleciona todas as células da coluna 3 que possuem a classe 'duplicate' ou 'highlight-yellow'
+    var cells = document.querySelectorAll('.col3.duplicate, .col3.highlight-yellow');
+
+    cells.forEach(cell => {
+        // Obtém o processo da célula atual
+        var processoAtual = cell.getAttribute('data-processo');
+
+        // Obtém a célula da esquerda (número do processo)
+        var cellLeft = cell.previousElementSibling;
+        
+        // Verifica se a célula da esquerda existe e possui o mesmo número de processo
+        if (cellLeft && cellLeft.getAttribute('data-processo') === processoAtual) {
+            // Se o número do processo é o mesmo, desconsidera
+            return;
+        }
+
+        // Aplica o destaque na célula, caso o número do processo seja diferente
+        if (cell.classList.contains('duplicate')) {
+            cell.style.backgroundColor = 'red';  // Destaque para duplicatas exatas
+        } else if (cell.classList.contains('highlight-yellow')) {
+            cell.style.backgroundColor = 'yellow';  // Destaque para similares
+        }
+    });
+}
+
+
 
 function reloadPage() {
     // Esconder o container da tabela
@@ -481,7 +508,7 @@ function destacarDuplicatas() {
     var table = document.querySelector('table');
     var rows = table.rows;
 
-    var termosExcluir = ["JUIZ", "MINISTÉRIO", "DESEMBARGADOR", "MINISTERIO", "PROCURADOR-GERAL", "VARA DE TÓXICOS", "VARA DE TOXICOS", "ORGANIZAÇÃO CRIMINOSA","ORGANIZACAO CRIMINOSA","LAVAGEM DE BENS"]; // Termos para desconsiderar
+    var termosExcluir = ["JUIZ", "MINISTÉRIO", "DESEMBARGADOR", "MINISTERIO", "PROCURADOR-GERAL", "VARA DE TÓXICOS", "VARA DE TOXICOS", "ORGANIZAÇÃO CRIMINOSA", "ORGANIZACAO CRIMINOSA", "LAVAGEM DE BENS"]; // Termos para desconsiderar
     var seenExact = {}; // Armazena nomes exatos já vistos
     var exactMatches = []; // Armazena nomes 100% idênticos
     var similarMatches = []; // Armazena pares de nomes similares
@@ -494,6 +521,52 @@ function destacarDuplicatas() {
         return nome.trim();
     }
 
+    // Função para verificar se duas células pertencem ao mesmo processo (mesmo número de processo e rowspan)
+    function mesmaLinhaDeProcesso(i, j) {
+        var processoCell1 = rows[i].querySelector('.col2'); // A coluna 2 contém o número do processo
+        var processoCell2 = rows[j].querySelector('.col2'); // A coluna 2 contém o número do processo
+
+        if (!processoCell1 || !processoCell2) return false;
+
+        // Verifica se o conteúdo do número do processo é igual
+        if (processoCell1.textContent.trim() === processoCell2.textContent.trim()) {
+            return true;
+        }
+
+        // Verifica se a célula de processo tem um rowSpan e a célula de outro processo está dentro do rowSpan
+        var rowspan1 = parseInt(processoCell1.getAttribute('rowspan') || '1', 10);
+        var rowspan2 = parseInt(processoCell2.getAttribute('rowspan') || '1', 10);
+
+        // Se os rowspans são iguais, então eles provavelmente pertencem ao mesmo processo
+        if (rowspan1 > 1 || rowspan2 > 1) {
+            return processoCell1.textContent.trim() === processoCell2.textContent.trim();
+        }
+
+        return false;
+    }
+
+    // Função para verificar se a célula já está marcada como highlight-yellow ou duplicate e se pertencem ao mesmo processo
+    function verificarSeDuplicada(i, classe) {
+        var parteCell = rows[i].querySelector('.col3');
+        if (!parteCell) return false; // Pular células sem a classe .col3
+
+        var processoCell = rows[i].querySelector('.col2'); // Coluna com o número do processo
+        if (!processoCell) return false;
+
+        var processoAtual = processoCell.textContent.trim();
+
+        // Verifica se a célula já tem a classe highlight-yellow ou duplicate e se pertence ao mesmo processo
+        var cellsComClasse = document.querySelectorAll(`.${classe}`);
+        for (var cell of cellsComClasse) {
+            var processoCellComparar = cell.closest('tr').querySelector('.col2');
+            if (processoCellComparar && processoCellComparar.textContent.trim() === processoAtual) {
+                return true; // Já é uma célula com a mesma numeração de processo
+            }
+        }
+
+        return false; // Não encontrou nenhuma célula com o mesmo processo
+    }
+
     // Verifica duplicatas exatas
     for (var i = 1; i < rows.length; i++) { // Pular cabeçalhos fixos, começando do índice 1
         var parteCell = rows[i].querySelector('.col3');
@@ -502,9 +575,13 @@ function destacarDuplicatas() {
         var parte = limparNome(parteCell.textContent);
 
         if (parte !== '' && !deveDesconsiderar(parte)) {
-            if (seenExact[parte] === undefined) {
+            var processoCell = rows[i].querySelector('.col2');
+            var processo = processoCell ? processoCell.textContent.trim() : null;
+
+            // Ignora se o nome na col3 for igual ao da mesma linha no processo (exclusão de duplicados na mesma linha do processo)
+            if (parte !== processo && seenExact[parte] === undefined) {
                 seenExact[parte] = i;
-            } else {
+            } else if (seenExact[parte] !== i && !mesmaLinhaDeProcesso(i, seenExact[parte]) && !verificarSeDuplicada(i, 'duplicate')) { // Verificar se não está no mesmo processo e já não é uma duplicata
                 rows[seenExact[parte]].querySelector('.col3').classList.add('duplicate');
                 parteCell.classList.add('duplicate');
                 exactMatches.push(parte); // Armazena nomes 100% idênticos
@@ -526,10 +603,10 @@ function destacarDuplicatas() {
 
                 var parteCompare = limparNome(parteCellCompare.textContent);
 
-                if (parteCompare !== '' && parte !== parteCompare && !deveDesconsiderar(parteCompare)) {
+                if (parteCompare !== '' && parte !== parteCompare && !deveDesconsiderar(parteCompare) && !mesmaLinhaDeProcesso(i, j) && !verificarSeDuplicada(j, 'highlight-yellow')) { // Verifica se não é uma duplicata já marcada
                     var similarity = calculateNameSimilarity(parte, parteCompare); // Função de similaridade
 
-                    if (similarity >= 0.75) { // Ajuste o limite de similaridade
+                    if (similarity >= 0.75 && j !== i) { // Verifica se estão em linhas diferentes
                         parteCell.classList.add('highlight-yellow');
                         parteCellCompare.classList.add('highlight-yellow');
                         similarMatches.push(`${parte} - ${parteCompare}`); // Armazena nomes similares
@@ -567,8 +644,6 @@ function destacarDuplicatas() {
     document.querySelector('.info-container').insertAdjacentHTML('afterbegin', resumoHTML);
 }
 
-
-
 // Estilos para destaques
 var style = document.createElement('style');
 style.innerHTML = `
@@ -582,7 +657,6 @@ style.innerHTML = `
     }
 `;
 document.head.appendChild(style);
-
 
 
 // Função para calcular a similaridade entre nomes
