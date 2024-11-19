@@ -359,7 +359,17 @@ function toggleThemeOptions() {
     // Escuta respostas da extensão
     window.addEventListener("message", (event) => {
       if (event.data.type === "from-extension") {
-        console.log("Resposta da extensão:", event.data.payload);
+        const response = event.data.payload;
+
+        // Exibe a resposta no console
+        console.log("Resposta da extensão:", response);
+
+        // Exibe um alerta baseado no status
+        if (response.status === "success") {
+          alert(`Sucesso: ${response.info}`);
+        } else {
+          alert(`Erro: ${response.info}`);
+        }
       }
     });
   </script>
