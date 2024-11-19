@@ -338,3 +338,33 @@ function toggleThemeOptions() {
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunicação com Extensão</title>
+  <script>
+    function enviarMensagemParaExtensao() {
+      const payload = {
+        type: "from-site",
+        payload: { action: "buscarProcesso", numero: "123456789" },
+      };
+
+      // Envia uma mensagem ao conteúdo
+      window.postMessage(payload, "*");
+    }
+
+    // Escuta respostas da extensão
+    window.addEventListener("message", (event) => {
+      if (event.data.type === "from-extension") {
+        console.log("Resposta da extensão:", event.data.payload);
+      }
+    });
+  </script>
+</head>
+<body>
+  <button onclick="enviarMensagemParaExtensao()">Enviar para Extensão</button>
+</body>
+</html>
