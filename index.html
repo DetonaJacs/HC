@@ -339,42 +339,4 @@ function toggleThemeOptions() {
 </body>
 </html>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comunicação com Extensão</title>
-  <script>
-    function enviarMensagemParaExtensao() {
-      const payload = {
-        type: "from-site",
-        payload: { action: "buscarProcesso", numero: "123456789" },
-      };
 
-      // Envia uma mensagem ao conteúdo
-      window.postMessage(payload, "*");
-    }
-
-    // Escuta respostas da extensão
-    window.addEventListener("message", (event) => {
-      if (event.data.type === "from-extension") {
-        const response = event.data.payload;
-
-        // Exibe a resposta no console
-        console.log("Resposta da extensão:", response);
-
-        // Exibe um alerta baseado no status
-        if (response.status === "success") {
-          alert(`Sucesso: ${response.info}`);
-        } else {
-          alert(`Erro: ${response.info}`);
-        }
-      }
-    });
-  </script>
-</head>
-<body>
-  <button onclick="enviarMensagemParaExtensao()">Enviar para Extensão</button>
-</body>
-</html>
