@@ -356,6 +356,24 @@ function extractNumbers() {
                 window.open('https://aplicacao.mpmg.mp.br/pareceres/processoParecerPesquisar.do?numProcessoCorrente=0' + processNumberWithoutPunctuation);
             };
             li.appendChild(button2);
+			
+			var button3 = document.createElement('button');
+			button3.textContent = 'Consulta MPMG';
+			button3.className = 'btn';
+			button3.onclick = function() {
+				var processNumber = number.replace(/[^\d]/g, ''); // Obtém o número do processo, removendo pontuações
+
+				// Envia uma mensagem para a extensão chamar a função "consultaMPMG" com o número do processo
+				chrome.runtime.sendMessage("dckgblhpoilifmdladgaagahaoccnbcn", {
+					action: "consultaMPMG",
+					processNumber: processNumber
+				}, function(response) {
+					console.log(response.message); // Exibe a resposta da extensão no console
+				});
+			};
+
+			li.appendChild(button3);
+
 
             var deleteButton = document.createElement('button');
             deleteButton.textContent = 'X';
