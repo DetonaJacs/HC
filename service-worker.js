@@ -5,7 +5,9 @@ self.addEventListener('install', event => {
         './',
         './index.html',
         './styles/default.css',
-        './img/logo.png'
+        './img/logo.png',
+	    	'./menu/1.html',
+		    './menu/t.html'
         // Adicione outros recursos aqui, como JavaScript, fontes, etc.
       ]);
     })
