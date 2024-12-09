@@ -345,13 +345,6 @@ function processarArquivo() {
                     });
                 }
 				
-				// if (!processosMesclados[processo]) {
-                //  processosMesclados[processo] = {
-                //       start: i,
-                //       count: numeroProcessoLinha[processo].length
-                //    };
-                //}
-
                 if (!ocorrenciasPorProcesso[processo]) {
                     ocorrenciasPorProcesso[processo] = true;
                     if (ocorrencias.hasOwnProperty(tipo)) {
@@ -381,19 +374,31 @@ function processarArquivo() {
                     };
                 }
 
-                // Construi a tabela
-                tabelaHTML += '<tr>';
-                for (var j = 0; j < 14; j++) {
-                    var cellValue = jsonData[i][j];
-                    var colClass = 'col' + (j + 1);
+				// Construção da tabela
+				for (var j = 0; j < 14; j++) {
+					var cellValue = jsonData[i][j];
+					var colClass = 'col' + (j + 1);
 
-                    if (j === 2) {
-                        // Adiciona `data-processo` à coluna `col3` de forma oculta
-                        tabelaHTML += '<td class="' + colClass + '" data-processo="' + processo + '" style="display:true;">' + (cellValue || '') + '</td>';
-                    } else {
-                            tabelaHTML += '<td class="' + colClass + '">' + (cellValue || '') + '</td>';
-                    }
-                }
+					if (i < 4) { // Para as primeiras 4 linhas
+						if (j === 0) {
+							tabelaHTML += '<th colspan="14">' + (cellValue || '') + '</th>';
+							}
+						} else if (j === 2) { // Coluna de nomes (adicionando atributo oculto)
+							var nome = cellValue || ''; // Valor da célula
+							tabelaHTML += '<td class="' + colClass + '" data-processo="' + (processo || '') + '">' + nome + '</td>';
+						} else if ([0, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].includes(j)) { // Mescla as colunas especificadas
+												if (numeroProcessoLinha[processo][0] === i) {
+													var rowspan = numeroProcessoLinha[processo].length;
+													tabelaHTML += '<td class="' + colClass + '" rowspan="' + rowspan + '">' + (cellValue || '') + '</td>';
+												}
+						} else { // Outras colunas
+							tabelaHTML += '<td class="' + colClass + '">' + (cellValue || '') + '</td>';
+						}
+					
+				}
+
+
+
 				
 
                 tabelaHTML += '</tr>';
@@ -426,30 +431,75 @@ function processarArquivo() {
 
 
 function destacarDuplicatas() {
-    // Seleciona todas as células da coluna 3 que possuem a classe 'duplicate' ou 'highlight-yellow'
-    var cells = document.querySelectorAll('.col3.duplicate, .col3.highlight-yellow');
+    // Seleciona todas as células da coluna 3 com atributo `data-processo`
+    var cells = document.querySelectorAll('.col3[data-processo=]');
 
+    // Cria um mapa para rastrear nomes e os processos associados
+    var nomeProcessoMap = {};
+
+    // Mapeia os nomes e os números de processo associados
     cells.forEach(cell => {
-        // Obtém o processo da célula atual
-        var processoAtual = cell.getAttribute('data-processo');
+        var nome = cell.textContent.trim();
+        var processo = cell.getAttribute('data-processo='); // Obtém o valor correto de `data-processo`
 
-        // Obtém a célula da esquerda (número do processo)
-        var cellLeft = cell.previousElementSibling;
-        
-        // Verifica se a célula da esquerda existe e possui o mesmo número de processo
-        if (cellLeft && cellLeft.getAttribute('data-processo') === processoAtual) {
-            // Se o número do processo é o mesmo, desconsidera
-            return;
+        if (!nomeProcessoMap[nome]) {
+            nomeProcessoMap[nome] = new Set();
+        }
+        nomeProcessoMap[nome].add(processo);
+    });
+
+    // Função para calcular a similaridade entre duas strings
+    function calcularSimilaridade(str1, str2) {
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+
+        if (str1 === str2) return 1.0; // Igualdade exata
+        let maior = Math.max(str1.length, str2.length);
+        let diferenca = 0;
+        for (let i = 0; i < maior; i++) {
+            if (str1[i] !== str2[i]) diferenca++;
+        }
+        return 1 - diferenca / maior; // Similaridade percentual
+    }
+
+    // Itera novamente para aplicar as classes de duplicado ou similar
+    cells.forEach(cell => {
+        var nomeAtual = cell.textContent.trim();
+        var processoAtual = cell.getAttribute('data-processo='); // Verifica o `data-processo`
+        var processosAssociados = nomeProcessoMap[nomeAtual];
+
+        // Verificação de duplicatas exatas
+        if (processosAssociados.size > 1) {
+            var outrosProcessos = Array.from(processosAssociados).filter(proc => proc !== processoAtual);
+
+            if (outrosProcessos.length > 0) {
+                // Marca como duplicado apenas se outros processos forem diferentes
+                cell.classList.add('duplicate');
+                cell.style.backgroundColor = 'red';
+                return; // Sai para evitar marcação de similar
+            }
         }
 
-        // Aplica o destaque na célula, caso o número do processo seja diferente
-        if (cell.classList.contains('duplicate')) {
-            cell.style.backgroundColor = 'red';  // Destaque para duplicatas exatas
-        } else if (cell.classList.contains('highlight-yellow')) {
-            cell.style.backgroundColor = 'yellow';  // Destaque para similares
-        }
+        // Verificação de nomes similares
+        cells.forEach(outroCell => {
+            if (cell === outroCell) return; // Ignora a própria célula
+            var nomeComparado = outroCell.textContent.trim();
+            var processoComparado = outroCell.getAttribute('data-processo=');
+
+            // Ignora se pertencem ao mesmo processo
+            if (processoAtual === processoComparado) return;
+
+            // Calcula similaridade
+            var similaridade = calcularSimilaridade(nomeAtual, nomeComparado);
+            if (similaridade >= 0.8 && similaridade < 1.0) { // Similaridade >= 80% mas não 100%
+                cell.classList.add('highlight-yellow'); // Marca como similar
+                cell.style.backgroundColor = 'yellow';
+            }
+        });
     });
 }
+
+
 
 
 
