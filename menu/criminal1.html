@@ -210,6 +210,19 @@
         }
 
 
+.procurador-nome {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+.procurador-nome:hover {
+    color: darkblue;
+}
+.processos-lista {
+    list-style-type: circle;
+    margin-left: 20px;
+    padding-left: 10px;
+}
 
     </style>
 </head>
@@ -413,15 +426,54 @@ function processarArquivo() {
             for (var tipo in ocorrencias) {
                 infoGeralHTML += '<li>' + tipo + ': ' + ocorrencias[tipo] + '</li>';
             }
-            infoGeralHTML += '</ul><p><strong>Ocorrências por procurador (ordem alfabética):</strong></p><ul>';
-            Object.keys(procuradores).sort().forEach(function(procurador) {
-                infoGeralHTML += '<li>' + procurador + ': ' + procuradores[procurador] + '</li>';
-            });
-            infoGeralHTML += '</ul></div>';
-            informacoesGerais.innerHTML = infoGeralHTML;
+			// Constrói informações gerais
+			infoGeralHTML += '<p><strong>Ocorrências por procurador (ordem alfabética):</strong></p><ul>';
+			Object.keys(procuradores).sort().forEach(function(procurador) {
+				// Cria um conjunto único de processos associados a cada procurador
+				var processosAssociados = Array.from(
+					new Map(
+						jsonData
+							.filter(row => row[11] === procurador)
+							.map(row => [row[1], row[10]]) // Cria um par [processo, tipo] para garantir unicidade
+					)
+				).map(([processo, tipo]) => ({ processo, tipo })); // Converte para um array de objetos
 
-            destacarDuplicatas();
-            exibirContainers();
+				infoGeralHTML += `
+					<li>
+						<span class="procurador-nome" data-procurador="${procurador}">${procurador} (${procuradores[procurador]})</span>
+						<ul class="processos-lista" id="processos-${procurador.replace(/\s+/g, '-')}" style="display: none;">
+							${processosAssociados.map(({ processo, tipo }) => {
+								// Determina a abreviação do tipo
+								var tipoAbreviado = tipo === 'DEPENDÊNCIA' ? 'DEP' :
+													tipo === 'DILIGÊNCIA' ? 'DILI' :
+													tipo === 'PREVENÇÃO' ? 'PREV' : 'OUTRO';
+								return `<li>${processo} (${tipoAbreviado})</li>`;
+							}).join('')}
+						</ul>
+					</li>
+				`;
+			});
+			infoGeralHTML += '</ul></div>';
+			informacoesGerais.innerHTML = infoGeralHTML;
+
+			// Adiciona evento de clique aos nomes dos procuradores para expandir/ocultar a lista
+			document.querySelectorAll('.procurador-nome').forEach(function(element) {
+				element.addEventListener('click', function() {
+					var procurador = this.getAttribute('data-procurador');
+					var lista = document.getElementById(`processos-${procurador.replace(/\s+/g, '-')}`);
+					if (lista) {
+						lista.style.display = lista.style.display === 'none' ? 'block' : 'none';
+					}
+				});
+			});
+
+			destacarDuplicatas();
+			exibirContainers();
+
+
+
+
+
         };
         reader.readAsArrayBuffer(inputFile);
     }, 1);
