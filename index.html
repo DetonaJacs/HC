@@ -223,6 +223,38 @@
     -o-user-drag: none; /* Para navegadores baseados em Opera */
     user-drag: none; /* Padrão */
 }
+
+	
+    /* Estilos personalizados */
+    /* Adicione estilos personalizados aqui */.circle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #24292e;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 1000;
+    text-decoration: none;
+}
+
+.circle-button img {
+    max-width: 70%;
+}
+
+.circle-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.circle-button:active {
+    transform: scale(0.95);
+}
 </style>
 
 </head>
@@ -267,6 +299,12 @@
         <!-- Adicione mais temas conforme necessário -->
     </div>
 </div>
+	
+<!-- Botão circular no canto inferior direito -->
+<a href="https://github.com/DetonaJacs" target="_blank" class="circle-button" title="Visite nosso GitHub">
+    <img src="https://avatars.githubusercontent.com/u/104026932?v=4" alt="GitHub" draggable="false" style="width: 100%; height: auto;">
+</a>
+	
 
 <script>
    // Função para definir o tema
