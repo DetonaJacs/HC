@@ -16,7 +16,6 @@ Este projeto é um site desenvolvido para facilitar a busca de processos e infor
 ## 🛠️ Requisitos
 
 - Navegador com suporte a **JavaScript**.
-- Extensão do Google Chrome instalada com o ID `ekhaiapibhbbnnfnmbjhhfdgdinlhcbl` (para integração com a funcionalidade de pesquisa).
 - Arquivos PDF acessíveis diretamente no site.
 
 ---
