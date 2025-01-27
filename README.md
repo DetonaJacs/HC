@@ -24,7 +24,7 @@ Este projeto é um site desenvolvido para facilitar a busca de processos e infor
 
 - **`index.html`**: Página principal do site.
 - **`style.css`**: Estilos para o layout e design do site.
-- **`script.js`**: Lógica para interação e integração com a extensão do Chrome.
+- **`script.js`**: Lógica para interação dos dados.
 
 ---
 
