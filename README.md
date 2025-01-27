@@ -20,17 +20,6 @@ Este projeto é um site desenvolvido para facilitar a busca de processos e infor
 
 ---
 
-## 📝 Como Usar
-
-1. **Abrir o Site**
-   - Acesse o site hospedado no **GitHub Pages**.
-2. **Pesquisar Processos**
-   - Utilize o botão específico para chamar a extensão do Chrome e realizar a busca.
-3. **Analisar PDFs**
-   - Faça upload de um arquivo PDF e utilize as funcionalidades para detectar informações duplicadas.
-
----
-
 ## 📂 Estrutura do Projeto
 
 - **`index.html`**: Página principal do site.
