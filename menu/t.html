@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5578483282621835"
+     crossorigin="anonymous"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DQED1910EF');
+</script>
+
+
+	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processamento de Arquivo Processos na caixa de Distribuição</title>
+    <link rel="icon" href="../img/logo.png">
+    <link rel="stylesheet" href="../menu/t.css">
+
+</head>
+<body>
+<div class="logo-container">
+    <a href="../index">
+        <img id="logo" src="../img/logo.png" alt="J">
+    </a>
+</div>
+
+<h1 class="titulo">Processamento de Arquivo <br>Processos na caixa de Distribuição</h1>
+
+<div class="file-container" id="fileContainer" title="Permite inserir e processar arquivo em formato XLS do Relatório de Processos na Caixa de Distribuição (SCPJ - Relatórios - Processos na caixa de distribuição). As partes com nomes 100% idênticos são apresentados em destaque vermelho e nomes similares em destaque amarelo. Resume a quantidade de ocorrências gerais e por procurador." 
+    onclick="document.getElementById('inputFile').click();" 
+    ondragover="handleDragOver(event)" 
+    ondragenter="highlight(event)" 
+    ondragleave="unhighlight(event)" 
+    ondrop="handleFileDrop(event)">
+    <label for="inputFile" id="fileLabel">Clique ou arraste para selecionar o arquivo XLS</label>
+    <input type="file" id="inputFile" accept=".xls,.xlsx" onchange="handleFileSelect(event)" style="display: none;">
+</div>
+
+<!-- Container da tabela (inicialmente oculto) -->
+<div class="table-container" id="tableContainer" style="display: none;">
+    <div id="tabelaResultado"></div>
+</div>
+
+<div class="table-container" id="tableContainer" style="display: none;">
+    <div id="tabelaResultado">
+        <!-- Tabela resultante será inserida aqui -->
+    </div>
+</div>
+
+<div id="informacoesGerais" style="display: none;">
+    <!-- Informações gerais serão inseridas aqui -->
+</div>
+
+<div id="tableContainer">
+    <!-- A mensagem de carregamento aparecerá aqui -->
+    <p id="loadingMessage" style="display: none;">Carregando, por favor aguarde<span id="dots">...</span></p>
+</div>
+
+<footer>Desenvolvido por Jacson Costa Neves</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+<script src="./t.js"></script> 
+
+</body>
+</html>
