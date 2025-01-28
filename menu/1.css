@@ -1,0 +1,196 @@
+
+        /* CSS para o modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Estilos originais */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            position: relative;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #title {
+            margin-top: 10px;
+            color: black;
+            margin: 10px 0;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 0; /* Removido margin-bottom para evitar espaços extras */
+        }
+
+        #result {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            text-align: justify; /* Ajustado para justificar */
+            padding-left: 0; /* Removido padding-left para alinhamento correto */
+        }
+
+		#duplicateList {
+			overflow-y: auto;
+			max-height: 140px;
+            list-style-type: none;
+            padding: 0;
+            margin-top: 5px; /* Espaçamento superior para separar da lista principal */
+        }
+
+        li {
+            margin-bottom: 5px;
+            position: relative; /* Adicionado para posicionamento dos botões */
+        }
+
+        p {
+            margin: 10px 0;
+            text-align: justify; /* Justificado */
+        }
+
+        #developer {
+            color: #888;
+            font-size: smaller;
+            text-align: center; /* Centraliza o texto horizontalmente */
+            width: 100%; /* Garante que o contêiner ocupe toda a largura */
+        }
+
+        #returnButton {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            margin: 0 2px;
+            padding: 2px 7px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        
+        .botaoexcluir {
+            margin: 0 0px;
+            padding: 0px 0px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+                #logo {
+            width: 50px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        #infoIcon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background-color: #c4302b;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-weight: bold;
+            cursor: help;
+            color: #fff;
+            font-size: 14px;
+        }
+        
+        #resetButton {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+			transition: transform 0.2s ease;
+    }
+
+    #resetButton:active {
+        transform: rotate(-15deg);
+    }
+
+    
+		
+		#toggleOrderButton {
+		border: none; /* Remove a borda do botão */
+		background: none; /* Remove o fundo do botão */
+		padding: 0; /* Remove o preenchimento padrão */
+		cursor: pointer; /* Adiciona o cursor de ponteiro ao passar sobre o botão */
+		transition: transform 0.3s ease;
+    }
+
+    #toggleOrderButton:active {
+        transform: scaleX(-1);
+    }
+	
+
+		#toggleOrderButton img {
+		border: none; /* Remove a borda da imagem */
+		}

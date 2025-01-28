@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5578483282621835"
+     crossorigin="anonymous"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DQED1910EF');
+</script>
+
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrair Números de Processo</title>
+	<link rel="icon" type="img" href="../img/logo.png">
+    <link rel="stylesheet" href="../menu/1.css">
+
+    
+</head>
+<body>
+
+<div id="container">
+    <!-- Botão de exclamação -->
+    <div id="infoIcon" onclick="openModal()">▹</div>
+
+    <!-- Conteúdo do modal -->
+    <div id="myModal" class="modal">
+        <!-- Conteúdo do modal -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>
+                Esta ferramenta permite extrair números de processo de um campo de texto. Após colar a lista de números de processos, clique no botão 'Extrair Números' para processá-los. Os números de processos serão exibidos em uma lista ordenada, com botões para acessar informações sobre cada um nos sites do Tribunal de Justiça de Minas Gerais (TJMG) e do Ministério Público de Minas Gerais (MPMG). Você também pode copiar os números dos processos para a área de transferência clicando no botão 'Copiar Números'.
+            </p>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <!-- Centralizar o vídeo horizontalmente e verticalmente -->
+                <iframe width="560" height="315" src="../video/Numero.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+     <!-- Logo e título -->
+    <a href="../index.html">
+        <img id="logo" src="../img/logo.png" alt="J">
+    </a>
+    <h1 id="title">Extrair Números</h1>
+
+    <!-- Campo de texto -->
+    <h2>Cole aqui:</h2>
+    <textarea id="processList" rows="10" cols="50"></textarea><br>
+    <!-- Botão para extrair números -->
+    <button onclick="extractNumbers()">Extrair Números</button>
+ 	<!-- Botão para limpar o campo de texto -->
+ 	<button id="resetButton" title="Restaurar" onclick="resetForm()">↺</button>
+	
+	<!-- Botão para classificar ordem dos processos -->
+	<button id="toggleOrderButton" title="Classificar" onclick="toggleOrder()" style="font-size: 16px; border: none; background: transparent; cursor: pointer;">⥮</button>
+
+
+    <!-- Lista de números de processo -->
+    <ul id="result"></ul>
+
+    <!-- Mensagem de processos duplicados -->
+    <p id="duplicateMsg"></p>
+    <ul id="duplicateList"></ul>
+
+    <!-- Contador de processos -->
+    <p id="count"></p>
+
+    <!-- Botões para copiar e abrir números de processo -->
+	<div id="actionButtons" style="display: none;">
+    <button id="copyButton" class="btn" onclick="copyNumbers()">Copiar <br>Números</button>
+    <button id="openTJMGButton" class="btn" onclick="openAllTJMG()">Abrir Todos <br>TJMG</button>
+    <button id="openMPMGButton" class="btn" onclick="openAllMPMG()">Abrir Todos <br>MPMG</button>
+	</div>
+
+
+    <!-- Informações do desenvolvedor -->
+    <p id="developer">Desenvolvido por Jacson Costa Neves</p>
+</div>
+
+<script src="../menu/1.js" defer></script>
+
+</body>
+</html>
