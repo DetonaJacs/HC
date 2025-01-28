@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5578483282621835" crossorigin="anonymous"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DQED1910EF');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar Advogado</title>
+    <link rel="icon" href="../img/logo.png">
+    <link rel="stylesheet" href="./2.css"> 
+</head>
+<body>
+    <div id="container">
+        <!-- Botão de explicação -->
+        <div id="infoIcon" onclick="openModal()">▹</div>
+        <!-- Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p style="text-align: justify;">
+                    Permite extrair números de processos de um campo de texto. Serão exibidos em lista e clicando em cada poderá obter informações sobre as partes e advogados substabelecidos nos autos.
+                    Com a possibilidade de colar o LOG da Distribuição (Processos 2ª Instância), retornará a informação de processos separados por Procuradores que irão receber os autos.
+                </p>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <video width="560" height="315" controls>
+                        <source src="../video/Advogado.mp4" type="video/mp4">
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                </div>
+            </div>
+        </div>
+        <a href="../index.html">
+            <img id="logo" src="../img/logo.png" alt="J">
+        </a>
+        <h1 id="title">Pesquisar Advogado</h1>
+        <h2>Cole aqui:</h2>
+        <textarea id="processList" rows="10" cols="50"></textarea><br>
+        <button onclick="extractProcesses()">Extrair Números</button>
+        <button id="resetButton" title="Restaurar" onclick="resetForm()">↺</button>
+        <ul id="result"></ul>
+        <p id="count"></p>
+        <div id="buttonContainer">
+            <button id="copyButton" onclick="copyNumbers()">Copiar <br>Números</button>
+            <button id="openAllButton" onclick="openAllLinks()">Abrir <br>Todos</button>
+        </div>
+        <p id="developer">Desenvolvido por Jacson Costa Neves</p>
+    </div>
+    <script src="./2.js"></script> 
+</body>
+</html>
