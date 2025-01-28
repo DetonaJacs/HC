@@ -9,8 +9,6 @@ Este projeto é um site desenvolvido para facilitar a busca de processos e infor
 - **🔍 Busca de Processos**: Pesquisa processos diretamente nos sites do Tribunal de Justiça de Minas Gerais (TJMG) e Ministério Público de Minas Gerais (MPMG).
 - **📊 Análise de Dados**: Detecta e destaca informações duplicadas em PDFs abertos no site.
 - **📂 Informações Gerais**: Exibe resumos e dados organizados em tabelas.
-- **🖱️ Interatividade**: Permite interação com uma extensão do Google Chrome específica para pesquisa em sites jurídicos.
-
 ---
 
 ## 🛠️ Requisitos
