@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5578483282621835"
+     crossorigin="anonymous"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DQED1910EF');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como posso te ajudar?</title>
+<link rel="icon" href="img/logo.png">
+<link rel="manifest" href="manifest.json">
+
+
+<!-- Estilos padrão -->
+<link rel="stylesheet" href="/styles/default.css" id="themeStylesheet">
+
+<style> 
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('./fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('./fonts/Roboto-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    -webkit-user-select: none; /* Para navegadores baseados em Webkit (Chrome, Safari) */
+    -moz-user-select: none; /* Para navegadores baseados em Mozilla (Firefox) */
+    -ms-user-select: none; /* Para Internet Explorer */
+    user-select: none; /* Padrão */
+}
+
+#container {
+    text-align: center;
+}
+
+#text {
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 10px;
+    border-right: 2px solid #000; /* Simula o cursor de digitação */
+    animation: typing 2s steps(40, end); /* Animação de digitação */
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
+    opacity: 0; /* Começa com opacidade zero */
+}
+
+button:hover {
+    background-color: #c7c7c7; /* Altera a cor de fundo quando o mouse passa sobre o botão */
+}
+
+button#BOTÃODIFERENTE {
+    background-color: #ff9999; /* Vermelho claro */
+    font-weight: bold;
+}
+
+button#BOTÃODIFERENTE:hover {
+background-color: #ff4a3d; /* Vermelho escuro */
+font-weight: bold;
+}
+
+@keyframes appear {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#logo {
+    width: 80px; /* Largura da imagem */
+    height: auto; /* Altura ajustada automaticamente de acordo com a largura */
+    margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Estilos para o botão de interrogação e menu suspenso */
+.dropdown {
+    position: fixed;
+    top: 20px; /* Posição do menu suspenso */
+    left: 20px; /* Posição do menu suspenso */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+    padding: 10px 10px;
+    z-index: 1;
+}
+
+.dropdown.active .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px 0;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-content a:hover {
+    background-color: #f0f0f0;
+}
+
+#Distribuiçãoteste {
+background: #ff9999;
+}
+
+
+
+#canvas {
+    margin: 1px;
+    display: block;
+    height: 400px;
+    margin-bottom: 0;
+    border: 3px solid #585858; /* Altera a cor de fundo para cinza */
+    background: #fff; /* Define o fundo do canvas como branco */
+}
+
+/* Estilos para o botão de tema e menu suspenso de temas */
+.theme-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.theme-button .dropbtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.theme-button .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+    padding: 10px 10px;
+    z-index: 1;
+    right: 0;
+}
+
+.theme-button.active .dropdown-content {
+    display: block;
+}
+
+.theme-button .dropdown-content a {
+    display: block;
+    padding: 10px 0;
+    text-decoration: none;
+    color: #333;
+}
+
+.theme-button .dropdown-content a:hover {
+    background-color: #f0f0f0;
+}
+
+.theme-button .dropbtn:hover {
+background-color: #0056b3; /* Cor desejada ao passar o mouse */
+}
+
+
+img {
+-webkit-user-drag: none; /* Para navegadores baseados em Webkit (Chrome, Safari) */
+-khtml-user-drag: none; /* Para navegadores baseados em KHTML */
+-moz-user-drag: none; /* Para navegadores baseados em Mozilla (Firefox) */
+-o-user-drag: none; /* Para navegadores baseados em Opera */
+}
+
+
+/* Estilos personalizados */
+/* Adicione estilos personalizados aqui */.circle-button {
+position: fixed;
+bottom: 20px;
+right: 20px;
+width: 60px;
+height: 60px;
+background-color: #24292e;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+transition: transform 0.2s, box-shadow 0.2s;
+z-index: 1000;
+text-decoration: none;
+}
+
+.circle-button img {
+max-width: 70%;
+}
+
+.circle-button:hover {
+transform: scale(1.1);
+box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.circle-button:active {
+transform: scale(0.95);
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="container">
+    <a href="index.html">
+		<img id="logo" src="img/logo.png" alt="J" class="pulse" draggable="false" oncontextmenu="return false;">
+    </a> 
+	<h1 id="text" class="theme-text"></h1>    
+	<button id="Extrair" onclick="window.open('menu/1.html', '_self')">Extrair Números de Processo</button>  
+    <button id="Pesquisar" onclick="window.open('menu/2.html', '_self')">Pesquisar Advogado</button>
+    <br><button id="extensao" onclick="window.open('menu/e.html', '_self')">Extensões Google</button>
+    <button id="Distribuição" onclick="window.open('menu/t.html', '_self')">Processamento Distribuição</button> 
+
+</div>
+
+<!-- Botão de interrogação com menu suspenso -->
+<div class="dropdown" id="dropdown">
+    <button onclick="toggleDropdown()" class="dropbtn"> <img src="img/menu.png" alt="Ordenar" style="width: 20px; height: auto; border: none; position: relative"> </button>
+    <div class="dropdown-content" id="myDropdown">
+        <a href="suspenso\t.html">Termos</a>
+		<a href="suspenso/s.html">Sugestões</a>
+        <!-- Adicione mais links conforme necessário -->
+    </div>
+	
+	
+</div>
+
+<!-- Botão para exibir temas -->
+<div class="theme-button" id="theme-button">
+    <button onclick="toggleThemeOptions()" class="dropbtn">Temas</button>
+    <div id="theme-options" class="dropdown-content">
+        <a href="#" onclick="setTheme('default')">Padrão</a>
+        <a href="#" onclick="setTheme('1')">Alpes</a>
+		<a href="#" onclick="setTheme('6')">Cactus</a>
+	   	<a href="#" onclick="setTheme('2')">Cores</a>
+	    <a href="#" onclick="setTheme('3')">Floral</a>
+		<a href="#" onclick="setTheme('4')">Lei</a>
+	    <a href="#" onclick="setTheme('5')">Paz</a>
+
+        <!-- Adicione mais temas conforme necessário -->
+    </div>
+</div>
+	
+<!-- Botão circular no canto inferior direito -->
+<a href="https://github.com/DetonaJacs" target="_blank" class="circle-button" title="Visite o meu GitHub">
+    <img src="https://avatars.githubusercontent.com/u/104026932?v=4" alt="GitHub" draggable="false" style="width: 100%; height: auto;">
+</a>
+
+
+</body>
+</html>
