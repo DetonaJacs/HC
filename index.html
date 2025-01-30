@@ -313,5 +313,40 @@ transform: scale(0.95);
 
 <script src="./index.js"></script> 
 
+	<script>
+    const gistId = "cc85e804bf133a04d2d7ad74c8a33a30"; // Substitua pelo ID do seu Gist
+    const token = "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"; // Opcional (para evitar limite de requisições)
+
+    async function atualizarContador() {
+        let headers = token ? { Authorization: `token ${token}` } : {};
+        
+        // Busca o conteúdo do Gist
+        let response = await fetch(`https://api.github.com/gists/${gistId}`, { headers });
+        let gist = await response.json();
+        let fileContent = JSON.parse(gist.files["contador.json"].content);
+
+        // Atualiza a contagem
+        fileContent.acessos++;
+        document.getElementById("contador").textContent = fileContent.acessos;
+
+        // Salva de volta no Gist
+        fetch(`https://api.github.com/gists/${gistId}`, {
+            method: "PATCH",
+            headers: {
+                "Authorization": `token ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                files: {
+                    "contador.json": { content: JSON.stringify(fileContent, null, 2) }
+                }
+            })
+        });
+    }
+
+    atualizarContador();
+</script>
+
+
 </body>
 </html>
