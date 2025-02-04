@@ -129,6 +129,7 @@ document.getElementById('processList').value = '';
 document.getElementById('result').innerHTML = '';
 document.getElementById('count').textContent = '';
 document.getElementById('duplicateMsg').textContent = '';
+document.getElementById('mensagemAlerta').textContent = '';
 document.getElementById('duplicateList').innerHTML = ''; // Limpa a lista de duplicados
 toggleButtons();
 }
@@ -150,7 +151,8 @@ var numbersText = "Total de processos: " + totalProcesses + "\n\n" + orderedNumb
 // Copiar os números e o total de processos para a área de transferência
 navigator.clipboard.writeText(numbersText).then(function() {
 // Exibir o alerta após a cópia ser concluída
-alert("Números e total de processos copiados para a área de transferência!");
+duplicateMsg.textContent = "Números copiados para a área de transferência!";
+duplicateMsg.style.color = 'DarkOrange';
 }).catch(function(error) {
 // Lidar com qualquer erro que possa ocorrer durante a cópia
 console.error('Erro ao copiar para a área de transferência: ', error);
