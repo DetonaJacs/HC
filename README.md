@@ -21,8 +21,6 @@ Este projeto é um site desenvolvido para facilitar a busca de processos e infor
 ## 📂 Estrutura do Projeto
 ## Estrutura do Projeto
 
-Aqui está a estrutura do projeto:
-
 **ads.txt**  
 **index.html**  
 **index.js**  
