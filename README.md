@@ -20,11 +20,101 @@ Este projeto é um site desenvolvido para facilitar a busca de processos e infor
 
 ## 📂 Estrutura do Projeto
 
-- **`index.html`**: Página principal do site.
-- **`style.css`**: Estilos para o layout e design do site.
-- **`script.js`**: Lógica para interação dos dados.
-
----
+.
+│   ads.txt
+│   index.html
+│   index.js
+│   lista_de_pastas.txt
+│   manifest.json
+│   README.md
+│   service-worker.js
+│   
+├───Extensão
+│   │   Teste
+│   │   
+│   └───3.2_0
+│           background.js
+│           icon-128.png
+│           icon-16.png
+│           icon-48.png
+│           manifest.json
+│           popup.html
+│           
+├───fonts
+│       LICENSE.txt
+│       Roboto-Black.ttf
+│       Roboto-BlackItalic.ttf
+│       Roboto-Bold.ttf
+│       Roboto-BoldItalic.ttf
+│       Roboto-Italic.ttf
+│       Roboto-Light.ttf
+│       Roboto-LightItalic.ttf
+│       Roboto-Medium.ttf
+│       Roboto-MediumItalic.ttf
+│       Roboto-Regular.ttf
+│       Roboto-Thin.ttf
+│       Roboto-ThinItalic.ttf
+│       
+├───img
+│       exBloco.png
+│       exBusca.png
+│       ico_excluir.gif
+│       loading-image.gif.gif
+│       logo.png
+│       maintenance.png
+│       menu.png
+│       
+├───inativo
+│       Comarca.html
+│       maintenance.html
+│       
+├───menu
+│       1.css
+│       1.html
+│       1.js
+│       2.css
+│       2.html
+│       2.js
+│       criminal.html
+│       criminal1.css
+│       criminal1.html
+│       criminal1.js
+│       D.html
+│       desativado.html
+│       desativado2.html
+│       e.html
+│       t.css
+│       t.html
+│       t.js
+│       z.html
+│       
+├───styles
+│   │   1.css
+│   │   2.css
+│   │   3.css
+│   │   4.css
+│   │   5.css
+│   │   6.css
+│   │   default.css
+│   │   NOME DO TEMA.css
+│   │   
+│   └───img
+│           alpes.jpg
+│           cactus.jpg
+│           cores.jpg
+│           floral.jpg
+│           lei.jpg
+│           paz.jpg
+│           
+├───suspenso
+│       notas.html
+│       s.html
+│       t.html
+│       
+└───video
+        Advogado.mp4
+        Numero.mp4
+      ---
 
 ## 🌐 Hospedagem
 
