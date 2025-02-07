@@ -419,29 +419,41 @@ if (parte !== '' && !deveDesconsiderar(parte)) {
 }
 }
 
-// Criação do resumo
+// Criação do resumo 
 var resumoHTML = '<h2>Informações Gerais</h2><br>';
 resumoHTML += '<strong>Nomes Idênticos:</strong><br>';
 if (exactMatches.length > 0) {
-resumoHTML += '<ul>';
-exactMatches.forEach(function(nome) {
-    resumoHTML += '<li>' + nome + '</li>';
-});
-resumoHTML += '</ul>';
+    resumoHTML += '<ul>';
+    exactMatches.forEach(function(nome) {
+        resumoHTML += `
+            <li>
+                ${nome}
+                <button class="btn-buscar" onclick="buscarNaPlanilha('${nome}')">🔍</button>
+            </li>
+        `;
+    });
+    resumoHTML += '</ul>';
 } else {
-resumoHTML += '<p>Nenhum nome idêntico encontrado.</p>';
+    resumoHTML += '<p>Nenhum nome idêntico encontrado.</p>';
 }
 
 resumoHTML += '<strong>Nomes Similares:</strong><br>';
 if (similarMatches.length > 0) {
-resumoHTML += '<ul>';
-similarMatches.forEach(function(par) {
-    resumoHTML += '<li>' + par + '</li>';
-});
-resumoHTML += '</ul>';
+    resumoHTML += '<ul>';
+    similarMatches.forEach(function(par) {
+        var [nome1, nome2] = par.split(' - ');
+        resumoHTML += `
+            <li>
+                ${nome1} <button class="btn-buscar" onclick="buscarNaPlanilha('${nome1}')">🔍</button> - ${nome2}
+                <button class="btn-buscar" onclick="buscarNaPlanilha('${nome2}')">🔍</button>
+            </li>
+        `;
+    });
+    resumoHTML += '</ul>';
 } else {
-resumoHTML += '<p>Nenhum nome similar encontrado.</p>';
+    resumoHTML += '<p>Nenhum nome similar encontrado.</p>';
 }
+
 
 // Adicione esta linha para garantir que o resumo seja exibido dentro do info-container
 document.querySelector('.info-container').insertAdjacentHTML('afterbegin', resumoHTML);
@@ -473,7 +485,32 @@ return intersection.size / union.size;
 }
 
 
+function buscarNaPlanilha(nome) {
+    // Remove o destaque anterior (se houver)
+    var celulasDestacadas = document.querySelectorAll('.highlight-busca');
+    celulasDestacadas.forEach(function(celula) {
+        celula.classList.remove('highlight-busca');
+    });
 
+    // Procura o nome na tabela
+    var tabela = document.querySelector('table');
+    var celulas = tabela.querySelectorAll('td');
+    var encontrou = false;
+
+    celulas.forEach(function(celula) {
+        if (celula.textContent.includes(nome)) {
+            celula.classList.add('highlight-busca'); // Destaca a célula
+            if (!encontrou) {
+                celula.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Rola até a primeira ocorrência
+                encontrou = true;
+            }
+        }
+    });
+
+    if (!encontrou) {
+        alert('Nome não encontrado na tabela.');
+    }
+}
 
 
 function handleFileDrop(event) {
