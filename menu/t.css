@@ -13,7 +13,12 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     padding: 100px;
-
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 .table-container {
@@ -210,3 +215,13 @@ padding-left: 10px;
 color: blue;
 
 }
+
+.btn-buscar {
+    border: none;
+    background-color: white;
+    margin-left: 0.5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
