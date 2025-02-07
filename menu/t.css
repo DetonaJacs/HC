@@ -13,12 +13,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     padding: 100px;
-    body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+
 }
 
 .table-container {
@@ -179,6 +174,8 @@ background-color: #d9fbe5;
 
 .info-container ul {
     padding-left: 20px;
+    width: 78%; /* Mesma largura do container principal */
+
 }
 
 footer {
@@ -187,12 +184,24 @@ footer {
     color: #666;
 }
 
+.tipo-ocorrencia {
+cursor: pointer;
+}
+
+.tipo-ocorrencia:hover {
+    color: blue;
+    }
+
+.procuradores-lista {
+    color: blue;
+}
+
 .procurador-nome {
 cursor: pointer;
 color: black;
 }
 .procurador-nome:hover {
-color: black;
+color: blue;
 }
 .processos-lista {
 list-style-type: circle;
