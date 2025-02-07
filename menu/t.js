@@ -430,6 +430,7 @@ if (exactMatches.length > 0) {
                 ${nome}
                 <button class="btn-buscar" onclick="buscarNaPlanilha('${nome}')">🔍</button>
             </li>
+            
         `;
     });
     resumoHTML += '</ul>';
@@ -484,6 +485,8 @@ var union = new Set([...set1, ...set2]);
 return intersection.size / union.size;
 }
 
+var indiceBusca = -1; // Índice da última ocorrência encontrada
+var ocorrenciasBusca = []; // Armazena todas as células que contêm o nome buscado
 
 function buscarNaPlanilha(nome) {
     // Remove o destaque anterior (se houver)
@@ -495,22 +498,42 @@ function buscarNaPlanilha(nome) {
     // Procura o nome na tabela
     var tabela = document.querySelector('table');
     var celulas = tabela.querySelectorAll('td');
-    var encontrou = false;
 
-    celulas.forEach(function(celula) {
-        if (celula.textContent.includes(nome)) {
-            celula.classList.add('highlight-busca'); // Destaca a célula
-            if (!encontrou) {
-                celula.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Rola até a primeira ocorrência
-                encontrou = true;
-            }
-        }
-    });
-
-    if (!encontrou) {
-        alert('Nome não encontrado na tabela.');
+    // Reinicia a busca se o nome for diferente do anterior
+    if (nome !== buscarNaPlanilha.nomeAnterior) {
+        indiceBusca = -1;
+        ocorrenciasBusca = [];
+        buscarNaPlanilha.nomeAnterior = nome; // Armazena o nome atual para comparação
     }
+
+    // Se não houver ocorrências prévias, busca todas as células que contêm o nome
+    if (ocorrenciasBusca.length === 0) {
+        celulas.forEach(function(celula, index) {
+            if (celula.textContent.includes(nome)) {
+                ocorrenciasBusca.push(celula); // Armazena a célula que contém o nome
+            }
+        });
+
+        if (ocorrenciasBusca.length === 0) {
+            alert('Nome não encontrado na tabela.');
+            return;
+        }
+    }
+
+    // Avança para a próxima ocorrência
+    indiceBusca = (indiceBusca + 1) % ocorrenciasBusca.length; // Cicla entre as ocorrências
+    var celulaAtual = ocorrenciasBusca[indiceBusca];
+
+    // Destaca a célula atual e rola até ela
+    celulaAtual.classList.add('highlight-busca');
+    celulaAtual.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Exibe a posição atual e o total de ocorrências
+    console.log(`Ocorrência ${indiceBusca + 1} de ${ocorrenciasBusca.length}`);
 }
+
+// Variável para armazenar o nome da última busca
+buscarNaPlanilha.nomeAnterior = '';
 
 
 function handleFileDrop(event) {
