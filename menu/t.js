@@ -141,52 +141,76 @@ reader.onload = function(event) {
 
     tableContainer.innerHTML = tabelaHTML;
 
-    // Constrói informações gerais
-    var infoGeralHTML = '<div class="info-container">';
-    infoGeralHTML += '<p><strong>Ocorrências por tipo:</strong></p><ul>';
-    for (var tipo in ocorrencias) {
-        infoGeralHTML += '<li>' + tipo + ': ' + ocorrencias[tipo] + '</li>';
-    }
-    // Constrói informações gerais
-    infoGeralHTML += '<p><strong>Ocorrências por procurador (ordem alfabética):</strong></p><ul>';
-    Object.keys(procuradores).sort().forEach(function(procurador) {
-        // Cria um conjunto único de processos associados a cada procurador
-        var processosAssociados = Array.from(
-            new Map(
-                jsonData
-                    .filter(row => row[11] === procurador)
-                    .map(row => [row[1], row[10]]) // Cria um par [processo, tipo] para garantir unicidade
-            )
-        ).map(([processo, tipo]) => ({ processo, tipo })); // Converte para um array de objetos
+// Constrói informações gerais
+var infoGeralHTML = '<div class="info-container">';
 
-        infoGeralHTML += `
-            <li>
-                <span class="procurador-nome" data-procurador="${procurador}">${procurador} (${procuradores[procurador]})</span>
-                <ul class="processos-lista" id="processos-${procurador.replace(/\s+/g, '-')}" style="display: none;">
-                    ${processosAssociados.map(({ processo, tipo }) => {
-                        // Determina a abreviação do tipo
-                        var tipoAbreviado = tipo === 'DEPENDÊNCIA' ? 'DEP' :
-                                            tipo === 'DILIGÊNCIA' ? 'DILI' :
-                                            tipo === 'PREVENÇÃO' ? 'PREV' : 'OUTRO';
-                        return `<li>${processo} (${tipoAbreviado})</li>`;
-                    }).join('')}
-                </ul>
-            </li>
-        `;
-    });
-    infoGeralHTML += '</ul></div>';
-    informacoesGerais.innerHTML = infoGeralHTML;
+// Ocorrências por tipo
+infoGeralHTML += '<p><strong>Ocorrências por tipo:</strong></p><ul>';
+for (var tipo in ocorrencias) {
+    // Filtra procuradores relacionados ao tipo de ocorrência
+    var procuradoresAssociados = Object.keys(procuradores).filter(procurador =>
+        jsonData.some(row => row[10] === tipo && row[11] === procurador)
+    );
 
-    // Adiciona evento de clique aos nomes dos procuradores para expandir/ocultar a lista
-    document.querySelectorAll('.procurador-nome').forEach(function(element) {
-        element.addEventListener('click', function() {
-            var procurador = this.getAttribute('data-procurador');
-            var lista = document.getElementById(`processos-${procurador.replace(/\s+/g, '-')}`);
-            if (lista) {
-                lista.style.display = lista.style.display === 'none' ? 'block' : 'none';
-            }
-        });
+    infoGeralHTML += `
+        <li>
+            <span class="tipo-ocorrencia" data-tipo="${tipo}">${tipo}: ${ocorrencias[tipo]}</span>
+            <ul class="procuradores-lista" id="procuradores-${tipo.replace(/\s+/g, '-')}" style="display: none;">
+                ${procuradoresAssociados.map(procurador => `<li>${procurador}</li>`).join('')}
+            </ul>
+        </li>
+    `;
+}
+infoGeralHTML += '</ul>';
+
+// Ocorrências por procurador (ordem alfabética)
+infoGeralHTML += '<p><strong>Ocorrências por procurador (ordem alfabética):</strong></p><ul>';
+Object.keys(procuradores).sort().forEach(function(procurador) {
+    // Cria um conjunto único de processos associados a cada procurador
+    var processosAssociados = Array.from(
+        new Map(
+            jsonData
+                .filter(row => row[11] === procurador)
+                .map(row => [row[1], row[10]]) // Par [processo, tipo] para garantir unicidade
+        )
+    ).map(([processo, tipo]) => ({ processo, tipo }));
+
+    infoGeralHTML += `
+        <li>
+            <span class="procurador-nome" data-procurador="${procurador}">${procurador} (${procuradores[procurador]})</span>
+            <ul class="processos-lista" id="processos-${procurador.replace(/\s+/g, '-')}" style="display: none;">
+                ${processosAssociados.map(({ processo, tipo }) => {
+                    var tipoAbreviado = tipo === 'DEPENDÊNCIA' ? 'DEP' :
+                                        tipo === 'DILIGÊNCIA' ? 'DILI' :
+                                        tipo === 'PREVENÇÃO' ? 'PREV' : 'OUTRO';
+                    return `<li>${processo} (${tipoAbreviado})</li>`;
+                }).join('')}
+            </ul>
+        </li>
+    `;
+});
+infoGeralHTML += '</ul>';
+
+infoGeralHTML += '</div>';
+
+// Exibe as informações gerais
+informacoesGerais.innerHTML = infoGeralHTML;
+
+// Adiciona funcionalidade de expansão para ocorrências por tipo e por procurador
+document.querySelectorAll('.tipo-ocorrencia').forEach(item => {
+    item.addEventListener('click', function() {
+        var lista = document.getElementById(`procuradores-${this.dataset.tipo.replace(/\s+/g, '-')}`);
+        lista.style.display = lista.style.display === 'none' ? 'block' : 'none';
     });
+});
+
+document.querySelectorAll('.procurador-nome').forEach(item => {
+    item.addEventListener('click', function() {
+        var lista = document.getElementById(`processos-${this.dataset.procurador.replace(/\s+/g, '-')}`);
+        lista.style.display = lista.style.display === 'none' ? 'block' : 'none';
+    });
+});
+
 
     destacarDuplicatas();
     exibirContainers();
@@ -287,7 +311,7 @@ function destacarDuplicatas() {
 var table = document.querySelector('table');
 var rows = table.rows;
 
-var termosExcluir = ["PROMOTOR DE", "JUIZ", "MINISTÉRIO", "DESEMBARGADOR", "MINISTERIO", "PROCURADOR-GERAL", "VARA DE TÓXICOS", "VARA DE TOXICOS", "ORGANIZAÇÃO CRIMINOSA", "ORGANIZACAO CRIMINOSA", "LAVAGEM DE BENS", "VARA CRIMINAL"]; // Termos para desconsiderar
+var termosExcluir = ["JUIZ", "MINISTÉRIO", "DESEMBARGADOR", "MINISTERIO", "PROCURADOR-GERAL", "VARA DE TÓXICOS", "VARA DE TOXICOS", "ORGANIZAÇÃO CRIMINOSA", "ORGANIZACAO CRIMINOSA", "LAVAGEM DE BENS", "VARA CRIMINAL"]; // Termos para desconsiderar
 var seenExact = {}; // Armazena nomes exatos já vistos
 var exactMatches = []; // Armazena nomes 100% idênticos
 var similarMatches = []; // Armazena pares de nomes similares
