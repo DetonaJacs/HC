@@ -311,7 +311,7 @@ function destacarDuplicatas() {
 var table = document.querySelector('table');
 var rows = table.rows;
 
-var termosExcluir = ["JUIZ", "MINISTÉRIO", "DESEMBARGADOR", "MINISTERIO", "PROCURADOR-GERAL", "VARA DE TÓXICOS", "VARA DE TOXICOS", "ORGANIZAÇÃO CRIMINOSA", "ORGANIZACAO CRIMINOSA", "LAVAGEM DE BENS", "VARA CRIMINAL"]; // Termos para desconsiderar
+var termosExcluir = ["MICROREGIÃO", "JUÍZO PLANTONISTA", "JUIZ", "MINISTÉRIO", "DESEMBARGADOR", "MINISTERIO", "PROCURADOR-GERAL", "VARA DE TÓXICOS", "VARA DE TOXICOS", "ORGANIZAÇÃO CRIMINOSA", "ORGANIZACAO CRIMINOSA", "LAVAGEM DE BENS", "VARA CRIMINAL"]; // Termos para desconsiderar
 var seenExact = {}; // Armazena nomes exatos já vistos
 var exactMatches = []; // Armazena nomes 100% idênticos
 var similarMatches = []; // Armazena pares de nomes similares
