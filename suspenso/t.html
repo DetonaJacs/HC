@@ -28,20 +28,23 @@
 
     #container {
         background-color: #fff;
-        padding: 20px;
+        padding: 20px; /* Espaçamento interno */
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         text-align: justify;
-        max-width: 500px; /* Definindo uma largura máxima para o container */
-        display: flex; /* Adicionando flexbox para centralizar */
-        flex-direction: column; /* Direção da coluna para alinhar verticalmente */
-        align-items: center; /* Centralizar itens na horizontal */
+        max-width: 90%; /* Ajuste para 90% da largura da tela */
+        width: 500px; /* Largura fixa para telas maiores */
+        overflow-y: auto; /* Permite rolagem vertical se necessário */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 40px 0; /* Espaçamento acima e abaixo do container */
     }
 
     #title {
-        margin-top: 20px; /* Aumentando a margem superior */
-        color: black; /* Mudando a cor do texto */
-        text-align: center; /* Centralizando o texto */
+        margin-top: 20px;
+        color: black;
+        text-align: center;
     }
 
     p {
@@ -59,40 +62,53 @@
 <body>
 
 <div id="container">
-    <a href="../index">
+    <a href="../index.html">
         <img id="logo" src="../img/logo.png" alt="J">
     </a>
     <div class="maintenance-message">
-        <h1 id="title">Termos de Serviço e Aviso de Responsabilidade</h1><br><br>
-<p>Como uma ferramenta privada, este script foi desenvolvido com o propósito de oferecer funcionalidades específicas aos seus usuários. Qualquer link fornecido para sistemas judiciários governamentais é meramente para a conveniência dos usuários e não implica em qualquer relação direta com esses sistemas por parte deste script. <br>
-
-<br>É fundamental ressaltar que o uso desses acessos é de inteira responsabilidade do usuário final. O ingresso e a utilização desses sistemas estão sujeitos aos termos de serviços e políticas de privacidade estabelecidos pelas autoridades competentes. <br>
-
-<br>Este script não assume qualquer responsabilidade pelo uso indevido ou não autorizado desses recursos. Portanto, ao utilizar este script e os recursos relacionados, o usuário final concorda em assumir total responsabilidade por suas ações e pela proteção dos dados fornecidos. Este script não se responsabiliza por quaisquer consequências decorrentes do uso dos recursos disponibilizados.</p> </div>
+        <h1>Termos de Serviço e Aviso de Responsabilidade</h1>
+        
+        <h2>1. Objetivo</h2>
+        <p>Este site e os scripts associados foram desenvolvidos para facilitar a gestão e organização de processos e vínculos entre eles. Como uma ferramenta privada, seu propósito é oferecer funcionalidades específicas aos seus usuários, sem qualquer envolvimento oficial com órgãos governamentais ou sistemas judiciais.</p>
+        
+        <h2>2. Uso de Dados</h2>
+        <p>Os dados copiados ou utilizados dentro desta plataforma servem exclusivamente para simplificar o cadastro e a organização de informações referentes aos processos. O site não armazena, compartilha ou distribui quaisquer dados sensíveis dos usuários ou de terceiros.</p>
+        
+        <h2>3. Links para Sistemas Judiciários</h2>
+        <p>Quaisquer links fornecidos para sistemas judiciais governamentais são disponibilizados apenas para a conveniência dos usuários. O uso desses acessos é de inteira responsabilidade do usuário final e está sujeito aos termos de serviço e às políticas de privacidade estabelecidas pelas autoridades competentes.</p>
+        
+        <h2>4. Responsabilidade do Usuário</h2>
+        <p>Ao utilizar este site e seus recursos, o usuário assume total responsabilidade por suas ações e pela proteção dos dados que fornecer ou manipular. O site e seus desenvolvedores não assumem qualquer responsabilidade por uso indevido, não autorizado ou inadequado das funcionalidades disponibilizadas.</p>
+        
+        <h2>5. Isenção de Responsabilidade</h2>
+        <p>Este site não se responsabiliza por quaisquer consequências decorrentes do uso dos recursos oferecidos, incluindo eventuais danos diretos, indiretos, incidentais ou consequenciais resultantes da utilização da plataforma.</p>
+        
+        <h2>6. Atualização dos Termos</h2>
+        <p>Os presentes Termos de Serviço podem ser alterados a qualquer momento, sem aviso prévio. Recomenda-se que o usuário revise periodicamente este documento para estar ciente de quaisquer modificações.</p>
+        
+        <h2>7. Contato</h2>
+        <p>Para quaisquer dúvidas ou esclarecimentos sobre o uso deste site, entre em contato com o desenvolvedor responsável.</p>
+    </div>
 </div>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
-            // Recuperar o nome do tema do localStorage
-            var themeName = localStorage.getItem('selectedTheme');
-            
-            // Verificar se o tema está definido e se corresponde a um arquivo CSS existente
-            if (themeName && themeName !== '') {
-                var themeCSS = '../styles/' + themeName + '.css'; // Caminho para o arquivo CSS do tema
-                var linkElement = document.createElement('link');
-                linkElement.setAttribute('rel', 'stylesheet');
-                linkElement.setAttribute('href', themeCSS);
-                document.head.appendChild(linkElement);
-            }
-        });
-
+    // Recuperar o nome do tema do localStorage
+    var themeName = localStorage.getItem('selectedTheme');
+    
+    // Verificar se o tema está definido e se corresponde a um arquivo CSS existente
+    if (themeName && themeName !== '') {
+        var themeCSS = '../styles/' + themeName + '.css'; // Caminho para o arquivo CSS do tema
+        var linkElement = document.createElement('link');
+        linkElement.setAttribute('rel', 'stylesheet');
+        linkElement.setAttribute('href', themeCSS);
+        document.head.appendChild(linkElement);
+    }
+});
 </script>
-  <img src="https://contador.s12.com.br/img-bCYx0CcZzw8873Bb-57.gif" 
+
+<img src="https://contador.s12.com.br/img-bCYx0CcZzw8873Bb-57.gif" 
      style="position: fixed; bottom: 10px; left: 10px; border: 1px solid black;" 
     >
-</div>
-</div>
-
 </body>
 </html>
