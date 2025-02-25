@@ -186,11 +186,31 @@
 		transition: transform 0.3s ease;
     }
 
-    #toggleOrderButton:active {
+#toggleOrderButton:active {
         transform: scaleX(-1);
     }
 	
 
-		#toggleOrderButton img {
+#toggleOrderButton img {
 		border: none; /* Remove a borda da imagem */
 		}
+		
+		/* Estilo para a mensagem flutuante */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.toast.show {
+    opacity: 1;
+}
