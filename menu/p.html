@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="p.css">
+    <title>Filtragem de Processos</title>
+
+</head>
+
+<body>
+    <h2>Filtragem de Processos</h2>
+    <textarea id="inputText" placeholder="Cole os dados dos processos aqui..."></textarea>
+    <button onclick="processarTexto()">Processar</button>
+
+    <h3>Total de Processos: <span id="totalProcessos">0</span></h3>
+
+    <div class="container">
+        <div class="box">
+            <h3>Recebidos com Sucesso (<span id="countRecebidosSucesso">0</span>)</h3>
+            <ul id="recebidosSucesso"></ul>
+        </div>
+
+        <div class="copiarResultados">
+            <button onclick="copiarResultados()">Copiar Resultados</button>
+        </div>
+
+        <div class="box">
+            <h3>Atualizados (<span id="countAtualizados">0</span>)</h3>
+            <ul id="atualizados"></ul>
+        </div>
+
+        <div class="copiarResultados">
+            <button onclick="copiarResultados()">Copiar Resultados</button>
+        </div>
+
+    </div>
+
+
+    <div class="container">
+        <div class="box">
+            <h3>Cancelados (<span id="countCancelados">0</span>)</h3>
+            <ul id="cancelados"></ul>
+        </div>
+
+
+        <div class="copiarResultados">
+            <button onclick="copiarResultados()">Copiar Resultados</button>
+        </div>
+
+        <div class="box">
+            <h3>Erros (<span id="countErros">0</span>)</h3>
+            <ul id="erros"></ul>
+        </div>
+
+        <div class="copiarResultados">
+            <button onclick="copiarResultados()">Copiar Resultados</button>
+        </div>
+    </div>
+
+    <script src="p.js"></script>
+
+
+</body>
+
+</html>

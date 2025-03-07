@@ -124,33 +124,6 @@
             border-radius: 5px;
             font-size: 15px;
         }
-
-        /* Estilo do contêiner (li) */
-        li {
-            display: flex; /* Usa flexbox para alinhar os botões */
-            align-items: center; /* Alinha os botões verticalmente no centro */
-            gap: 5px; /* Espaçamento entre os botões */
-        }
-
-        /* Estilo dos botões */
-        .btnP {
-            margin: 0 2px;
-            padding: 2px 7px;
-            cursor: pointer;
-            border: none;
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 5px;
-            font-size: 9px;
-            white-space: pre-wrap; /* Permite quebra de linha */
-            text-align: center; /* Centraliza o texto */
-            width: 40px; /* Define uma largura fixa */
-            height: 21px; /* Define uma altura fixa */
-            display: flex; /* Usa flexbox para alinhar o texto */
-            align-items: center; /* Centraliza o texto verticalmente */
-            justify-content: center; /* Centraliza o texto horizontalmente */
-        }    
-        
         
         .botaoexcluir {
             margin: 0 0px;
