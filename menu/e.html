@@ -13,146 +13,212 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extensão Google</title>
+    <title>Extensões Google - Ferramentas Úteis</title>
     <link rel="icon" href="../img/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #4285F4;
+            --secondary-color: #34A853;
+            --accent-color: #EA4335;
+            --light-color: #f8f9fa;
+            --dark-color: #202124;
+            --text-color: #3c4043;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
+            min-height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Poppins', Arial, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
         #container {
-            width: 600px; /* Largura fixa */
-            margin-top: 5vh; /* Margem superior para centralização vertical */
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             text-align: center;
-            overflow-y: auto; /* Adicionando rolagem vertical */
+            overflow-y: auto;
         }
 
         .maintenance-message {
-            margin-top: 10px; /* Adicionando margem ao conteúdo interno */
-            margin-bottom: 10px; /* Adicionando margem ao conteúdo interno */
+            margin: 1.5rem 0;
         }
 
         h1 {
-            color: black;
+            color: var(--dark-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
         }
 
         .icon-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .icon {
-            margin: 10px;
+            margin: 0.5rem;
             cursor: pointer;
             text-align: center;
+            transition: var(--transition);
+            width: 140px;
+        }
+
+        .icon:hover {
+            transform: translateY(-5px);
         }
 
         .icon img {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 0.8rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .icon p {
+            font-weight: 500;
+            color: var(--dark-color);
+            margin: 0;
+            font-size: 0.95rem;
         }
 
         .modal {
-            display: none; /* Oculta o modal por padrão */
-            position: fixed; 
-            z-index: 100; 
+            display: none;
+            position: fixed;
+            z-index: 100;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto; 
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4); 
-            padding-top: 60px;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
         }
 
         .modal-content {
             background-color: #fefefe;
             margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            width: 85%;
+            max-width: 700px;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {transform: translateY(-50px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
         }
 
         .close {
             color: #aaa;
-            float: right;
-            font-size: 28px;
+            position: absolute;
+            right: 1.5rem;
+            top: 1rem;
+            font-size: 2rem;
             font-weight: bold;
+            transition: var(--transition);
         }
 
         .close:hover,
         .close:focus {
-            color: black;
+            color: var(--accent-color);
             text-decoration: none;
             cursor: pointer;
+            transform: rotate(90deg);
         }
 
-        #title {
-            margin-top: 10;
-            color: black;
-            margin: 10px 0;
+        #modalTitle {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
         }
 
-        h2 {
-            font-size: 15px;
-            margin-top: 0;
+        #modalDescription {
+            text-align: left;
+            margin-bottom: 2rem;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
+        #modalDescription p {
+            margin-bottom: 1rem;
         }
 
-        #result {
-            max-height: 200px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-        }
-
-        p {
-            margin: 10px 0;
-            text-align: justify;
-        }
-
-        #developer {
-            color: #888;
-            font-size: smaller;
-        }
-
-        #returnButton {
-            margin-bottom: 20px;
+        #modalDescription strong {
+            color: var(--primary-color);
         }
 
         .btn {
-            margin: 0 2px;
-            padding: 10px 15px; /* Aumentando o padding para torná-los maiores */
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
             cursor: pointer;
             border: none;
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 5px;
-            font-size: 14px; /* Aumentando o tamanho da fonte */
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(66, 133, 244, 0.3);
+        }
+
+        .btn:hover {
+            background-color: #3367d6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.4);
         }
         
         #logo {
-            width: 50px; /* Largura da imagem */
-            height: auto; /* Altura ajustada automaticamente de acordo com a largura */
-            margin-bottom: 20px; /* Espaçamento abaixo da imagem */
+            width: 60px;
+            height: auto;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
         }
 
-        /* Estilo para a dica de ferramenta */
+        #logo:hover {
+            transform: scale(1.1);
+        }
+
         .tooltip {
             position: relative;
             display: inline-block;
@@ -162,7 +228,7 @@
         .tooltip .tooltiptext {
             visibility: hidden;
             width: 120px;
-            background-color: black;
+            background-color: var(--dark-color);
             color: #fff;
             text-align: center;
             border-radius: 6px;
@@ -174,57 +240,102 @@
             margin-left: -60px;
             opacity: 0;
             transition: opacity 0.3s;
+            font-size: 0.8rem;
         }
 
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
         }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            #container {
+                padding: 1.5rem;
+                width: 95%;
+            }
+            
+            .icon {
+                width: 120px;
+            }
+            
+            .icon img {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .modal-content {
+                width: 90%;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .icon-container {
+                gap: 1rem;
+            }
+            
+            .icon {
+                width: 100px;
+            }
+            
+            .icon img {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .icon p {
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div id="container">
-    <a href="../index.html">
-        <img id="logo" src="../img/logo.png" alt="Logo">
+    <a href="../index">
+        <img id="logo" src="../img/logo.png" alt="Logo" class="tooltip" title="Voltar à página inicial">
     </a>
     <div class="maintenance-message">
-        <h1>Baixe as Extensões</h1>
+        <h1>Nossas Extensões para Chrome</h1>
+        <p style="color: #666; max-width: 600px; margin: 0 auto 1rem;">Ferramentas úteis para aumentar sua produtividade no navegador</p>
         <div class="icon-container">
             <!-- Ícones das extensões -->
             <div class="icon" onclick="openModal('Busca de Processos', 
-                '<p><strong>Descrição:</strong><br>A extensão Busca de Processos é uma ferramenta útil para profissionais interessados em acessar rapidamente informações sobre processos judiciais nos respectivos sites de gestão processual.</p>' +
-                '<p><strong>Recursos Principais:</strong><br>- Permite a busca rápida de número de processo em páginas da web.<br>- Oferece opções de busca nos sites relevantes com apenas um clique.<br>- Integra-se ao menu de contexto do botão direito do mouse para acesso conveniente.</p>' +
-                '<p><strong>Como Usar:</strong><br>1. Selecione o número de processo desejado em qualquer página da web.<br>2. Clique com o botão direito do mouse e escolha entre as opções disponíveis.<br>3. Uma nova aba será aberta no navegador exibindo os detalhes do processo no site correspondente.</p>' +
-                '<p><strong>Privacidade e Segurança:</strong><br>A extensão Busca de Processos respeita a privacidade do usuário, não coletando nem armazenando informações pessoais. Todas as consultas são realizadas localmente no navegador do usuário, assegurando segurança e confidencialidade.</p>', 
+                '<p><strong>Descrição:</strong><br>A extensão Busca de Processos é uma ferramenta indispensável para profissionais do direito e interessados em acessar rapidamente informações sobre processos judiciais nos respectivos sites de gestão processual.</p>' +
+                '<p><strong>🔍 Recursos Principais:</strong><br>- Busca rápida de número de processo em qualquer página da web<br>- Opções de busca nos principais tribunais com um clique<br>- Integração ao menu de contexto (botão direito)<br>- Interface simples e intuitiva</p>' +
+                '<p><strong>📌 Como Usar:</strong><br>1. Selecione o número de processo desejado<br>2. Clique com o botão direito e escolha a opção<br>3. A extensão abre automaticamente a consulta no site correto</p>' +
+                '<p><strong>🔒 Privacidade e Segurança:</strong><br>Sua privacidade é importante. Não coletamos nem armazenamos seus dados. Todas as consultas são realizadas localmente em seu navegador.</p>', 
                 'https://chromewebstore.google.com/detail/busca-de-processos-mpmg-t/ekhaiapibhbbnnfnmbjhhfdgdinlhcbl?hl')">
-                <img src="../img/exBusca.png" alt="Extensão 1">
+                <img src="../img/exBusca.png" alt="Extensão Busca de Processos">
                 <p>Busca de Processos</p>
             </div>
 
             <div class="icon" onclick="openModal('Notas Adesivas', 
-                '<p><strong>Descrição:</strong><br>Use esta extensão para criar notas adesivas úteis e acessíveis a qualquer momento.</p>' +
-                '<p><strong>Recursos Principais:</strong><br>- Crie e edite notas diretamente na sua tela.<br>- Personalize a posição e o conteúdo das notas.<br>- Acesso rápido às notas em qualquer página da web.</p>' +
-                '<p><strong>Como Usar:</strong><br>1. Clique no ícone da extensão para criar uma nova nota.<br>2. Digite o conteúdo da sua nota e posicione-a na tela como desejar.<br>3. As notas são salvas automaticamente e acessíveis a qualquer momento.</p>' +
-                '<p><strong>Privacidade e Segurança:</strong><br>A extensão de notas adesivas não coleta informações pessoais e armazena dados localmente no seu dispositivo, garantindo segurança e privacidade.</p>', 
+                '<p><strong>Descrição:</strong><br>Sua solução digital para notas rápidas diretamente no navegador. Nunca mais perca uma ideia ou tarefa importante.</p>' +
+                '<p><strong>📝 Recursos Principais:</strong><br>- Crie e edite notas diretamente na sua tela<br>- Personalize posição e conteúdo<br>- Acesso rápido em qualquer página<br>- Sincronização entre dispositivos (opcional)</p>' +
+                '<p><strong>🖱️ Como Usar:</strong><br>1. Clique no ícone da extensão<br>2. Digite seu lembrete<br>3. Posicione onde quiser<br>4. Suas notas são salvas automaticamente</p>' +
+                '<p><strong>🔐 Privacidade e Segurança:</strong><br>Suas notas são armazenadas localmente em seu dispositivo. Nós não temos acesso ao seu conteúdo.</p>', 
                 'https://chromewebstore.google.com/detail/notas-adesivas/oklgdplcbmgephnlmnbcnifhkedgjdbe')">
-                <img src="../img/exBloco.png" alt="Extensão 2">
+                <img src="../img/exBloco.png" alt="Extensão Notas Adesivas">
                 <p>Notas Adesivas</p>
             </div>
         </div>
     </div>
 </div>
 
-
-
 <!-- Modal -->
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
         <h2 id="modalTitle"></h2>
-        <p id="modalDescription"></p>
+        <div id="modalDescription"></div>
         <a id="modalLink" href="#" target="_blank">
-            <button class="btn">Baixar</button>
+            <button class="btn">Instalar Extensão</button>
         </a>
     </div>
 </div>
@@ -232,13 +343,22 @@
 <script>
 function openModal(title, description, link) {
     document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalDescription').innerHTML = description; // Mudança aqui
+    document.getElementById('modalDescription').innerHTML = description;
     document.getElementById('modalLink').href = link;
     document.getElementById('myModal').style.display = "block";
+    document.body.style.overflow = "hidden"; // Impede rolagem do corpo quando modal está aberto
 }
 
 function closeModal() {
     document.getElementById('myModal').style.display = "none";
+    document.body.style.overflow = "auto"; // Restaura rolagem do corpo
+}
+
+// Fechar modal ao clicar fora do conteúdo
+window.onclick = function(event) {
+    if (event.target == document.getElementById('myModal')) {
+        closeModal();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -247,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Verificar se o tema está definido e se corresponde a um arquivo CSS existente
     if (themeName && themeName !== '') {
-        var themeCSS = '../styles/' + themeName + '.css'; // Caminho para o arquivo CSS do tema
+        var themeCSS = '../styles/' + themeName + '.css';
         var linkElement = document.createElement('link');
         linkElement.setAttribute('rel', 'stylesheet');
         linkElement.setAttribute('href', themeCSS);
@@ -257,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
     
     <img src="https://contador.s12.com.br/img-7c7Yyd934xdwzwbW-57.gif" 
-     style="position: fixed; bottom: 10px; left: 10px; border: 1px solid black;" 
+     style="position: fixed; bottom: 10px; left: 10px; border: 1px solid #ddd; border-radius: 4px;" 
     >
 
 </body>
