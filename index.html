@@ -1,322 +1,553 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQED1910EF"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5578483282621835" crossorigin="anonymous"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DQED1910EF');
+    </script>
 
-	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5578483282621835"
-     crossorigin="anonymous"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Posso te Ajudar?</title>
+    <link rel="icon" type="img" href="img/logo.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="./styles/default.css" id="themeStylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #000000;
+            --accent-color: #4fc3f7;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #333;
+            --text-light: #666;
+            --border-color: #ddd;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --warning-color: #ff9800;
+            --error-color: #f44336;
+        }
 
-  gtag('config', 'G-DQED1910EF');
-</script>
-<meta name="google-adsense-account" content="ca-pub-5578483282621835">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Como posso te ajudar?</title>
-<link rel="icon" href="img/logo.png">
-<link rel="manifest" href="manifest.json">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-
-<!-- Estilos padrão -->
-<link rel="stylesheet" href="./styles/default.css" id="themeStylesheet">
-
-<style> 
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('./fonts/Roboto-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Roboto';
-    src: url('./fonts/Roboto-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-body {
-    font-family: 'Roboto', Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-    -webkit-user-select: none; /* Para navegadores baseados em Webkit (Chrome, Safari) */
-    -moz-user-select: none; /* Para navegadores baseados em Mozilla (Firefox) */
-    -ms-user-select: none; /* Para Internet Explorer */
-    user-select: none; /* Padrão */
-}
-
-#container {
-    text-align: center;
-}
-
-#text {
-    overflow: hidden;
-    white-space: nowrap;
-    margin-bottom: 10px;
-    border-right: 2px solid #000; /* Simula o cursor de digitação */
-    animation: typing 2s steps(40, end); /* Animação de digitação */
-}
-
-@keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 10px;
-    cursor: pointer;
-    border-radius: 8px;
-    animation: appear 2s 2s forwards; /* Animação dos botões com atraso de 2s */
-    opacity: 0; /* Começa com opacidade zero */
-}
-
-button:hover {
-    background-color: #c7c7c7; /* Altera a cor de fundo quando o mouse passa sobre o botão */
-}
-
-button#BOTÃODIFERENTE {
-    background-color: #ff9999; /* Vermelho claro */
-    font-weight: bold;
-}
-
-button#BOTÃODIFERENTE:hover {
-background-color: #ff4a3d; /* Vermelho escuro */
-font-weight: bold;
-}
-
-@keyframes appear {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-#logo {
-    width: 80px; /* Largura da imagem */
-    height: auto; /* Altura ajustada automaticamente de acordo com a largura */
-    margin-bottom: 20px; /* Espaçamento abaixo da imagem */
-}
-
-.pulse {
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .container {
+        margin-top: 180px; /* Ajuste para dar espaço ao header fixo */
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: fadeIn 0.8s ease-out;
     }
-    50% {
-        transform: scale(1.1);
+
+                .typing-container {
+            min-height: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .typing-container {
+        min-height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       }
+
+       .theme-text {
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0 auto;
+        position: relative;
+        }
+
+        .logo {
+        width: 80px; /* Reduzi um pouco para caber melhor */
+        height: auto;
+        margin-bottom: 10px;
+        transition: transform 0.3s;
+         }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+        color: var(--secondary-color);
+        font-size: 1.8rem; /* Reduzi um pouco o tamanho */
+        margin-bottom: 10px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        text-align: center;
+        border-right: 2px solid var(--secondary-color);
+        animation: blink-caret 0.75s step-end infinite;
+        }
+
+        .typing-text {
+            border-right: 2px solid var(--secondary-color); /* Cursor de digitação */
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--secondary-color); }
+        }
+
+
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .tool-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .tool-icon {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+
+        .tool-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .tool-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+        }
+
+        .btn-warning:hover {
+            background-color: #e68a00;
+        }
+
+        /* Menu dropdown */
+        .dropdown-menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .dropdown-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dropdown-btn:hover {
+            background-color: var(--secondary-color);
+            transform: rotate(15deg);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            padding: 10px 0;
+            z-index: 1;
+            animation: fadeIn 0.3s;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--light-color);
+            color: var(--secondary-color);
+        }
+
+        .dropdown-menu.active .dropdown-content {
+            display: block;
+        }
+
+        /* Theme switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .theme-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .theme-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .theme-options {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            padding: 10px 0;
+            animation: fadeIn 0.3s;
+        }
+
+        .theme-options a {
+            display: block;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .theme-options a:hover {
+            background-color: var(--light-color);
+        }
+
+        .theme-switcher.active .theme-options {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+        }
+        
+
+        /* Botão circular */
+        .circle-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #24292e;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 1000;
+            text-decoration: none;
+        }
+
+        .circle-button img {
+            max-width: 70%;
+            border-radius: 50%;
+        }
+
+        #text {
+            overflow: hidden;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            border-right: 2px solid #000; /* Simula o cursor de digitação */
+            animation: typing 5s steps(20, end); /* Animação de digitação */
+            animation: blink-caret 0.75s step-end infinite;            
+        }
+
+                .typing-animation {
+                display: inline-block; /* Mantém o elemento no tamanho do conteúdo */
+                overflow: hidden;
+                white-space: nowrap;
+                margin: 0 auto;
+                position: relative;
+                border-right: 2px solid #000;
+                animation: 
+                    typing 5s steps(40, end) forwards,
+                    blink-caret 0.75s step-end infinite;
+                width: 0; /* Começa com largura zero */
+                max-width: fit-content; /* Limita ao tamanho do texto */
+            }
+
+            @keyframes typing {
+                to { 
+                    width: 100%; /* Expande até 100% do tamanho natural do conteúdo */
+                    max-width: 100%; /* Garante que não ultrapasse o tamanho do texto */
+                }
+            }
+
+            @keyframes blink-caret {
+                from, to { border-color: transparent }
+                50% { border-color: #000; }
+            }
+
+
+        .circle-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .circle-button:active {
+            transform: scale(0.95);
+        }
+
+        .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0);
+        z-index: ;
+        padding: 10px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        transition: transform 0.3s ease-in-out;
+        transform: translateY(0);
+        }
+
+        .header.hidden {
+            transform: translateY(-100%);
+        }
+
+        .header-content {
+        width: 100%;
+        max-width: 1200px; /* Mesma largura máxima do tools-grid */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+        }
+
+    /* Ajuste para dispositivos móveis */
+    @media (max-width: 768px) {
+        .header {
+            padding: 5px 0;
+        }
+        
+        .logo {
+            width: 60px;
+        }
+        
+        h1 {
+            font-size: 1.4rem;
+            max-width: 90%;
+        }
+        
+        .container {
+            margin-top: 180px; /* Ajuste para o espaço inicial do header */
+            transition: margin-top 0.3s ease-in-out;
+        }
+
+        .container.scrolled {
+            margin-top: 20px; /* Reduz quando o header desaparece */
+        }
+
+        .theme-btn {
+            display: none;
+        }
     }
-    100% {
-        transform: scale(1);
+
+    .logo-container {
+        margin-top: 40px; /* Espaçamento adicional acima da logo */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-}
 
-/* Estilos para o botão de interrogação e menu suspenso */
-.dropdown {
-    position: fixed;
-    top: 20px; /* Posição do menu suspenso */
-    left: 20px; /* Posição do menu suspenso */
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
-    padding: 10px 10px;
-    z-index: 1;
-}
-
-.dropdown.active .dropdown-content {
-    display: block;
-}
-
-.dropdown-content a {
-    display: block;
-    padding: 10px 0;
-    text-decoration: none;
-    color: #333;
-}
-
-.dropdown-content a:hover {
-    background-color: #f0f0f0;
-}
-
-#Distribuiçãoteste {
-background: #ff9999;
-}
-
-
-
-#canvas {
-    margin: 1px;
-    display: block;
-    height: 400px;
-    margin-bottom: 0;
-    border: 3px solid #585858; /* Altera a cor de fundo para cinza */
-    background: #fff; /* Define o fundo do canvas como branco */
-}
-
-/* Estilos para o botão de tema e menu suspenso de temas */
-.theme-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-}
-
-.theme-button .dropbtn {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 8px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-}
-
-.theme-button .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
-    padding: 10px 10px;
-    z-index: 1;
-    right: 0;
-}
-
-.theme-button.active .dropdown-content {
-    display: block;
-}
-
-.theme-button .dropdown-content a {
-    display: block;
-    padding: 10px 0;
-    text-decoration: none;
-    color: #333;
-}
-
-.theme-button .dropdown-content a:hover {
-    background-color: #f0f0f0;
-}
-
-.theme-button .dropbtn:hover {
-background-color: #0056b3; /* Cor desejada ao passar o mouse */
-}
-
-
-img {
--webkit-user-drag: none; /* Para navegadores baseados em Webkit (Chrome, Safari) */
--khtml-user-drag: none; /* Para navegadores baseados em KHTML */
--moz-user-drag: none; /* Para navegadores baseados em Mozilla (Firefox) */
--o-user-drag: none; /* Para navegadores baseados em Opera */
-}
-
-
-/* Estilos personalizados */
-/* Adicione estilos personalizados aqui */.circle-button {
-position: fixed;
-bottom: 20px;
-right: 20px;
-width: 60px;
-height: 60px;
-background-color: #24292e;
-border-radius: 50%;
-display: flex;
-justify-content: center;
-align-items: center;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-transition: transform 0.2s, box-shadow 0.2s;
-z-index: 1000;
-text-decoration: none;
-}
-
-.circle-button img {
-max-width: 70%;
-}
-
-.circle-button:hover {
-transform: scale(1.1);
-box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-}
-
-.circle-button:active {
-transform: scale(0.95);
-}
-
-#Processamento {
-background: #ff9999;
-}
-
-</style>
-
+    </style>
 </head>
+
+
 <body>
 
-<div id="container">
-    <a href="/">
-		<img id="logo" src="img/logo.png" alt="J" class="pulse" draggable="false" oncontextmenu="return false;">
-    </a> 
-	<h1 id="text" class="theme-text"></h1>    
-	<button id="Extrair" onclick="window.open('menu/1.html', '_self')">Extrair Números de Processo</button>  
-    <button id="Pesquisar" onclick="window.open('menu/2.html', '_self')">Pesquisar Advogado</button>
-    <br><button id="extensao" onclick="window.open('menu/e.html', '_self')">Extensões Google</button>
-    <button id="Distribuição" onclick="window.open('menu/t.html', '_self')">Processamento Distribuição</button> 
-    <br><button id="Processamento" onclick="window.open('menu/p.html', '_self')">Filtragem de Processamento (Em testes)</button> 
-
-
-</div>
-
-<!-- Botão de interrogação com menu suspenso -->
-<div class="dropdown" id="dropdown">
-    <button onclick="toggleDropdown()" class="dropbtn"> <img src="img/menu.png" alt="Ordenar" style="width: 20px; height: auto; border: none; position: relative"> </button>
-    <div class="dropdown-content" id="myDropdown">
-        <a href="suspenso\t.html">Termos</a>
-		<a href="suspenso/s.html">Sugestões</a>
-        <!-- Adicione mais links conforme necessário -->
+<!-- Dropdown Menu -->
+<div class="dropdown-menu" id="dropdown-menu">
+    <button class="dropdown-btn" onclick="toggleDropdown()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+        </svg>
+    </button>
+    <div class="dropdown-content">
+        <a href="suspenso/t.html">Termos de Uso</a>
+        <a href="suspenso/s.html">Enviar Sugestões</a>
     </div>
-	
-	
 </div>
 
-<!-- Botão para exibir temas -->
-<div class="theme-button" id="theme-button">
-    <button onclick="toggleThemeOptions()" class="dropbtn">Temas</button>
-    <div id="theme-options" class="dropdown-content">
+<!-- Theme Switcher -->
+<div class="theme-switcher" id="theme-switcher">
+    <button class="theme-btn" onclick="toggleThemeSwitcher()">Temas</button>
+    <div class="theme-options" id="theme-options">
         <a href="#" onclick="setTheme('default')">Padrão</a>
         <a href="#" onclick="setTheme('1')">Alpes</a>
-		<a href="#" onclick="setTheme('6')">Cactus</a>
-	   	<a href="#" onclick="setTheme('2')">Cores</a>
-	    <a href="#" onclick="setTheme('3')">Floral</a>
-		<a href="#" onclick="setTheme('4')">Lei</a>
-	    <a href="#" onclick="setTheme('5')">Paz</a>
-
-        <!-- Adicione mais temas conforme necessário -->
+        <a href="#" onclick="setTheme('6')">Cactus</a>
+        <a href="#" onclick="setTheme('2')">Cores</a>
+        <a href="#" onclick="setTheme('3')">Floral</a>
+        <a href="#" onclick="setTheme('4')">Lei</a>
+        <a href="#" onclick="setTheme('5')">Paz</a>
     </div>
 </div>
-	
+
 <!-- Botão circular no canto inferior direito -->
 <a href="https://github.com/DetonaJacs" target="_blank" class="circle-button" title="Visite o meu GitHub">
-    <img src="https://avatars.githubusercontent.com/u/104026932?v=4" alt="GitHub" draggable="false" style="width: 100%; height: auto;">
+    <img src="https://avatars.githubusercontent.com/u/104026932?v=4" alt="GitHub" draggable="false">
 </a>
 
-<!-- Função para contar acessos - Implantada dia 29/01/2025 -->
-<img src="https://contador.s12.com.br/img-Babw1c95da190zYc-57.gif" 
-     style="position: fixed; bottom: 10px; left: 10px; border: 1px solid black;" >
+<div class="header">
+    <div class="header-content">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="./img/logo.png" alt="Logo" class="logo">
+            </a>
+        </div>
+        <h1 id="text" class="typing-animation"></h1>
+    </div>
+</div>
 
-<script src="./index.js"></script> 
+    <div class="container">
+
+       <div class="tools-grid">
+        <div class="tool-card">
+            <img src="menu/1.png" alt="Extrair Números" class="tool-icon">
+            <h3 class="tool-title">Extrair Números de Processo</h3>
+            <p class="tool-desc">Extraia e organize números processuais de textos e documentos</p>
+            <a href="menu/1.html" class="btn">Acessar</a>
+        </div>
+
+        <div class="tool-card">
+            <img src="menu/2.png" alt="Pesquisar Advogado" class="tool-icon">
+            <h3 class="tool-title">Pesquisar Advogado</h3>
+            <p class="tool-desc">Consulta de partes e Advogados em processos judiciais (2ª Instância)</p>
+            <a href="menu/2.html" class="btn">Acessar</a>
+        </div>
+
+        <div class="tool-card">
+            <img src="menu/e.png" alt="Extensões" class="tool-icon">
+            <h3 class="tool-title">Extensões Google</h3>
+            <p class="tool-desc">Ferramentas úteis para seu navegador</p>
+            <a href="menu/e.html" class="btn">Acessar</a>
+        </div>
+
+        <div class="tool-card">
+            <img src="menu/t.png" alt="Distribuição" class="tool-icon">
+            <h3 class="tool-title">Processamento Distribuição</h3>
+            <p class="tool-desc">Gerencie processos em fase de distribuição</p>
+            <a href="menu/t.html" class="btn">Acessar</a>
+        </div>
+
+        <div class="tool-card">
+            <img src="menu/p.png" alt="Filtragem" class="tool-icon">
+            <h3 class="tool-title">Filtragem de Processamento</h3>
+            <p class="tool-desc">Filtre e organize processos (Em testes)</p>
+            <a href="menu/p.html" class="btn btn-warning">Acessar</a>
+        </div>
+    </div>
+</div>
+
+<img src="https://contador.s12.com.br/img-Babw1c95da190zYc-57.gif" style="position: fixed; bottom: 10px; left: 10px; border: 1px solid black; background-color: white; padding: 5px; border-radius: 6px;">
+
+<script src="./index.js?v=1.0"></script> 
 
 </body>
 </html>

@@ -15,7 +15,17 @@ Este projeto é um site desenvolvido para facilitar a busca de processos e infor
 
 - Navegador com suporte a **JavaScript**.
 - Arquivos PDF acessíveis diretamente no site.
+
 ---
+
+## 📂 Estrutura do Projeto
+
+- **`index.html`**: Página principal do site.
+- **`style.css`**: Estilos para o layout e design do site.
+- **`script.js`**: Lógica para interação dos dados.
+
+---
+
 ## 🌐 Hospedagem
 
 O site está hospedado no **GitHub Pages**. Para acessar, basta abrir o seguinte link:
