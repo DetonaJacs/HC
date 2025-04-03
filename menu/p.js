@@ -46,9 +46,16 @@ function copiarResultados() {
     resultados += `Erros (${document.getElementById("countErros").textContent}):\n`;
     resultados += [...document.getElementById("erros").children].map(li => li.textContent).join("\n") + "\n";
     
-    navigator.clipboard.writeText(resultados).then(() => {
-        alert("Resultados copiados para a área de transferência!");
-    }).catch(err => {
-        alert("Erro ao copiar resultados: " + err);
-    });
+    showToast('Resultados copiados para a área de transferência!');
+
+}
+
+function showToast(message, duration = 3000) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, duration);
 }

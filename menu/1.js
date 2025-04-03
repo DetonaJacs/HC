@@ -20,12 +20,17 @@ function extractNumbers() {
     var numbers = processList.match(/\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}-\d{1}\/\d{3}\b|\b\d{1}\.\d{4}\.\d{2}\.\d{6}-\d{1}\/\d{3}\b|\b\d{17}\b|\b\d{1}\.\d{4}\.\d{2}\.\d{3}\.\d{3}\.\d{1}\.\d{3}\b|\b\d{20}\b/g);
     var resultUl = document.getElementById('result');
     var duplicateList = document.getElementById('duplicateList');
+    var resultsSection = document.getElementById('resultsSection'); // Adicionado
     resultUl.innerHTML = '';
     duplicateList.innerHTML = '';
     var count = 0;
     var numberCounts = {};
     var duplicateNumbers = [];
     validNumbers = []; // Limpa o array antes de preencher novamente
+
+    // Oculta a seção de resultados inicialmente
+    resultsSection.classList.add('hidden');
+    document.getElementById('actionButtons').style.display = 'none';
 
     if (numbers !== null) {
         numbers.forEach(function(number) {
@@ -97,6 +102,12 @@ function extractNumbers() {
                 });
                 updateCount();
                 toggleButtons();
+                
+                // Se não houver mais números, oculta a seção
+                if (validNumbers.length === 0) {
+                    resultsSection.classList.add('hidden');
+                    document.getElementById('actionButtons').style.display = 'none';
+                }
             };
             li.appendChild(deleteButton);
 
@@ -121,10 +132,19 @@ function extractNumbers() {
             duplicateMsg.textContent = 'Nenhum número de processo duplicado encontrado.';
             duplicateMsg.style.color = 'green';
         }
+
+        // Mostra a seção de resultados se houver números válidos
+        if (validNumbers.length > 0) {
+            resultsSection.classList.remove('hidden');
+            document.getElementById('actionButtons').style.display = 'flex';
+        }
     } else {
         var li = document.createElement('li');
         li.textContent = 'Nenhum número de processo encontrado no formato adequado.';
         resultUl.appendChild(li);
+        
+        // Mostra a seção mesmo sem números válidos para exibir a mensagem
+        resultsSection.classList.remove('hidden');
     }
 
     toggleButtons();
@@ -140,11 +160,12 @@ function formatNumber(number) {
 function resetForm() {
     document.getElementById('processList').value = '';
     document.getElementById('result').innerHTML = '';
-    document.getElementById('count').textContent = '';
+    document.getElementById('duplicateList').innerHTML = '';
     document.getElementById('duplicateMsg').textContent = '';
-    document.getElementById('mensagemAlerta').textContent = '';
-    document.getElementById('duplicateList').innerHTML = ''; // Limpa a lista de duplicados
-    toggleButtons();
+    document.getElementById('count').textContent = '0 processos encontrados';
+    document.getElementById('mensagemAlerta').innerHTML = '';
+    document.getElementById('resultsSection').classList.add('hidden');
+    document.getElementById('actionButtons').style.display = 'none';
 }
 
 // Função para copiar números de processo

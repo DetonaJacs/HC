@@ -15,48 +15,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesquisar Advogado</title>
     <link rel="icon" href="../img/logo.png">
-    <link rel="stylesheet" href="./2.css"> 
+    <link rel="stylesheet" href="./2.css?v=2.0"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+
+    </style>
 </head>
 <body>
-    <div id="container">
-        <!-- Botão de explicação -->
-        <div id="infoIcon" onclick="openModal()">▹</div>
-        <!-- Modal -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <p style="text-align: justify;">
-                    Permite extrair números de processos de um campo de texto. Serão exibidos em lista e clicando em cada poderá obter informações sobre as partes e advogados substabelecidos nos autos.
-                    Com a possibilidade de colar o LOG da Distribuição (Processos 2ª Instância), retornará a informação de processos separados por Procuradores que irão receber os autos.
-                </p>
-                <div style="display: flex; justify-content: center; align-items: center;">
-                    <video width="560" height="315" controls>
-                        <source src="../video/Advogado.mp4" type="video/mp4">
-                        Seu navegador não suporta o elemento de vídeo.
-                    </video>
-                </div>
-            </div>
-        </div>
-        <a href="../index.html">
-            <img id="logo" src="../img/logo.png" alt="J">
-        </a>
-        <h1 id="title">Pesquisar Advogado</h1>
-        <h2>Cole aqui:</h2>
-        <textarea id="processList" rows="10" cols="50"></textarea><br>
-        <button onclick="extractProcesses()">Extrair Números</button>
-        <button id="resetButton" title="Restaurar" onclick="resetForm()">↺</button>
-        <ul id="result"></ul>
-        <p id="count"></p>
-        <div id="buttonContainer">
-            <button id="copyButton" onclick="copyNumbers()">Copiar <br>Números</button>
-            <button id="openAllButton" onclick="openAllLinks()">Abrir <br>Todos</button>
-        </div>
-        <p id="developer">Desenvolvido por Jacson Costa Neves</p>
+
+<div id="container">
+    <!-- Botão de ajuda -->
+    <div id="infoIcon" onclick="openModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+        </svg>
     </div>
 
-    <img src="https://contador.s12.com.br/img-1x2DY9bWx5ACa4Zb-57.gif" 
-     style="position: fixed; bottom: 10px; left: 10px; border: 1px solid black;" 
-    >
-    <script src="./2.js"></script> 
+    <!-- Modal de ajuda -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Como usar esta ferramenta</h2>
+            <p style="text-align: justify;">
+                Permite extrair números de processos de um campo de texto. Serão exibidos em lista e clicando em cada poderá obter informações sobre as partes e advogados substabelecidos nos autos.
+                Com a possibilidade de colar o LOG da Distribuição (Processos 2ª Instância), retornará a informação de processos separados por Procuradores que irão receber os autos.
+            </p>
+            <div class="video-container">
+                <video controls>
+                    <source src="../video/Advogado.mp4" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header class="page-header">
+        <a href="../index.html" class="logo-link">
+            <img id="logo" src="../img/logo.png" alt="Logo">
+        </a>
+        <h1 id="title">Pesquisar Advogado</h1>
+        <p class="subtitle">Ferramenta para pesquisa de advogados em processos judiciais</p>
+    </header>
+
+    <!-- Área principal -->
+    <main class="content-area">
+        <section class="input-section">
+            <label for="processList" class="input-label">Cole sua lista de processos abaixo:</label>
+            <textarea id="processList" class="process-input" rows="8" placeholder="Cole aqui o texto contendo os números de processo..."></textarea>
+            
+            <div class="button-group">
+                <button class="btn primary-btn" onclick="extractProcesses()">
+                    Extrair Números
+                </button>
+                <button id="resetButton" class="btn icon-btn" title="Limpar" onclick="resetForm()">
+                    <span class="btn-icon">↺</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Resultados -->
+        <section class="results-section" id="resultsSection">
+            <div class="results-header">
+                <h2>Resultados</h2>
+                <span id="count" class="counter">0 processos encontrados</span>
+            </div>
+            
+            <div class="results-container">
+                <div id="result"></div>
+            </div>
+            
+            <div id="actionButtons" class="action-buttons">
+                <button id="copyButton" class="btn action-btn" onclick="copyNumbers()">
+                    Copiar Números
+                </button>
+                <button id="openAllButton" class="btn action-btn" onclick="openAllLinks()">
+                    Abrir Todos
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="page-footer">
+        <p id="developer">Desenvolvido por Jacson Costa Neves</p>
+    </footer>
+</div>
+
+<!-- Contador de visitas -->
+<div class="counter-badge">
+    <img src="https://contador.s12.com.br/img-1x2DY9bWx5ACa4Zb-57.gif" alt="Contador de visitas"
+    style="position: fixed; bottom: 10px; left: 10px; border: 1px solid black; background-color: white; padding: 5px; border-radius: 6px;">
+</div>
+
+<!-- Toast notification -->
+<div id="toast" class="toast"></div>
+
+<script src="./2.js?v=2.0"></script> 
 </body>
 </html>

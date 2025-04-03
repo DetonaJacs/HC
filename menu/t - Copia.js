@@ -26,8 +26,6 @@ return;
 
 // Exibe a mensagem de carregamento
 tableContainer.innerHTML = '<p>Carregando, por favor aguarde...</p>';
-tableContainer.style.display = 'block';
-informacoesGerais.style.display = 'none';
 
 setTimeout(function() {
 var reader = new FileReader();

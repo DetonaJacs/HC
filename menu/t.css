@@ -1,7 +1,7 @@
 #logo {
-    width: 50px;
+    width: 70px;
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .titulo {
@@ -10,7 +10,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #f0f0f0;
     padding: 100px;
     body {
@@ -35,6 +35,72 @@ body {
     justify-content: center;
     align-items: center;
     
+}
+
+/* Adicione isto ao seu CSS existente */
+#tableContainer {
+    position: relative;
+    min-height: 100px;
+}
+
+#loadingMessage {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-size: 1.1rem;
+    color: #2c3e50;
+    border: 1px solid #bdc3c7;
+    z-index: 100;
+    animation: fadeIn 0.3s ease-out;
+}
+
+#loadingMessage:before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232c3e50"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm1-13h-2v6h2V7zm0 8h-2v2h2v-2z"/></svg>') no-repeat center;
+    background-size: contain;
+}
+
+#dots {
+    animation: pulseDots 1.5s infinite;
+    display: inline-block;
+    width: 20px;
+    text-align: left;
+}
+
+@keyframes pulseDots {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -40%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Para dispositivos móveis */
+@media (max-width: 768px) {
+    #loadingMessage {
+        padding: 12px 24px;
+        font-size: 1rem;
+        width: 80%;
+        text-align: center;
+    }
+    
+    #loadingMessage:before {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 table {
@@ -225,5 +291,3 @@ color: blue;
     transition: background-color 0.3s ease;
     filter: grayscale(100%);
 }
-
-

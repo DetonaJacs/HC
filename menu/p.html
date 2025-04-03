@@ -1,67 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="p.css">
     <title>Filtragem de Processos</title>
-
+    <link rel="icon" type="img" href="../img/logo.png">
+    <link rel="stylesheet" href="../menu/p.css?v=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos serão colocados na seção CSS abaixo */
+    </style>
 </head>
 
 <body>
-    <h2>Filtragem de Processos</h2>
-    <textarea id="inputText" placeholder="Cole os dados dos processos aqui..."></textarea>
-    <button onclick="processarTexto()">Processar</button>
+    <div id="container">
+        <!-- Cabeçalho -->
+        <header class="page-header">
+            <a href="../index.html" class="logo-link">
+                <img id="logo" src="../img/logo.png" alt="Logo">
+            </a>
+            <h1 id="title">Filtragem de Processos</h1>
+            <p class="subtitle">Organização e classificação de processos judiciais</p>
+        </header>
 
-    <h3>Total de Processos: <span id="totalProcessos">0</span></h3>
+        <!-- Área principal -->
+        <main class="content-area">
+            <section class="input-section">
+                <label for="inputText" class="input-label">Cole os dados dos processos abaixo:</label>
+                <textarea id="inputText" class="process-input" rows="8" placeholder="Cole aqui o texto contendo os dados dos processos..."></textarea>
+                
+                <div class="button-group">
+                    <button class="btn primary-btn" onclick="processarTexto()">
+                    Processar
+                    </button>
+                </div>
+            </section>
 
-    <div class="container">
-        <div class="box">
-            <h3>Recebidos com Sucesso (<span id="countRecebidosSucesso">0</span>)</h3>
-            <ul id="recebidosSucesso"></ul>
-        </div>
+            <!-- Contador geral -->
+            <div class="results-counter">
+                <h3>Total de Processos: <span id="totalProcessos">0</span></h3>
+            </div>
 
-        <div class="copiarResultados">
-            <button onclick="copiarResultados()">Copiar Resultados</button>
-        </div>
+            <!-- Resultados -->
+            <section class="results-section">
+                <div class="results-grid">
+                    <!-- Coluna 1 -->
+                    <div class="results-column">
+                        <div class="result-box">
+                            <h3 class="box-title">Recebidos com Sucesso (<span id="countRecebidosSucesso">0</span>)</h3>
+                            <ul id="recebidosSucesso" class="process-list"></ul>
+                        </div>
 
-        <div class="box">
-            <h3>Atualizados (<span id="countAtualizados">0</span>)</h3>
-            <ul id="atualizados"></ul>
-        </div>
+                        <div class="result-box">
+                            <h3 class="box-title">Cancelados (<span id="countCancelados">0</span>)</h3>
+                            <ul id="cancelados" class="process-list"></ul>
+                        </div>
+                    </div>
 
-        <div class="copiarResultados">
-            <button onclick="copiarResultados()">Copiar Resultados</button>
-        </div>
+                    <!-- Coluna 2 -->
+                    <div class="results-column">
+                        <div class="result-box">
+                            <h3 class="box-title">Atualizados (<span id="countAtualizados">0</span>)</h3>
+                            <ul id="atualizados" class="process-list"></ul>
+                        </div>
 
+                        <div class="result-box">
+                            <h3 class="box-title">Erros (<span id="countErros">0</span>)</h3>
+                            <ul id="erros" class="process-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botão de copiar -->
+                <div class="action-buttons">
+                    <button class="btn action-btn" onclick="copiarResultados()">
+                    Copiar Resultados
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Rodapé -->
+        <footer class="page-footer">
+            <p id="developer">Desenvolvido por Anna Clara Magalhães</p>
+        </footer>
     </div>
 
+    <!-- Toast notification -->
+    <div id="toast" class="toast"></div>
 
-    <div class="container">
-        <div class="box">
-            <h3>Cancelados (<span id="countCancelados">0</span>)</h3>
-            <ul id="cancelados"></ul>
-        </div>
-
-
-        <div class="copiarResultados">
-            <button onclick="copiarResultados()">Copiar Resultados</button>
-        </div>
-
-        <div class="box">
-            <h3>Erros (<span id="countErros">0</span>)</h3>
-            <ul id="erros"></ul>
-        </div>
-
-        <div class="copiarResultados">
-            <button onclick="copiarResultados()">Copiar Resultados</button>
-        </div>
-    </div>
-
-    <script src="p.js"></script>
-
-
+    <script src="../menu/p.js?v=1.0"></script>
 </body>
-
 </html>

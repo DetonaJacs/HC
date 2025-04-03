@@ -1,3 +1,6 @@
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Recuperar o nome do tema do localStorage
     var themeName = localStorage.getItem('selectedTheme');
@@ -26,8 +29,6 @@ return;
 
 // Exibe a mensagem de carregamento
 tableContainer.innerHTML = '<p>Carregando, por favor aguarde...</p>';
-tableContainer.style.display = 'block';
-informacoesGerais.style.display = 'none';
 
 setTimeout(function() {
 var reader = new FileReader();
@@ -86,7 +87,7 @@ reader.onload = function(event) {
                 cell.classList.add('marked-for-verification');
             });
         }
-
+        
         if (!ocorrenciasPorProcesso[processo]) {
             ocorrenciasPorProcesso[processo] = true;
             if (ocorrencias.hasOwnProperty(tipo)) {
@@ -116,103 +117,85 @@ reader.onload = function(event) {
             };
         }
 
+        // Construção da tabela
         for (var j = 0; j < 14; j++) {
             var cellValue = jsonData[i][j];
             var colClass = 'col' + (j + 1);
 
-            if (i < 4) {
+            if (i < 4) { // Para as primeiras 4 linhas
                 if (j === 0) {
                     tabelaHTML += '<th colspan="14">' + (cellValue || '') + '</th>';
-                }
-            } else {
-                if (j !== 2 && j !== 3 && processosMesclados[processo].start === i) {
-                    // Adiciona rowspan e data-processo para a col3
-                    if (j === 2) { // Se for a coluna 3
-                        tabelaHTML += '<td class="' + colClass + '" rowspan="' + processosMesclados[processo].count + '" data-processo="' + processo + '">' + (cellValue || '') + '</td>';
-                    } else {
-                        tabelaHTML += '<td class="' + colClass + '" rowspan="' + processosMesclados[processo].count + '" data-processo="' + processo + '">' + (cellValue || '') + '</td>';
                     }
-                } else if (j === 2 || j === 3) {
+                } else if (j === 2) { // Coluna de nomes (adicionando atributo oculto)
+                    var nome = cellValue || ''; // Valor da célula
+                    tabelaHTML += '<td class="' + colClass + '" data-processo="' + (processo || '') + '">' + nome + '</td>';
+                } else if ([0, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].includes(j)) { // Mescla as colunas especificadas
+                                        if (numeroProcessoLinha[processo][0] === i) {
+                                            var rowspan = numeroProcessoLinha[processo].length;
+                                            tabelaHTML += '<td class="' + colClass + '" rowspan="' + rowspan + '">' + (cellValue || '') + '</td>';
+                                        }
+                } else { // Outras colunas
                     tabelaHTML += '<td class="' + colClass + '">' + (cellValue || '') + '</td>';
                 }
-            }
+            
         }
+
+
+
+        
+
         tabelaHTML += '</tr>';
     }
-    tabelaHTML += '</table>';
 
+    tabelaHTML += '</table>';
     tableContainer.innerHTML = tabelaHTML;
 
-// Constrói informações gerais
-var infoGeralHTML = '<div class="info-container">';
+                // Constrói informações gerais
+    var infoGeralHTML = '<div class="info-container">';
+    infoGeralHTML += '<p><strong>Ocorrências por tipo:</strong></p><ul>';
+    for (var tipo in ocorrencias) {
+        infoGeralHTML += '<li>' + tipo + ': ' + ocorrencias[tipo] + '</li>';
+    }
+    // Constrói informações gerais
+    infoGeralHTML += '<p><strong>Ocorrências por procurador (ordem alfabética):</strong></p><ul>';
+    Object.keys(procuradores).sort().forEach(function(procurador) {
+        // Cria um conjunto único de processos associados a cada procurador
+        var processosAssociados = Array.from(
+            new Map(
+                jsonData
+                    .filter(row => row[11] === procurador)
+                    .map(row => [row[1], row[10]]) // Cria um par [processo, tipo] para garantir unicidade
+            )
+        ).map(([processo, tipo]) => ({ processo, tipo })); // Converte para um array de objetos
 
-// Ocorrências por tipo
-infoGeralHTML += '<p><strong>Ocorrências por tipo:</strong></p><ul>';
-for (var tipo in ocorrencias) {
-    // Filtra procuradores relacionados ao tipo de ocorrência
-    var procuradoresAssociados = Object.keys(procuradores).filter(procurador =>
-        jsonData.some(row => row[10] === tipo && row[11] === procurador)
-    );
-
-    infoGeralHTML += `
-        <li>
-            <span class="tipo-ocorrencia" data-tipo="${tipo}">${tipo}: ${ocorrencias[tipo]}</span>
-            <ul class="procuradores-lista" id="procuradores-${tipo.replace(/\s+/g, '-')}" style="display: none;">
-                ${procuradoresAssociados.map(procurador => `<li>${procurador}</li>`).join('')}
-            </ul>
-        </li>
-    `;
-}
-infoGeralHTML += '</ul>';
-
-// Ocorrências por procurador (ordem alfabética)
-infoGeralHTML += '<p><strong>Ocorrências por procurador (ordem alfabética):</strong></p><ul>';
-Object.keys(procuradores).sort().forEach(function(procurador) {
-    // Cria um conjunto único de processos associados a cada procurador
-    var processosAssociados = Array.from(
-        new Map(
-            jsonData
-                .filter(row => row[11] === procurador)
-                .map(row => [row[1], row[10]]) // Par [processo, tipo] para garantir unicidade
-        )
-    ).map(([processo, tipo]) => ({ processo, tipo }));
-
-    infoGeralHTML += `
-        <li>
-            <span class="procurador-nome" data-procurador="${procurador}">${procurador} (${procuradores[procurador]})</span>
-            <ul class="processos-lista" id="processos-${procurador.replace(/\s+/g, '-')}" style="display: none;">
-                ${processosAssociados.map(({ processo, tipo }) => {
-                    var tipoAbreviado = tipo === 'DEPENDÊNCIA' ? 'DEP' :
-                                        tipo === 'DILIGÊNCIA' ? 'DILI' :
-                                        tipo === 'PREVENÇÃO' ? 'PREV' : 'OUTRO';
-                    return `<li>${processo} (${tipoAbreviado})</li>`;
-                }).join('')}
-            </ul>
-        </li>
-    `;
-});
-infoGeralHTML += '</ul>';
-
-infoGeralHTML += '</div>';
-
-// Exibe as informações gerais
-informacoesGerais.innerHTML = infoGeralHTML;
-
-// Adiciona funcionalidade de expansão para ocorrências por tipo e por procurador
-document.querySelectorAll('.tipo-ocorrencia').forEach(item => {
-    item.addEventListener('click', function() {
-        var lista = document.getElementById(`procuradores-${this.dataset.tipo.replace(/\s+/g, '-')}`);
-        lista.style.display = lista.style.display === 'none' ? 'block' : 'none';
+        infoGeralHTML += `
+            <li>
+                <span class="procurador-nome" data-procurador="${procurador}">${procurador} (${procuradores[procurador]})</span>
+                <ul class="processos-lista" id="processos-${procurador.replace(/\s+/g, '-')}" style="display: none;">
+                    ${processosAssociados.map(({ processo, tipo }) => {
+                        // Determina a abreviação do tipo
+                        var tipoAbreviado = tipo === 'DEPENDÊNCIA' ? 'DEP' :
+                                            tipo === 'DILIGÊNCIA' ? 'DILI' :
+                                            tipo === 'PREVENÇÃO' ? 'PREV' : 'OUTRO';
+                        return `<li>${processo} (${tipoAbreviado})</li>`;
+                    }).join('')}
+                </ul>
+            </li>
+        `;
     });
-});
+    infoGeralHTML += '</ul></div>';
+    informacoesGerais.innerHTML = infoGeralHTML;
 
-document.querySelectorAll('.procurador-nome').forEach(item => {
-    item.addEventListener('click', function() {
-        var lista = document.getElementById(`processos-${this.dataset.procurador.replace(/\s+/g, '-')}`);
-        lista.style.display = lista.style.display === 'none' ? 'block' : 'none';
+    // Adiciona evento de clique aos nomes dos procuradores para expandir/ocultar a lista
+    document.querySelectorAll('.procurador-nome').forEach(function(element) {
+        element.addEventListener('click', function() {
+            var procurador = this.getAttribute('data-procurador');
+            var lista = document.getElementById(`processos-${procurador.replace(/\s+/g, '-')}`);
+            if (lista) {
+                lista.style.display = lista.style.display === 'none' ? 'block' : 'none';
+            }
+        });
     });
-});
-
 
     destacarDuplicatas();
     exibirContainers();
@@ -230,30 +213,75 @@ reader.readAsArrayBuffer(inputFile);
 
 
 function destacarDuplicatas() {
-// Seleciona todas as células da coluna 3 que possuem a classe 'duplicate' ou 'highlight-yellow'
-var cells = document.querySelectorAll('.col3.duplicate, .col3.highlight-yellow');
+// Seleciona todas as células da coluna 3 com atributo `data-processo`
+var cells = document.querySelectorAll('.col3[data-processo=]');
 
+// Cria um mapa para rastrear nomes e os processos associados
+var nomeProcessoMap = {};
+
+// Mapeia os nomes e os números de processo associados
 cells.forEach(cell => {
-// Obtém o processo da célula atual
-var processoAtual = cell.getAttribute('data-processo');
+var nome = cell.textContent.trim();
+var processo = cell.getAttribute('data-processo='); // Obtém o valor correto de `data-processo`
 
-// Obtém a célula da esquerda (número do processo)
-var cellLeft = cell.previousElementSibling;
+if (!nomeProcessoMap[nome]) {
+    nomeProcessoMap[nome] = new Set();
+}
+nomeProcessoMap[nome].add(processo);
+});
 
-// Verifica se a célula da esquerda existe e possui o mesmo número de processo
-if (cellLeft && cellLeft.getAttribute('data-processo') === processoAtual) {
-    // Se o número do processo é o mesmo, desconsidera
-    return;
+// Função para calcular a similaridade entre duas strings
+function calcularSimilaridade(str1, str2) {
+str1 = str1.toLowerCase();
+str2 = str2.toLowerCase();
+
+if (str1 === str2) return 1.0; // Igualdade exata
+let maior = Math.max(str1.length, str2.length);
+let diferenca = 0;
+for (let i = 0; i < maior; i++) {
+    if (str1[i] !== str2[i]) diferenca++;
+}
+return 1 - diferenca / maior; // Similaridade percentual
 }
 
-// Aplica o destaque na célula, caso o número do processo seja diferente
-if (cell.classList.contains('duplicate')) {
-    cell.style.backgroundColor = 'red';  // Destaque para duplicatas exatas
-} else if (cell.classList.contains('highlight-yellow')) {
-    cell.style.backgroundColor = 'yellow';  // Destaque para similares
+// Itera novamente para aplicar as classes de duplicado ou similar
+cells.forEach(cell => {
+var nomeAtual = cell.textContent.trim();
+var processoAtual = cell.getAttribute('data-processo='); // Verifica o `data-processo`
+var processosAssociados = nomeProcessoMap[nomeAtual];
+
+// Verificação de duplicatas exatas
+if (processosAssociados.size > 1) {
+    var outrosProcessos = Array.from(processosAssociados).filter(proc => proc !== processoAtual);
+
+    if (outrosProcessos.length > 0) {
+        // Marca como duplicado apenas se outros processos forem diferentes
+        cell.classList.add('duplicate');
+        cell.style.backgroundColor = 'red';
+        return; // Sai para evitar marcação de similar
+    }
 }
+
+// Verificação de nomes similares
+cells.forEach(outroCell => {
+    if (cell === outroCell) return; // Ignora a própria célula
+    var nomeComparado = outroCell.textContent.trim();
+    var processoComparado = outroCell.getAttribute('data-processo=');
+
+    // Ignora se pertencem ao mesmo processo
+    if (processoAtual === processoComparado) return;
+
+    // Calcula similaridade
+    var similaridade = calcularSimilaridade(nomeAtual, nomeComparado);
+    if (similaridade >= 0.8 && similaridade < 1.0) { // Similaridade >= 80% mas não 100%
+        cell.classList.add('highlight-yellow'); // Marca como similar
+        cell.style.backgroundColor = 'yellow';
+    }
+});
 });
 }
+
+
 
 
 
@@ -313,7 +341,7 @@ function destacarDuplicatas() {
 var table = document.querySelector('table');
 var rows = table.rows;
 
-var termosExcluir = ["MICROREGIÃO", "JUÍZO PLANTONISTA", "JUIZ", "MINISTÉRIO", "DESEMBARGADOR", "MINISTERIO", "PROCURADOR-GERAL", "VARA DE TÓXICOS", "VARA DE TOXICOS", "ORGANIZAÇÃO CRIMINOSA", "ORGANIZACAO CRIMINOSA", "LAVAGEM DE BENS", "VARA CRIMINAL"]; // Termos para desconsiderar
+var termosExcluir = ["JUIZ", "MINISTÉRIO", "DESEMBARGADOR", "MINISTERIO", "PROCURADOR-GERAL", "VARA DE TÓXICOS", "VARA DE TOXICOS", "ORGANIZAÇÃO CRIMINOSA", "ORGANIZACAO CRIMINOSA", "LAVAGEM DE BENS", "VARA CRIMINAL"]; // Termos para desconsiderar
 var seenExact = {}; // Armazena nomes exatos já vistos
 var exactMatches = []; // Armazena nomes 100% idênticos
 var similarMatches = []; // Armazena pares de nomes similares
@@ -421,42 +449,29 @@ if (parte !== '' && !deveDesconsiderar(parte)) {
 }
 }
 
-// Criação do resumo 
+// Criação do resumo
 var resumoHTML = '<h2>Informações Gerais</h2><br>';
 resumoHTML += '<strong>Nomes Idênticos:</strong><br>';
 if (exactMatches.length > 0) {
-    resumoHTML += '<ul>';
-    exactMatches.forEach(function(nome) {
-        resumoHTML += `
-            <li>
-                ${nome}
-                <button class="btn-buscar" onclick="buscarNaPlanilha('${nome}')">🔍</button>
-            </li>
-            
-        `;
-    });
-    resumoHTML += '</ul>';
+resumoHTML += '<ul>';
+exactMatches.forEach(function(nome) {
+    resumoHTML += '<li>' + nome + '</li>';
+});
+resumoHTML += '</ul>';
 } else {
-    resumoHTML += '<p>Nenhum nome idêntico encontrado.</p>';
+resumoHTML += '<p>Nenhum nome idêntico encontrado.</p>';
 }
 
 resumoHTML += '<strong>Nomes Similares:</strong><br>';
 if (similarMatches.length > 0) {
-    resumoHTML += '<ul>';
-    similarMatches.forEach(function(par) {
-        var [nome1, nome2] = par.split(' - ');
-        resumoHTML += `
-            <li>
-                ${nome1} <button class="btn-buscar" onclick="buscarNaPlanilha('${nome1}')">🔍</button> - ${nome2}
-                <button class="btn-buscar" onclick="buscarNaPlanilha('${nome2}')">🔍</button>
-            </li>
-        `;
-    });
-    resumoHTML += '</ul>';
+resumoHTML += '<ul>';
+similarMatches.forEach(function(par) {
+    resumoHTML += '<li>' + par + '</li>';
+});
+resumoHTML += '</ul>';
 } else {
-    resumoHTML += '<p>Nenhum nome similar encontrado.</p>';
+resumoHTML += '<p>Nenhum nome similar encontrado.</p>';
 }
-
 
 // Adicione esta linha para garantir que o resumo seja exibido dentro do info-container
 document.querySelector('.info-container').insertAdjacentHTML('afterbegin', resumoHTML);
@@ -487,55 +502,8 @@ var union = new Set([...set1, ...set2]);
 return intersection.size / union.size;
 }
 
-var indiceBusca = -1; // Índice da última ocorrência encontrada
-var ocorrenciasBusca = []; // Armazena todas as células que contêm o nome buscado
 
-function buscarNaPlanilha(nome) {
-    // Remove o destaque anterior (se houver)
-    var celulasDestacadas = document.querySelectorAll('.highlight-busca');
-    celulasDestacadas.forEach(function(celula) {
-        celula.classList.remove('highlight-busca');
-    });
 
-    // Procura o nome na tabela
-    var tabela = document.querySelector('table');
-    var celulas = tabela.querySelectorAll('td');
-
-    // Reinicia a busca se o nome for diferente do anterior
-    if (nome !== buscarNaPlanilha.nomeAnterior) {
-        indiceBusca = -1;
-        ocorrenciasBusca = [];
-        buscarNaPlanilha.nomeAnterior = nome; // Armazena o nome atual para comparação
-    }
-
-    // Se não houver ocorrências prévias, busca todas as células que contêm o nome
-    if (ocorrenciasBusca.length === 0) {
-        celulas.forEach(function(celula, index) {
-            if (celula.textContent.includes(nome)) {
-                ocorrenciasBusca.push(celula); // Armazena a célula que contém o nome
-            }
-        });
-
-        if (ocorrenciasBusca.length === 0) {
-            alert('Nome não encontrado na tabela.');
-            return;
-        }
-    }
-
-    // Avança para a próxima ocorrência
-    indiceBusca = (indiceBusca + 1) % ocorrenciasBusca.length; // Cicla entre as ocorrências
-    var celulaAtual = ocorrenciasBusca[indiceBusca];
-
-    // Destaca a célula atual e rola até ela
-    celulaAtual.classList.add('highlight-busca');
-    celulaAtual.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // Exibe a posição atual e o total de ocorrências
-    console.log(`Ocorrência ${indiceBusca + 1} de ${ocorrenciasBusca.length}`);
-}
-
-// Variável para armazenar o nome da última busca
-buscarNaPlanilha.nomeAnterior = '';
 
 
 function handleFileDrop(event) {
@@ -662,4 +630,3 @@ if (!messageShown) {
 document.addEventListener('DOMContentLoaded', function() {
 checkForUpdates();
 });
-
