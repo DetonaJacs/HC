@@ -4,8 +4,7 @@ body {
     color: #333; /* Cor do texto padrão */
 }
 
-.theme-text::after {
-    content: "Como posso te ajudar?";
+#text::after {    content: "Como posso te ajudar?";
    }
 
 #container {

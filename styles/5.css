@@ -25,8 +25,7 @@ body::before {
     /* Estilos específicos para o container no tema */
 }
 
-.theme-text::after {
-    content: "Se queres mudar o mundo, muda a ti mesmo.";
+#text::after {    content: "Se queres mudar o mundo, muda a ti mesmo.";
 	color: black;
     }
 

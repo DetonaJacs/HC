@@ -24,12 +24,8 @@ body::before {
     /* Estilos específicos para o container no tema Star Wars */
 }
 
-.theme-text::after {
+#text::after {
     content: "Que a Força esteja com você!";
-    display: block;
-    text-align: 100%;
-    margin: 10px 0;
-    padding: 0 5%;
 }
 
 

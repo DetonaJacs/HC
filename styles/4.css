@@ -24,9 +24,8 @@ body::before {
     /* Estilos específicos para o container no tema */
 }
 
-.theme-text::after {
-    content: "A verdade nunca prejudica uma causa que é justa.";
-	color: black;
+#text::after {    content: "A verdade nunca prejudica uma causa que é justa.";
+	color: rgb(194, 194, 194);
 }
 
 /* Outros estilos específicos do tema*/

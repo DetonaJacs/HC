@@ -25,8 +25,8 @@ body::before {
     /* Estilos específicos para o container no tema */
 }
 
-.theme-text::after {
-    content: "A harmonia da natureza acalma a alma!";
+#text::after {
+        content: "A harmonia da natureza acalma a alma!";
     color: black;
 }
 
